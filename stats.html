@@ -350,14 +350,14 @@ const LG_WOBA       = 0.361;  // CCAA league avg wOBA
 const WOBA_SCALE    = 0.882;  // wOBA/lgOBP ratio for this run environment
 const LG_R_PA       = 0.192;  // runs per PA (CCAA avg; MLB≈0.115)
 const LG_ERA        = 4.61;   // CCAA league ERA
-const RUNS_PER_WIN  = 13.61;  // higher run environment → more runs per win
+const RUNS_PER_WIN  = 6.0;    // scaled for HS run environment — produces meaningful WAR per short season
 const REPL_RUNS_600 = -33.4;  // replacement-level runs per 600 PA (scaled)
 const RAA_PER_600   = 95.1;   // runs above avg per 600 PA swing
 // Regression anchors — full credibility at these thresholds
 const WRC_FULL_PA   = 150;    // PA for full wRC+ credibility
 const ERA_FULL_IP   = 40;     // IP for full ERA+ credibility
-const WAR_FULL_PA   = 200;    // PA for full oWAR credibility
-const WAR_FULL_IP   = 50;     // IP for full pWAR credibility
+const WAR_FULL_PA   = 100;    // PA for full oWAR credibility
+const WAR_FULL_IP   = 30;     // IP for full pWAR credibility
 
 function calcWOBA(bb, hbp, h, doubles, triples, hr, ab, sf) {
   const singles = h - doubles - triples - hr;
@@ -378,9 +378,10 @@ function calcWRC_plus(woba, pa) {
 
 function calcOWAR(wRC_plus, pa) {
   if (wRC_plus === null || pa < 15) return null;
-  // Scale by regression weight too — full trust only at WAR_FULL_PA
   const weight = Math.min(pa / WAR_FULL_PA, 1.0);
-  const raa = ((wRC_plus - 100) / 100) * (pa / 600) * RAA_PER_600;
+  // Scale to HS season (200 PA full season instead of MLB 600 PA)
+  const HS_PA = 200;
+  const raa = ((wRC_plus - 100) / 100) * (pa / HS_PA) * (RAA_PER_600 * HS_PA / 600);
   const rar = raa - REPL_RUNS_600 * (pa / 600);
   const raw = rar / RUNS_PER_WIN;
   return Math.round(raw * weight * 10) / 10;
@@ -404,11 +405,10 @@ function calcERA_plus(era, ip) {
 
 function calcPWAR(era, ip) {
   if (ip < 5) return null;
+  const weight = Math.min(ip / WAR_FULL_IP, 1.0);
   const raa = (LG_ERA - era) / 9 * ip;
   const rar = raa + (0.03 * ip); // replacement bump
   const raw = rar / RUNS_PER_WIN;
-  // Regress toward 0 for small samples
-  const weight = Math.min(ip / WAR_FULL_IP, 1.0);
   return Math.round(raw * weight * 10) / 10;
 }
 
