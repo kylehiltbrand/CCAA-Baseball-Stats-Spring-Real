@@ -238,7 +238,6 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
   <div class="vgroup">
     <button class="vbtn on" onclick="setView('standard',this)">Standard</button>
     <button class="vbtn" onclick="setView('advanced',this)">Advanced</button>
-    <button class="vbtn" onclick="setView('all',this)">All</button>
   </div>
   <select class="selm" id="teamSel" onchange="render()"><option value="">All Teams</option></select>
   <select class="selm" id="minPA" onchange="render()">
@@ -998,11 +997,11 @@ function render(){
 
   ['p-hs','p-ha','p-ps','p-pa'].forEach(id=>document.getElementById(id).style.display='none');
   if(curTab==='hitting'){
-    if(curView==='standard'||curView==='all')document.getElementById('p-hs').style.display='';
-    if(curView==='advanced'||curView==='all')document.getElementById('p-ha').style.display='';
+    if(curView==='standard')document.getElementById('p-hs').style.display='';
+    if(curView==='advanced')document.getElementById('p-ha').style.display='';
   }else{
-    if(curView==='standard'||curView==='all')document.getElementById('p-ps').style.display='';
-    if(curView==='advanced'||curView==='all')document.getElementById('p-pa').style.display='';
+    if(curView==='standard')document.getElementById('p-ps').style.display='';
+    if(curView==='advanced')document.getElementById('p-pa').style.display='';
   }
 
   let H=batters.filter(b=>(!teamF||b.team===teamF)&&(curLeague==='all'||TL[b.team]===curLeague)&&b.pa>=mPA);
