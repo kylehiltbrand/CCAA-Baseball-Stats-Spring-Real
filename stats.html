@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stats — CCAA Baseball 2025-26</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap');
+:root{--bg:#0d1117;--bg2:#161b22;--bg3:#1c2230;--bdr:#21293a;--bdr2:#2d3748;--gold:#f0a500;--text:#e2e8f0;--sub:#8b9cb5;--dim:#4a5568;--green:#38a169;--red:#e53e3e;--sky:#63b3ed;--mtn:#e07b39;--sun:#9b5de5;--ocn:#38bdf8}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.5}
+a{color:inherit;text-decoration:none}
+header{background:var(--bg2);border-bottom:1px solid var(--bdr);position:sticky;top:0;z-index:100}
+.hdr{max-width:1280px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:stretch;height:56px}
+.brand{display:flex;align-items:center;gap:.65rem;margin-right:2rem;flex-shrink:0}
+.logo{width:36px;height:36px;border-radius:8px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.8rem;color:#0d1117;letter-spacing:-.02em;flex-shrink:0}
+.bname{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.05rem;display:block;color:var(--text)}
+.bsub{font-size:.58rem;color:var(--sub);letter-spacing:.08em;text-transform:uppercase;display:block}
+nav{display:flex;align-items:stretch}
+nav a{display:flex;align-items:center;padding:0 1rem;font-size:.75rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--sub);border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+nav a:hover{color:var(--text)}
+nav a.on{color:var(--text);border-bottom-color:var(--gold)}
+.sbadge{margin-left:auto;display:flex;align-items:center}
+.sp26{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.22rem .65rem;border-radius:4px;background:var(--gold);color:#0d1117}
+.fbar{background:var(--bg2);border-bottom:1px solid var(--bdr)}
+.fbar-inner{max-width:1280px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:stretch;height:42px}
+.fbtn{display:flex;align-items:center;gap:.4rem;padding:0 1rem;background:none;border:none;border-right:1px solid var(--bdr);font-family:'Inter',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--sub);cursor:pointer;transition:color .15s,background .15s;white-space:nowrap}
+.fbtn:first-child{border-left:1px solid var(--bdr)}
+.fbtn:hover,.fbtn.on{background:var(--bg3);color:var(--text)}
+.dot{width:7px;height:7px;border-radius:2px;flex-shrink:0}
+.dm{background:var(--mtn)}.ds{background:var(--sun)}.do{background:var(--ocn)}
+main{max-width:1280px;margin:0 auto;padding:1.5rem 1.5rem 4rem}
+.card{background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:1rem}
+.card-hdr{padding:.8rem 1rem;border-bottom:1px solid var(--bdr);display:flex;align-items:flex-start;justify-content:space-between}
+.card-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;letter-spacing:.02em}
+.card-sub{font-size:.62rem;color:var(--sub);text-transform:uppercase;letter-spacing:.07em;margin-top:.1rem}
+.mxlink{font-size:.62rem;color:var(--gold);font-weight:600;white-space:nowrap;margin-top:.1rem}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.78rem}
+thead th{padding:.5rem .7rem;text-align:center;font-size:.62rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--sub);border-bottom:1px solid var(--bdr);white-space:nowrap;cursor:pointer;user-select:none}
+thead th:first-child{text-align:left;padding-left:1rem}
+thead th:hover{color:var(--text)}
+thead th.sa{color:var(--gold)}
+thead th.sa::after{content:' ↓'}
+thead th.sa.asc::after{content:' ↑'}
+tbody tr{border-bottom:1px solid var(--bdr);transition:background .1s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:rgba(255,255,255,.025)}
+tbody td{padding:.55rem .7rem;text-align:center;color:var(--sub);white-space:nowrap}
+tbody td:first-child{text-align:left;padding-left:1rem;color:var(--text);font-weight:500}
+.rn{color:var(--dim);font-size:.68rem;margin-right:.4rem}
+.vhi{color:#68d391!important;font-weight:600}.vmd{color:var(--sky)!important}.vlo{color:#fc8181!important}
+.vna{color:var(--dim)!important;font-style:italic}.vbold{color:var(--text)!important;font-weight:600}.vadv{color:var(--gold)!important;font-weight:600}
+.sk{display:inline-flex;align-items:center;justify-content:center;min-width:30px;padding:.12rem .35rem;border-radius:3px;font-size:.65rem;font-weight:700}
+.skw{background:rgba(56,161,105,.15);color:#68d391}.skl{background:rgba(229,62,62,.12);color:#fc8181}
+.tbadge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:5px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.6rem;flex-shrink:0}
+.llabel{display:flex;align-items:center;gap:.45rem;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin:1.5rem 0 .65rem;color:var(--sub)}
+.llabel .dot{width:8px;height:8px;border-radius:2px}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;align-items:start}
+@media(max-width:900px){.sgrid{grid-template-columns:1fr}}
+.sth{display:flex;align-items:center;gap:.4rem;padding:.38rem 1rem;border-bottom:1px solid var(--bdr);font-size:.6rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);background:rgba(0,0,0,.15)}
+.srow{display:flex;align-items:center;gap:.4rem;padding:.52rem 1rem;border-bottom:1px solid var(--bdr);transition:background .1s}
+.srow:last-child{border-bottom:none}
+.srow:hover{background:rgba(255,255,255,.02)}
+.srow.lead{background:rgba(240,165,0,.04)}
+.srk{width:16px;color:var(--dim);font-size:.72rem;flex-shrink:0}
+.stm{flex:1;font-weight:600;font-size:.8rem;color:var(--text);min-width:0}
+.sw{width:22px;text-align:center;font-weight:700;color:#68d391;font-size:.8rem}
+.sl{width:22px;text-align:center;font-weight:700;color:#fc8181;font-size:.8rem}
+.spct{width:38px;text-align:center;color:var(--text);font-size:.78rem}
+.sgb{width:26px;text-align:center;color:var(--sub);font-size:.75rem}
+.sstr{width:36px;text-align:center}
+.sovr{width:44px;text-align:right;color:var(--sub);font-size:.7rem}
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}
+@media(max-width:900px){.tgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:580px){.tgrid{grid-template-columns:1fr}}
+.tcard{background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;padding:.8rem 1rem;display:flex;align-items:center;gap:.8rem;transition:border-color .15s,background .15s}
+.tcard:hover{border-color:var(--bdr2);background:var(--bg3)}
+.tcname{font-weight:600;font-size:.82rem;color:var(--text)}
+.tcsub{font-size:.65rem;color:var(--sub);margin-top:.1rem}
+.ctrl{display:flex;align-items:center;gap:.65rem;margin-bottom:1rem;flex-wrap:wrap}
+.tgroup{display:flex;background:var(--bg3);border:1px solid var(--bdr);border-radius:6px;overflow:hidden}
+.tbtn{padding:.42rem 1rem;background:none;border:none;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:600;color:var(--sub);cursor:pointer;transition:all .15s;white-space:nowrap}
+.tbtn.on{background:var(--gold);color:#0d1117}
+.tbtn:hover:not(.on){color:var(--text)}
+.vgroup{display:flex;gap:.3rem}
+.vbtn{padding:.38rem .75rem;background:var(--bg3);border:1px solid var(--bdr);border-radius:5px;font-family:'Inter',sans-serif;font-size:.7rem;font-weight:600;color:var(--sub);cursor:pointer;transition:all .15s}
+.vbtn.on{background:var(--gold);border-color:var(--gold);color:#0d1117}
+.vbtn:hover:not(.on){color:var(--text)}
+.selm{background:var(--bg3);border:1px solid var(--bdr);color:var(--text);padding:.38rem .65rem;border-radius:5px;font-family:'Inter',sans-serif;font-size:.72rem;outline:none}
+.selm option{background:var(--bg2)}
+.advb{font-size:.52rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.08rem .28rem;border-radius:2px;background:rgba(29,111,164,.3);color:var(--sky);vertical-align:middle;margin-left:.2rem}
+.ib{display:flex;align-items:flex-start;gap:.6rem;background:rgba(99,179,237,.06);border:1px solid rgba(99,179,237,.18);border-radius:6px;padding:.7rem 1rem;font-size:.7rem;color:var(--sub);margin-bottom:.75rem;line-height:1.5}
+[data-tip]{position:relative}
+[data-tip]::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);background:var(--bg3);border:1px solid var(--bdr2);color:var(--text);font-size:.62rem;font-weight:400;text-transform:none;letter-spacing:0;padding:.3rem .55rem;border-radius:4px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s;z-index:50}
+[data-tip]:hover::after{opacity:1}
+footer{text-align:center;padding:1.5rem;border-top:1px solid var(--bdr);font-size:.65rem;color:var(--dim)}
+footer a{color:var(--sub)}
+footer a:hover{color:var(--text)}
+</style>
+
+</head>
+<body>
+<header><div class="hdr">
+  <a href="index.html" class="brand"><div class="logo">CCAA</div><div><span class="bname">CCAA Baseball</span><span class="bsub">Central Coast Athletic Association</span></div></a>
+  <nav><a href="standings.html">Standings</a><a href="stats.html" class="on">Stats</a><a href="teams.html">Teams</a></nav>
+  <div class="sbadge"><span class="sp26">Spring 2026</span></div>
+</div></header>
+<div class="fbar"><div class="fbar-inner">
+  <button class="fbtn on" onclick="setLeague('all',this)">All Leagues</button>
+  <button class="fbtn" onclick="setLeague('mountain',this)"><span class="dot dm"></span>Mountain</button>
+  <button class="fbtn" onclick="setLeague('sunset',this)"><span class="dot ds"></span>Sunset</button>
+  <button class="fbtn" onclick="setLeague('ocean',this)"><span class="dot do"></span>Ocean</button>
+</div></div>
+<main>
+<div class="ib">📊 Stats computed from MaxPreps exports. Advanced metrics (wOBA, wRC+, oWAR, K/9, K/BB, ERA+, pWAR) calculated from raw counting stats across all 13 teams with data.</div>
+<div class="ib">🏅 Leaderboard qualifiers: min 20 PA (hitters) · min 5 IP (pitchers) — based on CCAA-wide average</div>
+<div class="ctrl">
+  <div class="tgroup">
+    <button class="tbtn on" onclick="setTab('hitting',this)">⚾ Hitting</button>
+    <button class="tbtn" onclick="setTab('pitching',this)">⚾ Pitching</button>
+  </div>
+  <div class="vgroup">
+    <button class="vbtn on" onclick="setView('standard',this)">Standard</button>
+    <button class="vbtn" onclick="setView('advanced',this)">Advanced</button>
+    <button class="vbtn" onclick="setView('all',this)">All</button>
+  </div>
+  <select class="selm" id="teamSel" onchange="render()"><option value="">All Teams</option></select>
+  <select class="selm" id="minPA" onchange="render()">
+    <option value="0">Any PA</option><option value="10">10+ PA</option>
+    <option value="20" selected>20+ PA</option><option value="30">30+ PA</option>
+  </select>
+  <select class="selm" id="minIP" onchange="render()">
+    <option value="0">Any IP</option><option value="3">3+ IP</option>
+    <option value="5" selected>5+ IP</option><option value="10">10+ IP</option>
+  </select>
+</div>
+
+<div id="p-hs" class="card">
+  <div class="card-hdr"><div class="card-title">Batting — Standard</div><a href="#" class="mxlink">Full Leaders on MaxPreps ↗</a></div>
+  <div class="tw"><table>
+    <thead><tr>
+      <th onclick="srt('avg',false)" style="min-width:130px"># Player</th>
+      <th onclick="srt('team',true)">Team</th><th onclick="srt('year',true)">Yr</th>
+      <th onclick="srt('gp',false)">GP</th>
+      <th onclick="srt('avg',false)" data-tip="Batting Average">AVG</th>
+      <th onclick="srt('pa',false)" data-tip="Plate Appearances">PA</th>
+      <th onclick="srt('ab',false)" data-tip="At Bats">AB</th>
+      <th onclick="srt('r',false)" data-tip="Runs">R</th>
+      <th onclick="srt('h',false)" data-tip="Hits">H</th>
+      <th onclick="srt('doubles',false)" data-tip="Doubles">2B</th>
+      <th onclick="srt('triples',false)" data-tip="Triples">3B</th>
+      <th onclick="srt('hr',false)" data-tip="Home Runs">HR</th>
+      <th onclick="srt('rbi',false)" data-tip="RBI">RBI</th>
+      <th onclick="srt('bb',false)" data-tip="Walks">BB</th>
+      <th onclick="srt('k',false)" data-tip="Strikeouts">K</th>
+      <th onclick="srt('obp',false)" data-tip="On-Base %">OBP</th>
+      <th onclick="srt('slg',false)" data-tip="Slugging %">SLG</th>
+      <th onclick="srt('ops',false)" data-tip="OPS">OPS</th>
+    </tr></thead>
+    <tbody id="b-hs"></tbody>
+  </table></div>
+</div>
+
+<div id="p-ha" class="card" style="display:none">
+  <div class="card-hdr"><div class="card-title">Batting — Advanced <span class="advb">ADV</span></div><a href="#" class="mxlink">Full Leaders on MaxPreps ↗</a></div>
+  <div class="tw"><table>
+    <thead><tr>
+      <th onclick="srt('avg',false)" style="min-width:130px"># Player</th>
+      <th onclick="srt('team',true)">Team</th><th onclick="srt('year',true)">Yr</th>
+      <th onclick="srt('pa',false)" data-tip="Plate Appearances">PA</th>
+      <th onclick="srt('avg',false)">AVG</th>
+      <th onclick="srt('obp',false)" data-tip="On-Base %">OBP</th>
+      <th onclick="srt('slg',false)" data-tip="Slugging %">SLG</th>
+      <th onclick="srt('woba',false)" data-tip="Weighted On-Base Average">wOBA <span class="advb">ADV</span></th>
+      <th onclick="srt('wrc_plus',false)" data-tip="wRC+ — 100=league avg">wRC+ <span class="advb">ADV</span></th>
+      <th onclick="srt('owar',false)" data-tip="Offensive WAR">oWAR <span class="advb">ADV</span></th>
+      <th onclick="srt('bbk',false)" data-tip="Walk-to-Strikeout Ratio">BB/K <span class="advb">ADV</span></th>
+    </tr></thead>
+    <tbody id="b-ha"></tbody>
+  </table></div>
+</div>
+
+<div id="p-ps" class="card" style="display:none">
+  <div class="card-hdr"><div class="card-title">Pitching — Standard</div><a href="#" class="mxlink">Full Leaders on MaxPreps ↗</a></div>
+  <div class="tw"><table>
+    <thead><tr>
+      <th onclick="srt('era',true)" style="min-width:130px"># Player</th>
+      <th onclick="srt('team',true)">Team</th><th onclick="srt('year',true)">Yr</th>
+      <th onclick="srt('app',false)" data-tip="Appearances">APP</th>
+      <th onclick="srt('w',false)">W</th><th onclick="srt('l',false)">L</th>
+      <th onclick="srt('era',true)" data-tip="Earned Run Average">ERA</th>
+      <th onclick="srt('ip',false)" data-tip="Innings Pitched">IP</th>
+      <th onclick="srt('h',false)" data-tip="Hits Allowed">H</th>
+      <th onclick="srt('er',false)" data-tip="Earned Runs">ER</th>
+      <th onclick="srt('bb',false)" data-tip="Walks">BB</th>
+      <th onclick="srt('k',false)" data-tip="Strikeouts">K</th>
+    </tr></thead>
+    <tbody id="b-ps"></tbody>
+  </table></div>
+</div>
+
+<div id="p-pa" class="card" style="display:none">
+  <div class="card-hdr"><div class="card-title">Pitching — Advanced <span class="advb">ADV</span></div><a href="#" class="mxlink">Full Leaders on MaxPreps ↗</a></div>
+  <div class="tw"><table>
+    <thead><tr>
+      <th style="min-width:130px"># Player</th>
+      <th onclick="srt('team',true)">Team</th><th onclick="srt('year',true)">Yr</th>
+      <th onclick="srt('ip',false)" data-tip="Innings Pitched">IP</th>
+      <th onclick="srt('app',false)" data-tip="Batters Faced">BF</th>
+      <th onclick="srt('era',true)" data-tip="ERA">ERA</th>
+      <th onclick="srt('k9',false)" data-tip="K per 9 IP">K/9 <span class="advb">ADV</span></th>
+      <th onclick="srt('kpct',false)" data-tip="Strikeout %">K% <span class="advb">ADV</span></th>
+      <th onclick="srt('pwar',false)" data-tip="Pitching WAR">pWAR <span class="advb">ADV</span></th>
+      <th onclick="srt('kbb',false)" data-tip="K/BB Ratio">K/BB <span class="advb">ADV</span></th>
+      <th onclick="srt('era_plus',false)" data-tip="ERA+ (100=avg)">ERA+ <span class="advb">ADV</span></th>
+    </tr></thead>
+    <tbody id="b-pa"></tbody>
+  </table></div>
+</div>
+</main>
+<footer>CCAA Baseball · Spring 2026 · Central Coast Athletic Association, CA · Stats: <a href="standings.html">Mountain</a> · <a href="standings.html">Sunset</a> · <a href="standings.html">Ocean</a></footer>
+<script>
+// CCAA Baseball 2025-26 Season Data
+// League averages for advanced stat calculations
+// Computed from all teams with full stat data
+
+const LEAGUE_AVG_OBP = 0.390;
+const LEAGUE_AVG_SLG = 0.390;
+const LEAGUE_AVG_ERA = 4.20;
+const LEAGUE_INNINGS = 93; // avg IP per team
+
+// wOBA weights (standard)
+const wBB = 0.69, wHBP = 0.72, w1B = 0.88, w2B = 1.24, w3B = 1.56, wHR = 2.00;
+
+function calcWOBA(bb, hbp, h, doubles, triples, hr, ab, sf) {
+  const singles = h - doubles - triples - hr;
+  const num = wBB*bb + wHBP*hbp + w1B*singles + w2B*doubles + w3B*triples + wHR*hr;
+  const den = ab + bb + sf + hbp;
+  return den > 0 ? num / den : 0;
+}
+
+function calcWRC_plus(woba, pa) {
+  if (pa < 10) return null;
+  const lgWOBA = 0.318;
+  const wOBAScale = 1.157;
+  const lgR_PA = 0.115;
+  const wRC = ((woba - lgWOBA) / wOBAScale + lgR_PA) * pa;
+  const lgWRC = lgR_PA * pa;
+  return lgWRC > 0 ? Math.round((wRC / lgWRC) * 100) : null;
+}
+
+function calcOWAR(wRC_plus, pa, pos_adj) {
+  if (!wRC_plus || pa < 15) return null;
+  const replacementRuns = -20;
+  const runsAboveAvg = ((wRC_plus - 100) / 100) * (pa / 600) * 57;
+  const runsAboveReplacement = runsAboveAvg - replacementRuns * (pa / 600);
+  return Math.round((runsAboveReplacement / 10) * 10) / 10;
+}
+
+function calcKper9(k, ip) {
+  return ip > 0 ? Math.round((k / ip) * 9 * 10) / 10 : null;
+}
+
+function calcKBB(k, bb) {
+  return bb > 0 ? Math.round((k / bb) * 100) / 100 : null;
+}
+
+function calcERA_plus(era) {
+  return era > 0 ? Math.round((LEAGUE_AVG_ERA / era) * 100) : null;
+}
+
+function calcPWAR(era, ip) {
+  if (ip < 5) return null;
+  const lgERA = LEAGUE_AVG_ERA;
+  const runsAboveAvg = (lgERA - era) / 9 * ip;
+  const replacement = 0.03 * ip; // replacement level ~1 run per 30 IP above replacement
+  return Math.round(((runsAboveAvg + replacement) / 10) * 10) / 10;
+}
+
+function calcBBK(bb, k) {
+  return k > 0 ? Math.round((bb / k) * 100) / 100 : null;
+}
+
+// ===================== TEAMS =====================
+const teams = [
+  {
+    id: "st-joseph",
+    name: "St. Joseph",
+    mascot: "Knights",
+    location: "Santa Maria, CA",
+    coach: "Tino Estrada",
+    colors: "Black, Green, Yellow",
+    league: "CCAA - Mountain",
+    overall: "13-2-1",
+    leagueRecord: "6-1",
+    wins: 13, losses: 2, ties: 1,
+    leagueWins: 6, leagueLosses: 1,
+    caRank: 26,
+    gp: 16,
+    teamBavg: .294, teamOBP: .418, teamSLG: .413,
+    teamERA: 2.25, teamIP: 109
+  },
+  {
+    id: "arroyo-grande",
+    name: "Arroyo Grande",
+    mascot: "Eagles",
+    location: "Arroyo Grande, CA",
+    coach: "N/A",
+    colors: "Blue, Gold",
+    league: "CCAA - Mountain",
+    overall: "11-4",
+    leagueRecord: "5-2",
+    wins: 11, losses: 4, ties: 0,
+    leagueWins: 5, leagueLosses: 2,
+    caRank: 63,
+    gp: 15,
+    teamBavg: .355, teamOBP: .437, teamSLG: .508,
+    teamERA: 1.97, teamIP: 96
+  },
+  {
+    id: "santa-ynez",
+    name: "Santa Ynez",
+    mascot: "Pirates",
+    location: "Santa Ynez, CA",
+    coach: "Craig Gladstone",
+    colors: "Orange, Black",
+    league: "CCAA - Ocean",
+    overall: "11-3",
+    leagueRecord: "2-1",
+    wins: 11, losses: 3, ties: 0,
+    leagueWins: 2, leagueLosses: 1,
+    caRank: 392,
+    gp: 14,
+    teamBavg: .384, teamOBP: .486, teamSLG: .501,
+    teamERA: 2.55, teamIP: 93.1
+  },
+  {
+    id: "pioneer-valley",
+    name: "Pioneer Valley",
+    mascot: "Panthers",
+    location: "Santa Maria, CA",
+    coach: "Cody Smith",
+    colors: "Teal, Black",
+    league: "CCAA - Ocean",
+    overall: "10-4",
+    leagueRecord: "4-1",
+    wins: 10, losses: 4, ties: 0,
+    leagueWins: 4, leagueLosses: 1,
+    caRank: 313,
+    gp: 13,
+    teamBavg: .263, teamOBP: .391, teamSLG: .322,
+    teamERA: 2.74, teamIP: 87
+  },
+  {
+    id: "nipomo",
+    name: "Nipomo",
+    mascot: "Titans",
+    location: "Nipomo, CA",
+    coach: "Caleb Buendia",
+    colors: "Black, Cardinal, Silver",
+    league: "CCAA - Ocean",
+    overall: "9-5",
+    leagueRecord: "2-1",
+    wins: 9, losses: 5, ties: 0,
+    leagueWins: 2, leagueLosses: 1,
+    caRank: 272,
+    gp: 14,
+    teamBavg: .316, teamOBP: .399, teamSLG: .366,
+    teamERA: 4.18, teamIP: 87
+  },
+  {
+    id: "paso-robles",
+    name: "Paso Robles",
+    mascot: "Bearcats",
+    location: "Paso Robles, CA",
+    coach: "N/A",
+    colors: "Crimson, White",
+    league: "CCAA - Sunset",
+    overall: "9-6",
+    leagueRecord: "5-1",
+    wins: 9, losses: 6, ties: 0,
+    leagueWins: 5, leagueLosses: 1,
+    caRank: 142,
+    gp: 15,
+    teamBavg: .342, teamOBP: .423, teamSLG: .470,
+    teamERA: 2.26, teamIP: 86.2
+  },
+  {
+    id: "slo",
+    name: "San Luis Obispo",
+    mascot: "Tigers",
+    location: "San Luis Obispo, CA",
+    coach: "Sean Gabriel",
+    colors: "Black, Gold",
+    league: "CCAA - Sunset",
+    overall: "9-6",
+    leagueRecord: "5-1",
+    wins: 9, losses: 6, ties: 0,
+    leagueWins: 5, leagueLosses: 1,
+    caRank: 267,
+    gp: 15,
+    teamBavg: .293, teamOBP: .396, teamSLG: .375,
+    teamERA: 3.63, teamIP: 106
+  },
+  {
+    id: "righetti",
+    name: "Righetti",
+    mascot: "Warriors",
+    location: "Santa Maria, CA",
+    coach: "Kyle Tognazzini",
+    colors: "Purple, Gold",
+    league: "CCAA - Mountain",
+    overall: "8-5",
+    leagueRecord: "4-3",
+    wins: 8, losses: 5, ties: 0,
+    leagueWins: 4, leagueLosses: 3,
+    caRank: 157,
+    gp: 13,
+    teamBavg: .365, teamOBP: .474, teamSLG: .534,
+    teamERA: 3.39, teamIP: 82.2
+  },
+  {
+    id: "morro-bay",
+    name: "Morro Bay",
+    mascot: "Pirates",
+    location: "Morro Bay, CA",
+    coach: "Jarred Zill",
+    colors: "Royal Blue, White",
+    league: "CCAA - Mountain",
+    overall: "8-5",
+    leagueRecord: "3-4",
+    wins: 8, losses: 5, ties: 0,
+    leagueWins: 3, leagueLosses: 4,
+    caRank: 127,
+    gp: 13,
+    teamBavg: .301, teamOBP: .378, teamSLG: .430,
+    teamERA: 4.08, teamIP: 84
+  },
+  {
+    id: "lompoc",
+    name: "Lompoc",
+    mascot: "Braves",
+    location: "Lompoc, CA",
+    coach: "J. Carlson",
+    colors: "Navy, Gold",
+    league: "CCAA - Mountain",
+    overall: "7-8",
+    leagueRecord: "1-6",
+    wins: 7, losses: 8, ties: 0,
+    leagueWins: 1, leagueLosses: 6,
+    caRank: 251,
+    gp: null,
+    teamBavg: null, teamOBP: null, teamSLG: null,
+    teamERA: null, teamIP: null,
+    noStats: true
+  },
+  {
+    id: "templeton",
+    name: "Templeton",
+    mascot: "Eagles",
+    location: "Templeton, CA",
+    coach: "N/A",
+    colors: "Green, Silver, White",
+    league: "CCAA - Sunset",
+    overall: "6-9",
+    leagueRecord: "1-3",
+    wins: 6, losses: 9, ties: 0,
+    leagueWins: 1, leagueLosses: 3,
+    caRank: 576,
+    gp: 15,
+    teamBavg: .271, teamOBP: .377, teamSLG: .348,
+    teamERA: 4.09, teamIP: 101
+  },
+  {
+    id: "mission-prep",
+    name: "Mission College Prep",
+    mascot: "Royals",
+    location: "San Luis Obispo, CA",
+    coach: "E. Stewart",
+    colors: "Navy, White",
+    league: "CCAA - Mountain",
+    overall: "5-7",
+    leagueRecord: "2-5",
+    wins: 5, losses: 7, ties: 0,
+    leagueWins: 2, leagueLosses: 5,
+    caRank: 296,
+    gp: null,
+    teamBavg: null, teamOBP: null, teamSLG: null,
+    teamERA: null, teamIP: null,
+    noStats: true
+  },
+  {
+    id: "atascadero",
+    name: "Atascadero",
+    mascot: "Greyhounds",
+    location: "Atascadero, CA",
+    coach: "Samm Spears",
+    colors: "Orange, Gray",
+    league: "CCAA - Sunset",
+    overall: "4-10",
+    leagueRecord: "2-4",
+    wins: 4, losses: 10, ties: 0,
+    leagueWins: 2, leagueLosses: 4,
+    caRank: 580,
+    gp: 14,
+    teamBavg: .212, teamOBP: .378, teamSLG: .281,
+    teamERA: 4.68, teamIP: 91.1
+  },
+  {
+    id: "santa-maria",
+    name: "Santa Maria",
+    mascot: "Saints",
+    location: "Santa Maria, CA",
+    coach: "N/A",
+    colors: "Red, White",
+    league: "CCAA - Ocean",
+    overall: "4-7",
+    leagueRecord: "0-5",
+    wins: 4, losses: 7, ties: 0,
+    leagueWins: 0, leagueLosses: 5,
+    caRank: 710,
+    gp: 11,
+    teamBavg: .309, teamOBP: .418, teamSLG: .349,
+    teamERA: 4.47, teamIP: 72
+  },
+  {
+    id: "cabrillo",
+    name: "Cabrillo",
+    mascot: "Conquistadores",
+    location: "Lompoc, CA",
+    coach: "Cole Osborne",
+    colors: "Black, Gold, White",
+    league: "CCAA - Sunset",
+    overall: "2-13",
+    leagueRecord: "1-5",
+    wins: 2, losses: 13, ties: 0,
+    leagueWins: 1, leagueLosses: 5,
+    caRank: 748,
+    gp: 15,
+    teamBavg: .225, teamOBP: .318, teamSLG: .278,
+    teamERA: 6.57, teamIP: 97
+  }
+];
+
+// ===================== PLAYER STATS =====================
+// Full batting and pitching rosters with advanced stat calculations
+
+function buildBatter(team, name, year, gp, avg, pa, ab, r, h, rbi, doubles, triples, hr, bb, k, hbp, sf, obp, slg, ops) {
+  const woba = calcWOBA(bb, hbp, h, doubles, triples, hr, ab, sf||0);
+  const wrc = calcWRC_plus(woba, pa);
+  const owar = calcOWAR(wrc, pa);
+  const bbk = calcBBK(bb, k);
+  return { team, name, year, gp, avg, pa, ab, r, h, rbi, doubles, triples, hr, bb, k, hbp, sf:sf||0, obp, slg, ops, woba: Math.round(woba*1000)/1000, wrc_plus: wrc, owar, bbk };
+}
+
+function buildPitcher(team, name, year, era, w, l, ip, h, r, er, bb, k, app) {
+  const k9 = calcKper9(k, ip);
+  const kbb = calcKBB(k, bb);
+  const era_plus = calcERA_plus(era);
+  const pwar = calcPWAR(era, ip);
+  return { team, name, year, era, w, l, ip, h, r, er, bb, k, app, k9, kbb, era_plus, pwar };
+}
+
+const batters = [
+  // ARROYO GRANDE
+  buildBatter("Arroyo Grande","A. Winter","Jr",14,.613,39,31,9,19,7,1,0,0,2,1,5,1,.667,.645,1.312),
+  buildBatter("Arroyo Grande","R. Servin","Jr",15,.479,60,48,17,23,13,8,0,3,11,6,1,0,.583,.833,1.416),
+  buildBatter("Arroyo Grande","O. King","Jr",8,.500,4,4,0,2,1,0,0,0,0,1,0,0,.500,.500,1.000),
+  buildBatter("Arroyo Grande","T. Bournonville","Sr",14,.364,51,44,11,16,14,0,0,3,4,7,2,1,.431,.568,.999),
+  buildBatter("Arroyo Grande","T. Kurth","Sr",14,.349,51,43,8,15,12,5,0,2,5,6,1,1,.420,.605,1.025),
+  buildBatter("Arroyo Grande","C. Gotchal","Jr",14,.370,31,27,6,10,4,3,0,0,1,3,1,0,.414,.481,.895),
+  buildBatter("Arroyo Grande","M. Richwine","Sr",13,.310,33,29,6,9,5,2,0,0,3,7,0,0,.375,.379,.754),
+  buildBatter("Arroyo Grande","B. Paz","Fr",13,.318,26,22,5,7,7,2,0,1,3,8,0,1,.385,.545,.930),
+  buildBatter("Arroyo Grande","J. Stumph","Jr",14,.308,50,39,13,12,6,3,0,0,9,4,1,0,.449,.385,.834),
+  buildBatter("Arroyo Grande","J. Kreowski","Sr",13,.269,30,26,7,7,5,1,0,1,4,8,0,0,.367,.423,.790),
+  buildBatter("Arroyo Grande","T. Winterberg","Jr",12,.250,18,16,1,4,3,1,0,0,2,9,0,0,.333,.313,.646),
+  buildBatter("Arroyo Grande","J. Ralph","Jr",15,.259,60,54,10,14,6,1,0,1,4,5,2,0,.333,.333,.666),
+  buildBatter("Arroyo Grande","K. Warwick","Jr",10,.235,17,17,3,4,1,0,1,0,0,7,0,0,.235,.353,.588),
+  buildBatter("Arroyo Grande","C. Jaynes","Jr",8,.444,11,9,5,4,2,0,0,0,1,3,1,0,.545,.444,.989),
+
+  // ATASCADERO
+  buildBatter("Atascadero","M. Cullen","Jr",9,.500,2,2,0,1,0,0,0,0,0,0,0,0,.500,.500,1.000),
+  buildBatter("Atascadero","W. Witt","Sr",13,.273,52,33,12,9,3,2,0,1,18,10,1,0,.538,.424,.962),
+  buildBatter("Atascadero","A. Donaldson","So",9,.278,26,18,3,5,1,0,0,0,7,7,0,0,.480,.278,.758),
+  buildBatter("Atascadero","W. Litten","Sr",14,.293,53,41,5,12,13,3,1,0,6,9,6,0,.453,.415,.868),
+  buildBatter("Atascadero","S. Ernst","Sr",9,.280,26,25,3,7,3,1,0,0,1,12,0,0,.308,.320,.628),
+  buildBatter("Atascadero","D. Mitchell","Sr",9,.250,35,32,5,8,5,2,1,0,1,6,2,0,.314,.375,.689),
+  buildBatter("Atascadero","E. Wanner","Sr",13,.176,51,34,10,6,4,0,0,0,13,3,1,1,.408,.176,.584),
+  buildBatter("Atascadero","W. Azelton","So",14,.179,52,39,6,7,8,2,1,0,8,14,4,1,.365,.282,.647),
+  buildBatter("Atascadero","M. Beck","Jr",14,.174,27,23,7,4,2,0,0,0,4,6,0,0,.296,.174,.470),
+  buildBatter("Atascadero","J. Litten","So",14,.176,45,34,5,6,4,2,0,0,6,12,3,1,.341,.235,.576),
+  buildBatter("Atascadero","M. Zepeda","Sr",14,.152,44,33,3,5,5,1,1,0,7,9,0,0,.300,.242,.542),
+
+  // CABRILLO
+  buildBatter("Cabrillo","M. Koff","Sr",14,.344,39,32,8,11,5,5,0,0,3,6,2,2,.432,.500,.932),
+  buildBatter("Cabrillo","J. Clark","So",14,.360,33,25,5,9,5,1,0,0,3,11,1,1,.433,.400,.833),
+  buildBatter("Cabrillo","L. Vorce","Jr",12,.281,36,32,3,9,2,0,0,0,3,1,0,1,.343,.281,.624),
+  buildBatter("Cabrillo","F. Lopez","Sr",15,.250,47,40,5,10,4,2,0,0,4,12,2,1,.340,.300,.640),
+  buildBatter("Cabrillo","G. Barraza","Sr",15,.233,50,43,8,10,2,0,0,0,5,8,2,0,.340,.233,.573),
+  buildBatter("Cabrillo","C. Powell","Jr",15,.196,52,46,7,9,2,3,0,0,6,7,0,0,.288,.261,.549),
+  buildBatter("Cabrillo","F. Hernandez","Jr",15,.196,51,46,6,9,2,2,1,0,3,10,2,0,.275,.283,.558),
+  buildBatter("Cabrillo","L. Ragoza","Jr",11,.188,19,16,2,3,0,0,0,0,2,7,1,0,.316,.188,.504),
+
+  // MORRO BAY
+  buildBatter("Morro Bay","Q. Crotts","Sr",13,.500,49,38,20,19,13,6,1,4,5,4,6,0,.612,1.026,1.638),
+  buildBatter("Morro Bay","C. White","Sr",12,.486,52,35,10,17,15,1,0,2,5,2,0,12,.423,.686,1.109),
+  buildBatter("Morro Bay","E. Brown","Sr",12,.452,31,31,9,14,7,0,0,0,0,0,0,0,.452,.452,.904),
+  buildBatter("Morro Bay","C. Wilkinson","Sr",13,.375,47,40,8,15,11,6,1,0,7,8,0,0,.468,.575,1.043),
+  buildBatter("Morro Bay","T. Gray","Sr",13,.324,43,37,4,12,5,3,0,0,2,5,4,0,.419,.405,.824),
+  buildBatter("Morro Bay","J. Deovlet","So",13,.257,45,35,6,9,11,2,0,0,6,3,2,2,.378,.314,.692),
+  buildBatter("Morro Bay","E. Davis","Sr",11,.188,35,32,5,6,5,2,0,0,2,8,0,1,.229,.250,.479),
+  buildBatter("Morro Bay","C. Waldon","Jr",12,.132,42,38,5,5,3,0,0,0,3,9,1,0,.214,.132,.346),
+
+  // NIPOMO
+  buildBatter("Nipomo","J. Anderson","Sr",5,.667,3,3,1,2,0,0,0,0,0,1,0,0,.667,.667,1.334),
+  buildBatter("Nipomo","B. Hageman","So",13,.558,53,43,16,24,7,1,0,0,4,2,2,1,.600,.581,1.181),
+  buildBatter("Nipomo","E. Silveira","Sr",13,.375,50,40,6,15,12,2,0,0,6,6,4,0,.500,.425,.925),
+  buildBatter("Nipomo","G. Groshart","Sr",13,.333,53,48,5,16,23,7,0,0,3,4,1,1,.377,.479,.856),
+  buildBatter("Nipomo","L. Hobbs","Sr",13,.349,53,43,21,15,4,1,0,0,3,2,6,1,.453,.372,.825),
+  buildBatter("Nipomo","L. Hobbs","Fr",13,.257,43,35,4,9,6,2,0,0,6,4,1,0,.381,.314,.695),
+  buildBatter("Nipomo","C. Moulden","So",13,.318,48,44,8,14,12,4,0,0,3,7,1,0,.375,.409,.784),
+  buildBatter("Nipomo","E. Silveira","Sr",13,.278,38,36,4,10,5,1,0,0,1,5,0,1,.289,.306,.595),
+  buildBatter("Nipomo","T. Oxley","Sr",12,.160,34,25,6,4,1,1,0,0,8,14,1,0,.382,.200,.582),
+
+  // PASO ROBLES
+  buildBatter("Paso Robles","M. Garcia","Sr",13,.442,53,43,20,19,9,4,1,0,9,1,1,0,.547,.581,1.128),
+  buildBatter("Paso Robles","B. Lowry","Jr",13,.415,51,41,12,17,16,3,1,0,8,6,0,2,.490,.537,1.027),
+  buildBatter("Paso Robles","T. Freitas","Sr",13,.381,49,42,11,16,10,6,0,0,3,0,3,1,.449,.524,.973),
+  buildBatter("Paso Robles","C. Prieto","Jr",13,.375,47,40,10,15,9,5,0,0,3,4,1,2,.413,.500,.913),
+  buildBatter("Paso Robles","K. Magdaleno","Jr",7,.500,7,6,5,3,1,1,0,0,1,0,0,0,.571,.667,1.238),
+  buildBatter("Paso Robles","E. Dobroth","Jr",13,.357,51,42,13,15,13,2,1,0,5,7,4,0,.471,.452,.923),
+  buildBatter("Paso Robles","E. Rendon","So",12,.326,47,43,10,14,11,3,0,2,1,6,2,1,.362,.535,.897),
+  buildBatter("Paso Robles","X. Hermanson","Jr",12,.324,40,34,6,11,9,5,0,0,4,4,1,0,.410,.471,.881),
+  buildBatter("Paso Robles","J. Soboleski","Jr",13,.308,45,39,9,12,6,4,1,0,5,7,1,0,.400,.462,.862),
+  buildBatter("Paso Robles","G. Berlingeri","Sr",2,.600,5,5,2,3,0,0,0,0,0,1,0,0,.600,.600,1.200),
+
+  // PIONEER VALLEY
+  buildBatter("Pioneer Valley","I. Enriquez","Jr",12,.485,44,33,10,16,14,1,0,1,7,3,3,1,.591,.606,1.197),
+  buildBatter("Pioneer Valley","K. Milner","Jr",10,.448,36,29,4,13,10,4,0,0,6,5,1,0,.556,.586,1.142),
+  buildBatter("Pioneer Valley","L. Dreier","Jr",8,.375,12,8,4,3,1,0,0,0,3,1,1,0,.583,.375,.958),
+  buildBatter("Pioneer Valley","D. Cortez","So",13,.317,51,41,12,13,7,6,0,0,10,7,0,0,.451,.463,.914),
+  buildBatter("Pioneer Valley","M. Rosas","Sr",11,.286,35,28,7,8,2,1,0,0,3,8,3,1,.412,.321,.733),
+  buildBatter("Pioneer Valley","I. Martinez","Sr",8,.222,13,9,1,2,2,0,0,0,4,0,0,0,.462,.222,.684),
+  buildBatter("Pioneer Valley","I. Garcia","Jr",6,.250,4,4,1,1,0,0,0,0,0,0,0,0,.250,.250,.500),
+  buildBatter("Pioneer Valley","U. Ponce","Jr",12,.219,35,32,6,7,4,1,0,0,1,14,1,1,.265,.250,.515),
+  buildBatter("Pioneer Valley","E. Ponce","Sr",13,.244,52,41,16,10,1,1,0,1,6,5,4,1,.392,.293,.685),
+
+  // RIGHETTI
+  buildBatter("Righetti","K. Walker","Jr",13,.585,48,41,17,24,15,8,0,3,6,1,0,1,.625,1.000,1.625),
+  buildBatter("Righetti","G. Cole","So",13,.514,48,37,15,19,5,3,0,0,7,5,0,1,.578,.595,1.173),
+  buildBatter("Righetti","N. Kesner","Sr",13,.486,47,35,11,17,12,2,1,0,10,9,0,1,.587,.600,1.187),
+  buildBatter("Righetti","N. Roberts","Sr",13,.457,48,35,9,16,13,4,1,1,10,4,1,2,.562,.714,1.276),
+  buildBatter("Righetti","M. Villegas","So",12,.333,33,24,8,8,6,1,1,1,9,12,0,0,.515,.583,1.098),
+  buildBatter("Righetti","M. Anderson","Sr",13,.347,54,49,10,17,5,1,0,1,4,7,1,0,.407,.429,.836),
+  buildBatter("Righetti","Z. Andersen","So",12,.179,38,28,5,5,6,1,0,3,7,11,2,1,.378,.536,.914),
+  buildBatter("Righetti","N. Verduzco","So",13,.250,44,32,9,8,6,1,0,0,10,6,0,0,.429,.281,.710),
+  buildBatter("Righetti","D. Nevarez","Sr",13,.206,42,34,5,7,7,3,0,0,5,8,3,0,.357,.294,.651),
+
+  // SAN LUIS OBISPO
+  buildBatter("San Luis Obispo","J. Riley","Jr",15,.458,59,48,6,22,10,2,0,0,9,6,1,1,.542,.500,1.042),
+  buildBatter("San Luis Obispo","J. Goodwin","Sr",15,.341,53,44,10,15,10,1,0,0,4,11,4,1,.442,.364,.806),
+  buildBatter("San Luis Obispo","J. Taylor","Sr",14,.258,36,31,5,8,7,1,0,2,5,9,0,0,.361,.484,.845),
+  buildBatter("San Luis Obispo","L. Drenckpohl","Sr",15,.321,59,53,9,17,9,3,1,0,5,10,0,0,.379,.415,.794),
+  buildBatter("San Luis Obispo","C. Stephens","Jr",15,.319,56,47,11,15,9,3,1,0,9,8,0,0,.429,.426,.855),
+  buildBatter("San Luis Obispo","T. Blaney","So",15,.303,42,33,10,10,4,2,0,1,9,8,0,0,.452,.455,.907),
+  buildBatter("San Luis Obispo","G. Bramble","Sr",15,.263,62,57,13,15,9,5,0,1,5,11,0,0,.323,.404,.727),
+  buildBatter("San Luis Obispo","P. Wyatt","Jr",15,.213,58,47,9,10,9,1,0,0,6,4,3,1,.333,.234,.567),
+
+  // SANTA MARIA
+  buildBatter("Santa Maria","O. Sedano","So",2,1.000,3,2,1,2,2,0,0,0,1,0,0,0,1.000,1.000,2.000),
+  buildBatter("Santa Maria","B. Alejo","Jr",11,.421,42,38,5,16,11,3,0,0,0,3,4,0,.476,.500,.976),
+  buildBatter("Santa Maria","J. Calderon","Sr",11,.432,42,37,7,16,6,0,0,0,2,2,1,1,.463,.432,.895),
+  buildBatter("Santa Maria","J. Medina","Sr",11,.375,43,32,13,12,5,1,0,0,11,7,0,0,.535,.406,.941),
+  buildBatter("Santa Maria","D. Martin","Sr",11,.324,43,34,12,11,6,3,0,0,7,3,2,0,.465,.412,.877),
+  buildBatter("Santa Maria","A. Ybarra","Sr",11,.281,40,32,5,9,5,2,0,0,7,7,1,0,.425,.344,.769),
+  buildBatter("Santa Maria","A. Rice","So",11,.306,40,36,6,11,9,0,0,0,2,5,2,0,.375,.306,.681),
+  buildBatter("Santa Maria","A. Rice","Fr",10,.240,28,25,3,6,7,2,0,0,3,6,0,0,.321,.320,.641),
+  buildBatter("Santa Maria","J. Medina","Sr",11,.235,38,34,5,8,5,1,0,0,4,8,0,0,.316,.265,.581),
+
+  // SANTA YNEZ
+  buildBatter("Santa Ynez","J. Glover","Jr",14,.483,63,58,20,28,26,4,2,2,3,8,1,1,.508,.724,1.232),
+  buildBatter("Santa Ynez","K. Heiduk","So",14,.449,61,49,22,22,13,3,1,0,11,10,1,0,.557,.551,1.108),
+  buildBatter("Santa Ynez","D. Pulido","Sr",14,.413,62,46,21,19,15,5,0,1,11,4,4,1,.548,.587,1.135),
+  buildBatter("Santa Ynez","D. Aquistapace","Sr",14,.386,61,44,17,17,13,6,1,0,13,5,4,0,.557,.568,1.125),
+  buildBatter("Santa Ynez","E. Roberts","So",13,.425,50,40,11,17,11,6,0,0,7,8,2,1,.520,.575,1.095),
+  buildBatter("Santa Ynez","B. Cram","So",14,.386,53,44,15,17,6,0,0,0,7,6,1,0,.481,.386,.867),
+  buildBatter("Santa Ynez","T. Jeckell","Jr",14,.413,50,46,17,19,17,5,0,0,4,2,0,0,.460,.522,.982),
+  buildBatter("Santa Ynez","M. Skidmore","Sr",14,.304,63,56,19,17,12,5,0,0,5,10,1,0,.371,.393,.764),
+  buildBatter("Santa Ynez","S. Rhea","Jr",14,.286,54,42,14,12,10,1,0,0,5,11,4,1,.404,.310,.714),
+
+  // ST. JOSEPH
+  buildBatter("St. Joseph","A. Bluem","Jr",16,.474,67,57,26,27,14,7,0,5,7,2,3,0,.552,.860,1.412),
+  buildBatter("St. Joseph","E. Hendricks","So",12,.500,18,12,10,6,0,1,0,0,6,1,0,0,.667,.583,1.250),
+  buildBatter("St. Joseph","C. Chanley","Sr",16,.383,64,47,13,18,11,4,1,1,6,1,9,2,.516,.574,1.090),
+  buildBatter("St. Joseph","L. Woodruff","So",14,.321,32,28,6,9,12,2,0,1,2,7,1,0,.387,.500,.887),
+  buildBatter("St. Joseph","C. Goncalves","Jr",16,.354,59,48,9,17,16,3,0,0,5,8,4,2,.441,.417,.858),
+  buildBatter("St. Joseph","M. Majewski","Jr",15,.229,44,35,6,8,7,3,0,0,8,7,1,0,.386,.314,.700),
+  buildBatter("St. Joseph","M. O'Keefe","Jr",15,.258,40,31,5,8,7,1,0,1,7,9,1,1,.400,.387,.787),
+  buildBatter("St. Joseph","S. Covarrubias","Sr",14,.154,58,39,15,6,1,1,0,0,17,8,1,0,.421,.179,.600),
+
+  // TEMPLETON
+  buildBatter("Templeton","L. Stetz","Sr",13,.409,50,44,10,18,8,3,3,0,3,6,3,0,.480,.614,1.094),
+  buildBatter("Templeton","C. Sims","Jr",14,.400,55,50,14,20,3,1,1,0,2,6,3,0,.455,.460,.915),
+  buildBatter("Templeton","L. Rivera","Jr",14,.319,57,47,11,15,11,1,0,0,6,6,1,2,.393,.340,.733),
+  buildBatter("Templeton","N. Argain","Sr",12,.273,24,22,3,6,3,1,0,0,1,4,0,0,.304,.318,.622),
+  buildBatter("Templeton","W. Patch","Sr",7,.273,13,11,3,3,1,1,0,0,2,4,0,0,.385,.364,.749),
+  buildBatter("Templeton","L. Olsen","Sr",15,.244,61,45,14,11,4,5,0,0,13,11,3,0,.443,.356,.799),
+  buildBatter("Templeton","J. Beckwith","So",15,.250,42,32,6,8,7,1,0,0,6,8,1,0,.385,.281,.666),
+  buildBatter("Templeton","N. Capaci","Jr",14,.258,38,31,4,8,3,1,0,0,5,15,1,1,.368,.290,.658),
+  buildBatter("Templeton","R. Garcia","Jr",13,.240,27,25,4,6,3,0,1,1,2,8,0,0,.296,.440,.736),
+  buildBatter("Templeton","C. Hamilton","So",14,.207,40,29,3,6,6,1,0,0,8,14,2,1,.400,.241,.641),
+];
+
+const pitchers = [
+  // ARROYO GRANDE
+  buildPitcher("Arroyo Grande","T. Winterberg","Jr",1.11,0,0,19,12,6,3,3,18,4),
+  buildPitcher("Arroyo Grande","Z. Johnson","Jr",0.00,0,0,13.2,8,3,0,5,7,6),
+  buildPitcher("Arroyo Grande","G. Pope","Sr",1.33,0,0,21,13,9,4,6,16,6),
+  buildPitcher("Arroyo Grande","M. Hicks","Sr",0.00,0,0,1.1,2,0,0,2,2,2),
+  buildPitcher("Arroyo Grande","O. King","Jr",2.62,0,0,8,8,5,3,4,11,4),
+  buildPitcher("Arroyo Grande","T. Bournonville","Sr",2.88,0,0,17,10,7,7,6,11,5),
+  buildPitcher("Arroyo Grande","J. Kreowski","Sr",3.50,0,0,16,15,15,8,13,8,5),
+
+  // ATASCADERO
+  buildPitcher("Atascadero","W. Azelton","So",3.20,2,2,30.2,37,20,14,9,28,7),
+  buildPitcher("Atascadero","W. Witt","Sr",3.50,1,2,24,22,17,12,14,14,8),
+  buildPitcher("Atascadero","D. Mitchell","Sr",4.73,1,2,13.1,21,16,9,4,7,4),
+  buildPitcher("Atascadero","J. Litten","So",2.33,0,0,3,3,1,1,3,3,1),
+  buildPitcher("Atascadero","M. Cullen","Jr",7.56,0,0,8.1,13,11,9,4,5,8),
+  buildPitcher("Atascadero","C. Knoph","Jr",8.84,0,2,6.1,7,8,8,7,3,4),
+  buildPitcher("Atascadero","A. Madrigal","Sr",12.25,0,1,4,6,9,7,4,2,4),
+
+  // CABRILLO
+  buildPitcher("Cabrillo","J. Low","Sr",5.12,1,5,27.1,20,26,20,14,19,7),
+  buildPitcher("Cabrillo","J. Heidt","Jr",6.10,1,1,10.1,16,12,9,3,2,4),
+  buildPitcher("Cabrillo","C. Powell","Jr",4.50,0,0,14,16,11,9,4,7,5),
+  buildPitcher("Cabrillo","J. Clark","So",4.34,0,0,9.2,13,10,6,7,8,6),
+  buildPitcher("Cabrillo","F. Lopez","Sr",7.45,0,5,20.2,28,35,22,25,11,7),
+  buildPitcher("Cabrillo","M. Koff","Sr",10.50,0,0,8,14,13,12,8,9,6),
+  buildPitcher("Cabrillo","I. Lopez","So",10.50,0,1,6,12,13,9,4,5,3),
+
+  // MORRO BAY
+  buildPitcher("Morro Bay","E. Brown","Sr",3.19,3,2,26.1,26,15,12,8,27,8),
+  buildPitcher("Morro Bay","C. Wilkinson","Sr",2.21,2,1,19,17,11,6,3,17,6),
+  buildPitcher("Morro Bay","E. Davis","Sr",6.12,2,2,16,21,18,14,7,7,5),
+  buildPitcher("Morro Bay","C. White","Sr",5.65,1,0,8.2,11,7,7,2,8,6),
+  buildPitcher("Morro Bay","Q. Crotts","Sr",0.00,0,0,2,0,0,0,0,3,1),
+
+  // NIPOMO
+  buildPitcher("Nipomo","E. Silveira","Sr",2.78,5,1,27.2,15,13,11,17,30,7),
+  buildPitcher("Nipomo","E. Silveira","Sr",4.82,2,1,20.1,21,23,14,18,25,7),
+  buildPitcher("Nipomo","A. Mendoza","Jr",3.97,0,0,12.1,12,7,7,9,10,6),
+  buildPitcher("Nipomo","G. Groshart","Sr",4.74,0,1,10.1,10,12,7,11,11,4),
+  buildPitcher("Nipomo","L. Hobbs","Sr",6.12,1,1,8,10,8,7,10,3,4),
+  buildPitcher("Nipomo","L. Hobbs","Fr",5.60,0,0,5,13,4,4,4,1,3),
+
+  // PASO ROBLES
+  buildPitcher("Paso Robles","E. Rendon","So",1.64,4,0,21.1,9,6,5,24,38,7),
+  buildPitcher("Paso Robles","M. Garcia","Sr",0.88,0,0,8,2,1,1,4,15,6),
+  buildPitcher("Paso Robles","N. Contreras","Jr",1.67,2,1,21,20,9,5,4,20,5),
+  buildPitcher("Paso Robles","T. Freitas","Sr",2.21,1,0,12.2,6,9,4,8,11,4),
+  buildPitcher("Paso Robles","B. Lowry","Jr",4.90,0,0,10,9,10,7,4,14,5),
+  buildPitcher("Paso Robles","S. Roby","Sr",4.90,0,0,10,12,9,7,6,6,4),
+
+  // PIONEER VALLEY
+  buildPitcher("Pioneer Valley","I. Garcia","Jr",0.54,2,0,13,7,2,1,3,8,4),
+  buildPitcher("Pioneer Valley","J. Valdez","Jr",1.34,2,0,15.2,15,7,3,6,16,5),
+  buildPitcher("Pioneer Valley","K. Owen","Sr",1.27,1,0,11,10,7,2,6,10,3),
+  buildPitcher("Pioneer Valley","D. Cortez","So",2.21,1,0,6.1,6,2,2,3,6,5),
+  buildPitcher("Pioneer Valley","J. Beltran","Jr",3.29,2,1,17,17,10,8,6,14,6),
+  buildPitcher("Pioneer Valley","J. Rojas","Sr",3.65,1,1,15.1,12,9,8,5,12,5),
+
+  // RIGHETTI
+  buildPitcher("Righetti","I. Rocha","So",2.05,3,1,27.1,32,9,8,8,19,5),
+  buildPitcher("Righetti","K. Walker","Jr",2.62,1,0,8,10,6,3,0,6,3),
+  buildPitcher("Righetti","G. Rodriguez","Sr",3.05,2,0,20.2,17,12,9,8,5,8),
+  buildPitcher("Righetti","M. Andersen","Jr",3.50,0,0,2,2,3,1,2,1,1),
+  buildPitcher("Righetti","N. Lancor","Sr",4.62,2,2,16.2,17,15,11,10,11,7),
+  buildPitcher("Righetti","E. Barcenas","Sr",7.00,0,0,2,0,2,2,3,3,1),
+  buildPitcher("Righetti","G. Cole","So",10.50,0,1,4,7,6,6,4,4,2),
+
+  // SAN LUIS OBISPO
+  buildPitcher("San Luis Obispo","J. Riley","Jr",0.88,1,0,16,8,5,2,5,15,5),
+  buildPitcher("San Luis Obispo","G. Bramble","Sr",3.54,5,1,29.2,29,18,15,10,19,6),
+  buildPitcher("San Luis Obispo","J. Taylor","Sr",3.18,3,3,33,39,23,15,12,40,7),
+  buildPitcher("San Luis Obispo","F. Avrett","Jr",4.38,0,1,16,24,20,10,7,16,6),
+  buildPitcher("San Luis Obispo","D. Wilson","Jr",7.00,0,0,5,6,6,5,3,4,4),
+  buildPitcher("San Luis Obispo","J. Giordano","Jr",0.00,0,0,3,3,3,0,1,0,4),
+
+  // SANTA MARIA
+  buildPitcher("Santa Maria","B. Alejo","Jr",0.88,0,0,8,4,1,1,1,5,3),
+  buildPitcher("Santa Maria","A. Rice","Fr",2.10,0,0,3.1,5,4,1,3,2,2),
+  buildPitcher("Santa Maria","D. Martin","Sr",4.50,0,0,23.1,32,16,15,6,30,6),
+  buildPitcher("Santa Maria","J. Medina","Sr",4.96,0,0,18.1,21,23,13,22,31,8),
+  buildPitcher("Santa Maria","J. Medina","Sr",6.42,0,0,12,17,11,11,11,15,5),
+  buildPitcher("Santa Maria","U. Rodriguez","Fr",4.20,0,0,5,3,3,3,3,6,2),
+
+  // SANTA YNEZ
+  buildPitcher("Santa Ynez","C. Palmer","Jr",1.71,3,0,16.1,5,5,4,11,22,4),
+  buildPitcher("Santa Ynez","K. Heiduk","So",1.83,1,0,7.2,5,2,2,4,9,6),
+  buildPitcher("Santa Ynez","E. Roberts","So",2.03,2,0,20.2,21,6,6,5,29,6),
+  buildPitcher("Santa Ynez","T. Jeckell","Jr",2.52,3,2,33.1,24,20,12,17,57,7),
+  buildPitcher("Santa Ynez","J. Glover","Jr",3.36,0,0,8.1,8,7,4,7,16,4),
+  buildPitcher("Santa Ynez","S. Rhea","Jr",4.67,0,0,3,1,2,2,4,4,2),
+
+  // ST. JOSEPH
+  buildPitcher("St. Joseph","A. Bluem","Jr",0.00,0,0,2,2,0,0,0,1,2),
+  buildPitcher("St. Joseph","R. Aparicio","Sr",0.75,0,0,9.1,4,6,1,7,6,6),
+  buildPitcher("St. Joseph","L. Woodruff","So",2.19,3,0,22.1,17,9,7,7,17,7),
+  buildPitcher("St. Joseph","M. Majewski","Jr",2.28,4,1,27.2,24,10,9,6,38,6),
+  buildPitcher("St. Joseph","X. Horta","So",2.30,3,1,21.1,15,10,7,7,21,5),
+  buildPitcher("St. Joseph","C. Chanley","Sr",2.56,3,0,13.2,7,6,5,14,12,5),
+  buildPitcher("St. Joseph","R. Roemling","Sr",2.62,0,0,8,8,5,3,4,10,5),
+  buildPitcher("St. Joseph","M. O'Keefe","Jr",4.50,0,0,4.2,8,7,3,1,5,4),
+
+  // TEMPLETON
+  buildPitcher("Templeton","L. Olsen","Sr",0.00,1,0,5,1,0,0,3,3,2),
+  buildPitcher("Templeton","W. Patch","Sr",0.95,1,0,7.1,7,3,1,7,9,3),
+  buildPitcher("Templeton","A. Abatti","Jr",1.88,0,0,22.1,17,20,6,12,22,6),
+  buildPitcher("Templeton","L. Rivera","Jr",4.20,2,0,25,34,21,15,16,20,6),
+  buildPitcher("Templeton","R. Garcia","Jr",4.85,0,0,13,17,10,9,6,7,6),
+  buildPitcher("Templeton","N. Argain","Sr",7.69,1,1,23.2,35,40,26,21,16,8),
+  buildPitcher("Templeton","C. Sims","Jr",4.67,0,0,3,5,2,2,0,0,2),
+];
+
+
+const TL={"St. Joseph":"mountain","Arroyo Grande":"mountain","Righetti":"mountain","Morro Bay":"mountain","Mission College Prep":"mountain","Lompoc":"mountain","Paso Robles":"sunset","San Luis Obispo":"sunset","Atascadero":"sunset","Templeton":"sunset","Cabrillo":"sunset","Nipomo":"ocean","Pioneer Valley":"ocean","Santa Ynez":"ocean","Santa Maria":"ocean"};
+const TC={"St. Joseph":{bg:"#2d4a1e",fg:"#a8d5a2",a:"SJ"},"Arroyo Grande":{bg:"#3a3010",fg:"#f0d080",a:"AG"},"Righetti":{bg:"#2d1a4a",fg:"#c4a0f0",a:"RHS"},"Morro Bay":{bg:"#0f2a40",fg:"#80c8f0",a:"MB"},"Mission College Prep":{bg:"#1a2040",fg:"#90a8e0",a:"MP"},"Lompoc":{bg:"#1a1a2e",fg:"#90a8e0",a:"LOM"},"Paso Robles":{bg:"#2a1010",fg:"#e08080",a:"PAS"},"San Luis Obispo":{bg:"#1a1a2e",fg:"#c8b060",a:"SLO"},"Atascadero":{bg:"#2a1810",fg:"#e09060",a:"ATA"},"Templeton":{bg:"#1a2a1a",fg:"#90c890",a:"TMP"},"Cabrillo":{bg:"#1a1a1a",fg:"#c8b060",a:"CAB"},"Nipomo":{bg:"#1a1a2a",fg:"#a0a0c8",a:"NIP"},"Pioneer Valley":{bg:"#0f2a2a",fg:"#80c8c8",a:"PV"},"Santa Ynez":{bg:"#2a1a10",fg:"#e0a060",a:"SY"},"Santa Maria":{bg:"#2a0f0f",fg:"#e08080",a:"SM"}};
+
+function tbadge(t){const c=TC[t]||{bg:"#222",fg:"#aaa",a:t.slice(0,3)};return `<span class="tbadge" style="background:${c.bg};color:${c.fg}">${c.a}</span>`;}
+
+let curTab='hitting',curView='standard',curLeague='all',curCol='avg',curAsc=false;
+
+// Populate team select
+const sel=document.getElementById('teamSel');
+[...new Set(batters.map(b=>b.team))].sort().forEach(t=>{const o=document.createElement('option');o.value=t;o.textContent=t;sel.appendChild(o)});
+
+function setLeague(l,btn){curLeague=l;document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');render()}
+function setTab(t,btn){curTab=t;document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');curCol=t==='pitching'?'era':'avg';curAsc=t==='pitching';render()}
+function setView(v,btn){curView=v;document.querySelectorAll('.vbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');render()}
+function srt(col,asc){curCol===col?curAsc=!curAsc:(curCol=col,curAsc=asc);render()}
+
+function cv(v,lo,hi,fmt,rev){
+  if(v===null||v===undefined||isNaN(v))return '<span class="vna">—</span>';
+  const cls=rev?(v<=lo?'vhi':v<=hi?'vmd':'vlo'):(v>=hi?'vhi':v>=lo?'vmd':'vlo');
+  return `<span class="${cls}">${fmt(v)}</span>`;
+}
+function f3(v){return v===null||v===undefined?null:v.toFixed(3).replace(/^0/,'')}
+function f2(v){return v===null||v===undefined?null:v.toFixed(2)}
+function f1(v){return v===null||v===undefined?null:v.toFixed(1)}
+
+function render(){
+  const teamF=document.getElementById('teamSel').value;
+  const mPA=parseInt(document.getElementById('minPA').value)||0;
+  const mIP=parseFloat(document.getElementById('minIP').value)||0;
+
+  ['p-hs','p-ha','p-ps','p-pa'].forEach(id=>document.getElementById(id).style.display='none');
+  if(curTab==='hitting'){
+    if(curView==='standard'||curView==='all')document.getElementById('p-hs').style.display='';
+    if(curView==='advanced'||curView==='all')document.getElementById('p-ha').style.display='';
+  }else{
+    if(curView==='standard'||curView==='all')document.getElementById('p-ps').style.display='';
+    if(curView==='advanced'||curView==='all')document.getElementById('p-pa').style.display='';
+  }
+
+  let H=batters.filter(b=>(!teamF||b.team===teamF)&&(curLeague==='all'||TL[b.team]===curLeague)&&b.pa>=mPA);
+  H.sort((a,b)=>{let va=a[curCol]??( curAsc?Infinity:-Infinity),vb=b[curCol]??( curAsc?Infinity:-Infinity);return typeof va==='string'?va.localeCompare(vb):curAsc?va-vb:vb-va});
+
+  document.getElementById('b-hs').innerHTML=H.map((p,i)=>`<tr><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.gp}</td><td class="vbold">${f3(p.avg)||'—'}</td><td>${p.pa}</td><td>${p.ab}</td><td>${p.r}</td><td>${p.h}</td><td>${p.doubles}</td><td>${p.triples}</td><td>${p.hr}</td><td>${p.rbi}</td><td>${p.bb}</td><td>${p.k}</td><td>${cv(p.obp,.300,.380,v=>f3(v))}</td><td>${cv(p.slg,.350,.500,v=>f3(v))}</td><td>${cv(p.ops,.700,.900,v=>f3(v))}</td></tr>`).join('');
+
+  document.getElementById('b-ha').innerHTML=H.map((p,i)=>{
+    const wc=p.wrc_plus,wcCls=wc===null?'vna':wc>=130?'vhi':wc>=90?'vmd':'vlo';
+    const oc=p.owar===null?'vna':p.owar>=1?'vhi':p.owar>=0?'vmd':'vlo';
+    const bc=p.bbk===null?'vna':p.bbk>=0.5?'vhi':p.bbk>=0.25?'vmd':'vlo';
+    return `<tr><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.pa}</td><td>${f3(p.avg)||'—'}</td><td>${cv(p.obp,.300,.380,v=>f3(v))}</td><td>${cv(p.slg,.350,.500,v=>f3(v))}</td><td class="vadv">${f3(p.woba)||'—'}</td><td><span class="${wcCls}">${wc!==null?wc:'—'}</span></td><td><span class="${oc}">${p.owar!==null?(p.owar>0?'+':'')+p.owar:'—'}</span></td><td><span class="${bc}">${p.bbk!==null?f2(p.bbk):'—'}</span></td></tr>`;
+  }).join('');
+
+  let P=pitchers.filter(p=>(!teamF||p.team===teamF)&&(curLeague==='all'||TL[p.team]===curLeague)&&p.ip>=mIP);
+  P.sort((a,b)=>{let va=a[curCol]??( curAsc?Infinity:-Infinity),vb=b[curCol]??( curAsc?Infinity:-Infinity);return curAsc?va-vb:vb-va});
+
+  document.getElementById('b-ps').innerHTML=P.map((p,i)=>`<tr><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.app}</td><td>${p.w}</td><td>${p.l}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td>${p.ip}</td><td>${p.h}</td><td>${p.er}</td><td>${p.bb}</td><td>${p.k}</td></tr>`).join('');
+
+  document.getElementById('b-pa').innerHTML=P.map((p,i)=>{
+    const kp=p.k&&p.ip?(p.k/(p.ip*4.3)*100):null;
+    return `<tr><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.ip}</td><td>${p.app}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td class="vadv">${cv(p.k9,6,9,v=>f1(v))}</td><td class="vadv">${cv(kp,20,30,v=>v.toFixed(1)+'%')}</td><td class="vadv">${cv(p.pwar,0,1,v=>(v>0?'+':'')+v)}</td><td class="vadv">${cv(p.kbb,1.5,3,v=>f2(v))}</td><td class="vadv">${cv(p.era_plus,80,120,v=>v.toString())}</td></tr>`;
+  }).join('');
+}
+render();
+</script>
+</body></html>

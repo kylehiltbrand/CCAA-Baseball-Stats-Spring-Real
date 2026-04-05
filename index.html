@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CCAA Baseball 2025-26</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap');
+:root{--bg:#0d1117;--bg2:#161b22;--bg3:#1c2230;--bdr:#21293a;--bdr2:#2d3748;--gold:#f0a500;--text:#e2e8f0;--sub:#8b9cb5;--dim:#4a5568;--green:#38a169;--red:#e53e3e;--sky:#63b3ed;--mtn:#e07b39;--sun:#9b5de5;--ocn:#38bdf8}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.5}
+a{color:inherit;text-decoration:none}
+header{background:var(--bg2);border-bottom:1px solid var(--bdr);position:sticky;top:0;z-index:100}
+.hdr{max-width:1280px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:stretch;height:56px}
+.brand{display:flex;align-items:center;gap:.65rem;margin-right:2rem;flex-shrink:0}
+.logo{width:36px;height:36px;border-radius:8px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.8rem;color:#0d1117;letter-spacing:-.02em;flex-shrink:0}
+.bname{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.05rem;display:block;color:var(--text)}
+.bsub{font-size:.58rem;color:var(--sub);letter-spacing:.08em;text-transform:uppercase;display:block}
+nav{display:flex;align-items:stretch}
+nav a{display:flex;align-items:center;padding:0 1rem;font-size:.75rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--sub);border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+nav a:hover{color:var(--text)}
+nav a.on{color:var(--text);border-bottom-color:var(--gold)}
+.sbadge{margin-left:auto;display:flex;align-items:center}
+.sp26{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.22rem .65rem;border-radius:4px;background:var(--gold);color:#0d1117}
+.fbar{background:var(--bg2);border-bottom:1px solid var(--bdr)}
+.fbar-inner{max-width:1280px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:stretch;height:42px}
+.fbtn{display:flex;align-items:center;gap:.4rem;padding:0 1rem;background:none;border:none;border-right:1px solid var(--bdr);font-family:'Inter',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--sub);cursor:pointer;transition:color .15s,background .15s;white-space:nowrap}
+.fbtn:first-child{border-left:1px solid var(--bdr)}
+.fbtn:hover,.fbtn.on{background:var(--bg3);color:var(--text)}
+.dot{width:7px;height:7px;border-radius:2px;flex-shrink:0}
+.dm{background:var(--mtn)}.ds{background:var(--sun)}.do{background:var(--ocn)}
+main{max-width:1280px;margin:0 auto;padding:1.5rem 1.5rem 4rem}
+.card{background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:1rem}
+.card-hdr{padding:.8rem 1rem;border-bottom:1px solid var(--bdr);display:flex;align-items:flex-start;justify-content:space-between}
+.card-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;letter-spacing:.02em}
+.card-sub{font-size:.62rem;color:var(--sub);text-transform:uppercase;letter-spacing:.07em;margin-top:.1rem}
+.mxlink{font-size:.62rem;color:var(--gold);font-weight:600;white-space:nowrap;margin-top:.1rem}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.78rem}
+thead th{padding:.5rem .7rem;text-align:center;font-size:.62rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--sub);border-bottom:1px solid var(--bdr);white-space:nowrap;cursor:pointer;user-select:none}
+thead th:first-child{text-align:left;padding-left:1rem}
+thead th:hover{color:var(--text)}
+thead th.sa{color:var(--gold)}
+thead th.sa::after{content:' ↓'}
+thead th.sa.asc::after{content:' ↑'}
+tbody tr{border-bottom:1px solid var(--bdr);transition:background .1s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:rgba(255,255,255,.025)}
+tbody td{padding:.55rem .7rem;text-align:center;color:var(--sub);white-space:nowrap}
+tbody td:first-child{text-align:left;padding-left:1rem;color:var(--text);font-weight:500}
+.rn{color:var(--dim);font-size:.68rem;margin-right:.4rem}
+.vhi{color:#68d391!important;font-weight:600}.vmd{color:var(--sky)!important}.vlo{color:#fc8181!important}
+.vna{color:var(--dim)!important;font-style:italic}.vbold{color:var(--text)!important;font-weight:600}.vadv{color:var(--gold)!important;font-weight:600}
+.sk{display:inline-flex;align-items:center;justify-content:center;min-width:30px;padding:.12rem .35rem;border-radius:3px;font-size:.65rem;font-weight:700}
+.skw{background:rgba(56,161,105,.15);color:#68d391}.skl{background:rgba(229,62,62,.12);color:#fc8181}
+.tbadge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:5px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.6rem;flex-shrink:0}
+.llabel{display:flex;align-items:center;gap:.45rem;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin:1.5rem 0 .65rem;color:var(--sub)}
+.llabel .dot{width:8px;height:8px;border-radius:2px}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;align-items:start}
+@media(max-width:900px){.sgrid{grid-template-columns:1fr}}
+.sth{display:flex;align-items:center;gap:.4rem;padding:.38rem 1rem;border-bottom:1px solid var(--bdr);font-size:.6rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);background:rgba(0,0,0,.15)}
+.srow{display:flex;align-items:center;gap:.4rem;padding:.52rem 1rem;border-bottom:1px solid var(--bdr);transition:background .1s}
+.srow:last-child{border-bottom:none}
+.srow:hover{background:rgba(255,255,255,.02)}
+.srow.lead{background:rgba(240,165,0,.04)}
+.srk{width:16px;color:var(--dim);font-size:.72rem;flex-shrink:0}
+.stm{flex:1;font-weight:600;font-size:.8rem;color:var(--text);min-width:0}
+.sw{width:22px;text-align:center;font-weight:700;color:#68d391;font-size:.8rem}
+.sl{width:22px;text-align:center;font-weight:700;color:#fc8181;font-size:.8rem}
+.spct{width:38px;text-align:center;color:var(--text);font-size:.78rem}
+.sgb{width:26px;text-align:center;color:var(--sub);font-size:.75rem}
+.sstr{width:36px;text-align:center}
+.sovr{width:44px;text-align:right;color:var(--sub);font-size:.7rem}
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}
+@media(max-width:900px){.tgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:580px){.tgrid{grid-template-columns:1fr}}
+.tcard{background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;padding:.8rem 1rem;display:flex;align-items:center;gap:.8rem;transition:border-color .15s,background .15s}
+.tcard:hover{border-color:var(--bdr2);background:var(--bg3)}
+.tcname{font-weight:600;font-size:.82rem;color:var(--text)}
+.tcsub{font-size:.65rem;color:var(--sub);margin-top:.1rem}
+.ctrl{display:flex;align-items:center;gap:.65rem;margin-bottom:1rem;flex-wrap:wrap}
+.tgroup{display:flex;background:var(--bg3);border:1px solid var(--bdr);border-radius:6px;overflow:hidden}
+.tbtn{padding:.42rem 1rem;background:none;border:none;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:600;color:var(--sub);cursor:pointer;transition:all .15s;white-space:nowrap}
+.tbtn.on{background:var(--gold);color:#0d1117}
+.tbtn:hover:not(.on){color:var(--text)}
+.vgroup{display:flex;gap:.3rem}
+.vbtn{padding:.38rem .75rem;background:var(--bg3);border:1px solid var(--bdr);border-radius:5px;font-family:'Inter',sans-serif;font-size:.7rem;font-weight:600;color:var(--sub);cursor:pointer;transition:all .15s}
+.vbtn.on{background:var(--gold);border-color:var(--gold);color:#0d1117}
+.vbtn:hover:not(.on){color:var(--text)}
+.selm{background:var(--bg3);border:1px solid var(--bdr);color:var(--text);padding:.38rem .65rem;border-radius:5px;font-family:'Inter',sans-serif;font-size:.72rem;outline:none}
+.selm option{background:var(--bg2)}
+.advb{font-size:.52rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.08rem .28rem;border-radius:2px;background:rgba(29,111,164,.3);color:var(--sky);vertical-align:middle;margin-left:.2rem}
+.ib{display:flex;align-items:flex-start;gap:.6rem;background:rgba(99,179,237,.06);border:1px solid rgba(99,179,237,.18);border-radius:6px;padding:.7rem 1rem;font-size:.7rem;color:var(--sub);margin-bottom:.75rem;line-height:1.5}
+[data-tip]{position:relative}
+[data-tip]::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);background:var(--bg3);border:1px solid var(--bdr2);color:var(--text);font-size:.62rem;font-weight:400;text-transform:none;letter-spacing:0;padding:.3rem .55rem;border-radius:4px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s;z-index:50}
+[data-tip]:hover::after{opacity:1}
+footer{text-align:center;padding:1.5rem;border-top:1px solid var(--bdr);font-size:.65rem;color:var(--dim)}
+footer a{color:var(--sub)}
+footer a:hover{color:var(--text)}
+</style>
+
+<style>
+.home{min-height:calc(100vh - 56px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem 2rem}
+.htitle{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:clamp(2.8rem,8vw,6rem);line-height:1;color:var(--text)}
+.htitle span{color:var(--gold)}
+.hsub{font-size:.8rem;color:var(--sub);letter-spacing:.12em;text-transform:uppercase;margin:1rem 0 2.5rem}
+.hnav{display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-bottom:2.5rem}
+.hbtn{display:flex;flex-direction:column;align-items:center;gap:.4rem;padding:1.25rem 2rem;background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;color:var(--text);transition:border-color .15s,background .15s;min-width:140px}
+.hbtn:hover{border-color:var(--bdr2);background:var(--bg3)}
+.hbtn .ic{font-size:1.6rem}
+.hbtn .lb{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.9rem;text-transform:uppercase;letter-spacing:.05em}
+.hbtn .sb{font-size:.65rem;color:var(--sub)}
+.quick{display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;padding:1.5rem 2rem;background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;max-width:660px}
+.qv{font-family:'Rajdhani',sans-serif;font-size:2.2rem;font-weight:700;color:var(--gold);display:block;line-height:1}
+.ql{font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--sub);margin-top:.2rem}
+.qs{font-size:.58rem;color:var(--dim);margin-top:.1rem}
+.qdiv{width:1px;background:var(--bdr)}
+</style>
+</head>
+<body>
+<header><div class="hdr">
+  <a href="index.html" class="brand"><div class="logo">CCAA</div><div><span class="bname">CCAA Baseball</span><span class="bsub">Central Coast Athletic Association</span></div></a>
+  <nav><a href="standings.html">Standings</a><a href="stats.html">Stats</a><a href="teams.html">Teams</a></nav>
+  <div class="sbadge"><span class="sp26">Spring 2026</span></div>
+</div></header>
+<div class="home">
+  <div class="htitle">CCAA <span>Baseball</span></div>
+  <p class="hsub">2025–2026 Season · Central Section</p>
+  <div class="hnav">
+    <a href="standings.html" class="hbtn"><span class="ic">🏆</span><span class="lb">Standings</span><span class="sb">3 Divisions</span></a>
+    <a href="stats.html" class="hbtn"><span class="ic">📊</span><span class="lb">Statistics</span><span class="sb">Standard + Advanced</span></a>
+    <a href="teams.html" class="hbtn"><span class="ic">⚾</span><span class="lb">Teams</span><span class="sb">15 Programs</span></a>
+  </div>
+  <div class="quick">
+    <div><span class="qv">15</span><div class="ql">Teams</div></div>
+    <div class="qdiv"></div>
+    <div><span class="qv">3</span><div class="ql">Divisions</div></div>
+    <div class="qdiv"></div>
+    <div><span class="qv">#26</span><div class="ql">Top CA Rank</div><div class="qs">St. Joseph</div></div>
+    <div class="qdiv"></div>
+    <div><span class="qv">1.97</span><div class="ql">Best ERA</div><div class="qs">Arroyo Grande</div></div>
+    <div class="qdiv"></div>
+    <div><span class="qv">.384</span><div class="ql">Best AVG</div><div class="qs">Santa Ynez</div></div>
+  </div>
+</div>
+<footer>CCAA Baseball · Spring 2026 · Central Coast Athletic Association, CA · Stats: <a href="standings.html">Mountain</a> · <a href="standings.html">Sunset</a> · <a href="standings.html">Ocean</a></footer>
+</body></html>
