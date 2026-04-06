@@ -114,29 +114,13 @@ footer a:hover{color:var(--text)}
 </div></div>
 <main><div class="sgrid" id="root"></div></main>
 <footer>CCAA Baseball · Spring 2026 · Central Coast Athletic Association, CA · Stats: <a href="standings.html">Mountain</a> · <a href="standings.html">Sunset</a> · <a href="standings.html">Ocean</a></footer>
+<script src="data.js"></script>
 <script>
+// Standings data loaded from data.js (standingsData)
 const D={
-  mountain:{label:"Mountain League",sub:"CCAA — Mountain",teams:[
-    {abbr:"SJ", name:"St. Joseph",          lw:6,ll:1,ow:13,ol:2,ot:1,str:"W2"},
-    {abbr:"AG", name:"Arroyo Grande",        lw:5,ll:2,ow:11,ol:4,ot:0,str:"W3"},
-    {abbr:"RHS",name:"Righetti",             lw:4,ll:3,ow:8, ol:5,ot:0,str:"W4"},
-    {abbr:"MB", name:"Morro Bay",            lw:3,ll:4,ow:8, ol:5,ot:0,str:"L2"},
-    {abbr:"MP", name:"Mission College Prep", lw:2,ll:5,ow:5, ol:7,ot:0,str:"L3"},
-    {abbr:"LOM",name:"Lompoc",               lw:1,ll:6,ow:7, ol:8,ot:0,str:"L5"},
-  ]},
-  sunset:{label:"Sunset League",sub:"CCAA — Sunset",teams:[
-    {abbr:"SLO",name:"San Luis Obispo",lw:5,ll:1,ow:9,ol:6,ot:0,str:"W1"},
-    {abbr:"PAS",name:"Paso Robles",    lw:5,ll:1,ow:9,ol:6,ot:0,str:"W4"},
-    {abbr:"ATA",name:"Atascadero",     lw:2,ll:4,ow:4,ol:10,ot:0,str:"L1"},
-    {abbr:"TMP",name:"Templeton",      lw:1,ll:3,ow:6,ol:9, ot:0,str:"W2"},
-    {abbr:"CAB",name:"Cabrillo",       lw:1,ll:5,ow:2,ol:13,ot:0,str:"L2"},
-  ]},
-  ocean:{label:"Ocean League",sub:"CCAA — Ocean",teams:[
-    {abbr:"PV", name:"Pioneer Valley",lw:4,ll:1,ow:10,ol:4,ot:0,str:"W5"},
-    {abbr:"NIP",name:"Nipomo",        lw:2,ll:1,ow:9, ol:5,ot:0,str:"L2"},
-    {abbr:"SY", name:"Santa Ynez",   lw:2,ll:1,ow:11,ol:3,ot:0,str:"W1"},
-    {abbr:"SM", name:"Santa Maria",  lw:0,ll:5,ow:4, ol:7,ot:0,str:"L2"},
-  ]}
+  mountain:{label:"Mountain League",sub:"CCAA — Mountain",teams:standingsData.mountain},
+  sunset:  {label:"Sunset League",  sub:"CCAA — Sunset",  teams:standingsData.sunset},
+  ocean:   {label:"Ocean League",   sub:"CCAA — Ocean",   teams:standingsData.ocean}
 };
 function pct(w,l){const t=w+l;return t>0?(w/t).toFixed(3).replace(/^0/,''):'.000'}
 function gb(lw,ll,w,l){const g=((lw-w)+(l-ll))/2;return g<=0?'—':g%1===0?g:g.toFixed(1)}
