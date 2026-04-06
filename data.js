@@ -104,7 +104,7 @@ const teams = [
     leagueRecord: "6-1",
     wins: 13, losses: 2, ties: 1,
     leagueWins: 6, leagueLosses: 1,
-    caRank: 26,
+    caRank: 25,
     gp: 16,
     teamBavg: .294, teamOBP: .418, teamSLG: .413,
     teamERA: 2.25, teamIP: 109
