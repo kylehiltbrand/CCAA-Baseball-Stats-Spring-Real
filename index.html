@@ -136,12 +136,39 @@ footer a:hover{color:var(--text)}
     <div class="qdiv"></div>
     <div><span class="qv">3</span><div class="ql">Divisions</div></div>
     <div class="qdiv"></div>
-    <div><span class="qv">#26</span><div class="ql">Top CA Rank</div><div class="qs">St. Joseph</div></div>
+    <div><span class="qv" id="qs-rank">—</span><div class="ql">Top CA Rank</div><div class="qs" id="qs-rank-team">—</div></div>
     <div class="qdiv"></div>
-    <div><span class="qv">1.97</span><div class="ql">Best ERA</div><div class="qs">Arroyo Grande</div></div>
+    <div><span class="qv" id="qs-era">—</span><div class="ql">Best ERA</div><div class="qs" id="qs-era-team">—</div></div>
     <div class="qdiv"></div>
-    <div><span class="qv">.384</span><div class="ql">Best AVG</div><div class="qs">Santa Ynez</div></div>
+    <div><span class="qv" id="qs-avg">—</span><div class="ql">Best AVG</div><div class="qs" id="qs-avg-team">—</div></div>
   </div>
 </div>
 <footer>CCAA Baseball · Spring 2026 · Central Coast Athletic Association, CA · Stats: <a href="standings.html">Mountain</a> · <a href="standings.html">Sunset</a> · <a href="standings.html">Ocean</a></footer>
+
+<script src="data.js"></script>
+<script>
+// Populate quick stats from data.js
+(function() {
+  // Best CA Rank (lowest number wins)
+  const ranked = teams.filter(t => t.caRank).sort((a,b) => a.caRank - b.caRank);
+  if (ranked.length) {
+    document.getElementById('qs-rank').textContent = '#' + ranked[0].caRank;
+    document.getElementById('qs-rank-team').textContent = ranked[0].name;
+  }
+
+  // Best team ERA (lowest, must have IP data)
+  const withERA = teams.filter(t => t.teamERA).sort((a,b) => a.teamERA - b.teamERA);
+  if (withERA.length) {
+    document.getElementById('qs-era').textContent = withERA[0].teamERA.toFixed(2);
+    document.getElementById('qs-era-team').textContent = withERA[0].name;
+  }
+
+  // Best team AVG (highest)
+  const withAVG = teams.filter(t => t.teamBavg).sort((a,b) => b.teamBavg - a.teamBavg);
+  if (withAVG.length) {
+    document.getElementById('qs-avg').textContent = withAVG[0].teamBavg.toFixed(3).replace(/^0/,'');
+    document.getElementById('qs-avg-team').textContent = withAVG[0].name;
+  }
+})();
+</script>
 </body></html>
