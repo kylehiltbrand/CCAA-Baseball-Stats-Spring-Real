@@ -1075,7 +1075,15 @@ function render(){
   }
 
   let H=batters.filter(b=>(!teamF||b.team===teamF)&&(curLeague==='all'||TL[b.team]===curLeague)&&b.pa>=mPA);
-  H.sort((a,b)=>{let va=curCol==='year'?(YEAR_ORDER[a.year]||9):(a[curCol]??(curAsc?Infinity:-Infinity)),vb=curCol==='year'?(YEAR_ORDER[b.year]||9):(b[curCol]??(curAsc?Infinity:-Infinity));return typeof va==='string'?va.localeCompare(vb):curAsc?va-vb:vb-va});
+  H.sort((a,b)=>{
+    let va=curCol==='year'?(YEAR_ORDER[a.year]||9):(a[curCol]??(curAsc?Infinity:-Infinity));
+    let vb=curCol==='year'?(YEAR_ORDER[b.year]||9):(b[curCol]??(curAsc?Infinity:-Infinity));
+    const primary = typeof va==='string'?va.localeCompare(vb):curAsc?va-vb:vb-va;
+    if(primary !== 0) return primary;
+    const teamCmp = a.team.localeCompare(b.team);
+    if(teamCmp !== 0) return teamCmp;
+    return a.name.localeCompare(b.name);
+  });
 
   document.getElementById('b-hs').innerHTML=H.map((p,i)=>`<tr><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.gp}</td><td class="vbold">${f3(p.avg)||'—'}</td><td>${p.pa}</td><td>${p.ab}</td><td>${p.r}</td><td>${p.h}</td><td>${p.doubles}</td><td>${p.triples}</td><td>${p.hr}</td><td>${p.rbi}</td><td>${p.bb}</td><td>${p.k}</td><td>${cv(p.obp,.300,.380,v=>f3(v))}</td><td>${cv(p.slg,.350,.500,v=>f3(v))}</td><td>${cv(p.ops,.700,.900,v=>f3(v))}</td></tr>`).join('');
 
@@ -1087,7 +1095,15 @@ function render(){
   }).join('');
 
   let P=pitchers.filter(p=>(!teamF||p.team===teamF)&&(curLeague==='all'||TL[p.team]===curLeague)&&p.ip>=mIP);
-  P.sort((a,b)=>{let va=curCol==='year'?(YEAR_ORDER[a.year]||9):(a[curCol]??(curAsc?Infinity:-Infinity)),vb=curCol==='year'?(YEAR_ORDER[b.year]||9):(b[curCol]??(curAsc?Infinity:-Infinity));return curAsc?va-vb:vb-va});
+  P.sort((a,b)=>{
+    let va=curCol==='year'?(YEAR_ORDER[a.year]||9):(a[curCol]??(curAsc?Infinity:-Infinity));
+    let vb=curCol==='year'?(YEAR_ORDER[b.year]||9):(b[curCol]??(curAsc?Infinity:-Infinity));
+    const primary = curAsc?va-vb:vb-va;
+    if(primary !== 0) return primary;
+    const teamCmp = a.team.localeCompare(b.team);
+    if(teamCmp !== 0) return teamCmp;
+    return a.name.localeCompare(b.name);
+  });
 
   document.getElementById('b-ps').innerHTML=P.map((p,i)=>`<tr><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.app}</td><td>${p.w}</td><td>${p.l}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td>${p.ip}</td><td>${p.h}</td><td>${p.er}</td><td>${p.bb}</td><td>${p.k}</td></tr>`).join('');
 
