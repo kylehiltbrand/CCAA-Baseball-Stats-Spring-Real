@@ -454,14 +454,14 @@ const teams = [
     coach: "N/A",
     colors: "Blue, Gold",
     league: "CCAA - Mountain",
-    overall: "11-4",
+    overall: "12-4",
     leagueRecord: "5-2",
-    wins: 11, losses: 4, ties: 0,
+    wins: 12, losses: 4, ties: 0,
     leagueWins: 5, leagueLosses: 2,
     caRank: 57,
-    gp: 15,
-    teamBavg: .355, teamOBP: .437, teamSLG: .508,
-    teamERA: 1.97, teamIP: 96
+    gp: 16,
+    teamBavg: .360, teamOBP: .440, teamSLG: .512,
+    teamERA: 1.85, teamIP: 102
   },
   {
     id: "santa-ynez",
@@ -493,7 +493,7 @@ const teams = [
     wins: 10, losses: 5, ties: 0,
     leagueWins: 4, leagueLosses: 1,
     caRank: 313,
-    gp: 13,
+    gp: 14,
     teamBavg: .281, teamOBP: .400, teamSLG: .348,
     teamERA: 2.61, teamIP: 94
   },
@@ -713,20 +713,21 @@ function buildPitcher(team, name, year, era, w, l, ip, h, r, er, bb, k, app) {
 
 const batters = [
   // ARROYO GRANDE
-  buildBatter("Arroyo Grande","A. Winter","Jr",14,.613,39,31,9,19,7,1,0,0,2,1,5,1,.667,.645,1.312),
-  buildBatter("Arroyo Grande","R. Servin","Jr",15,.479,60,48,17,23,13,8,0,3,11,6,1,0,.583,.833,1.416),
-  buildBatter("Arroyo Grande","O. King","Jr",8,.500,4,4,0,2,1,0,0,0,0,1,0,0,.500,.500,1.000),
-  buildBatter("Arroyo Grande","T. Bournonville","Sr",14,.364,51,44,11,16,14,0,0,3,4,7,2,1,.431,.568,.999),
-  buildBatter("Arroyo Grande","T. Kurth","Sr",14,.349,51,43,8,15,12,5,0,2,5,6,1,1,.420,.605,1.025),
-  buildBatter("Arroyo Grande","C. Gotchal","Jr",14,.370,31,27,6,10,4,3,0,0,1,3,1,0,.414,.481,.895),
-  buildBatter("Arroyo Grande","M. Richwine","Sr",13,.310,33,29,6,9,5,2,0,0,3,7,0,0,.375,.379,.754),
-  buildBatter("Arroyo Grande","B. Paz","Fr",13,.318,26,22,5,7,7,2,0,1,3,8,0,1,.385,.545,.930),
+  buildBatter("Arroyo Grande","A. Winter","Jr",15,.613,39,31,9,19,7,1,0,0,2,1,5,1,.667,.645,1.312),
+  buildBatter("Arroyo Grande","R. Servin","Jr",16,.500,65,52,19,26,16,9,0,3,12,6,1,0,.600,.846,1.446),
+  buildBatter("Arroyo Grande","O. King","Jr",9,.500,6,6,1,3,1,0,0,0,0,2,0,0,.500,.500,1.000),
+  buildBatter("Arroyo Grande","T. Bournonville","Sr",15,.348,54,46,11,16,14,0,0,3,4,7,3,1,.426,.543,.969),
+  buildBatter("Arroyo Grande","T. Kurth","Sr",15,.348,54,46,9,16,14,6,0,2,5,6,1,1,.415,.609,1.024),
+  buildBatter("Arroyo Grande","C. Gotchal","Jr",15,.323,36,31,7,10,4,3,0,0,2,3,1,0,.382,.419,.801),
+  buildBatter("Arroyo Grande","M. Richwine","Sr",14,.333,37,33,9,11,8,2,0,1,3,8,0,1,.389,.485,.874),
+  buildBatter("Arroyo Grande","B. Paz","Fr",14,.348,27,23,6,8,8,2,0,1,3,8,0,1,.407,.565,.972),
   buildBatter("Arroyo Grande","J. Stumph","Jr",14,.308,50,39,13,12,6,3,0,0,9,4,1,0,.449,.385,.834),
-  buildBatter("Arroyo Grande","J. Kreowski","Sr",13,.269,30,26,7,7,5,1,0,1,4,8,0,0,.367,.423,.790),
+  buildBatter("Arroyo Grande","J. Kreowski","Sr",14,.267,34,30,9,8,6,1,0,1,4,8,0,0,.353,.400,.753),
   buildBatter("Arroyo Grande","T. Winterberg","Jr",12,.250,18,16,1,4,3,1,0,0,2,9,0,0,.333,.313,.646),
-  buildBatter("Arroyo Grande","J. Ralph","Jr",15,.259,60,54,10,14,6,1,0,1,4,5,2,0,.333,.333,.666),
-  buildBatter("Arroyo Grande","K. Warwick","Jr",10,.235,17,17,3,4,1,0,1,0,0,7,0,0,.235,.353,.588),
-  buildBatter("Arroyo Grande","C. Jaynes","Jr",8,.444,11,9,5,4,2,0,0,0,1,3,1,0,.545,.444,.989),
+  buildBatter("Arroyo Grande","J. Ralph","Jr",16,.305,65,59,12,18,8,1,0,1,4,5,2,0,.369,.373,.742),
+  buildBatter("Arroyo Grande","K. Warwick","Jr",11,.211,19,19,3,4,1,0,1,0,0,9,0,0,.211,.316,.527),
+  buildBatter("Arroyo Grande","C. Jaynes","Jr",9,.417,15,12,7,5,4,0,0,0,2,3,1,0,.533,.417,.950),
+  buildBatter("Arroyo Grande","R. Bronson","Sr",11,.333,21,18,3,6,6,0,0,1,2,4,0,1,.400,.500,.900),
 
   // ATASCADERO
   buildBatter("Atascadero","M. Cullen","Jr",9,.500,2,2,0,1,0,0,0,0,0,0,0,0,.500,.500,1.000),
@@ -744,12 +745,16 @@ const batters = [
   // CABRILLO
   buildBatter("Cabrillo","M. Koff","Sr",14,.344,39,32,8,11,5,5,0,0,3,6,2,2,.432,.500,.932),
   buildBatter("Cabrillo","J. Clark","So",14,.360,33,25,5,9,5,1,0,0,3,11,1,1,.433,.400,.833),
+  buildBatter("Cabrillo","J. Low","Sr",13,.200,25,20,2,4,2,2,0,0,3,4,2,0,.360,.300,.660),
   buildBatter("Cabrillo","L. Vorce","Jr",12,.281,36,32,3,9,2,0,0,0,3,1,0,1,.343,.281,.624),
   buildBatter("Cabrillo","F. Lopez","Sr",15,.250,47,40,5,10,4,2,0,0,4,12,2,1,.340,.300,.640),
   buildBatter("Cabrillo","G. Barraza","Sr",15,.233,50,43,8,10,2,0,0,0,5,8,2,0,.340,.233,.573),
   buildBatter("Cabrillo","C. Powell","Jr",15,.196,52,46,7,9,2,3,0,0,6,7,0,0,.288,.261,.549),
   buildBatter("Cabrillo","F. Hernandez","Jr",15,.196,51,46,6,9,2,2,1,0,3,10,2,0,.275,.283,.558),
   buildBatter("Cabrillo","L. Ragoza","Jr",11,.188,19,16,2,3,0,0,0,0,2,7,1,0,.316,.188,.504),
+  buildBatter("Cabrillo","C. Sunndeniyage","Jr",14,.143,23,21,0,3,0,0,0,0,1,5,2,0,.182,.143,.325),
+  buildBatter("Cabrillo","I. Lopez","So",10,.042,29,24,1,1,2,0,0,0,3,6,1,1,.179,.042,.221),
+  buildBatter("Cabrillo","A. Torres","Sr",7,.167,12,12,0,2,1,0,0,1,0,4,0,0,.167,.333,.500),
 
   // MORRO BAY
   buildBatter("Morro Bay","Q. Crotts","Sr",13,.500,49,38,20,19,13,6,1,4,5,4,6,0,.612,1.026,1.638),
@@ -770,7 +775,13 @@ const batters = [
   buildBatter("Nipomo","L. Hobbs","Fr",14,.289,47,38,5,11,8,2,0,0,7,4,1,0,.413,.342,.755),
   buildBatter("Nipomo","C. Moulden","So",14,.340,52,47,10,16,13,4,0,0,3,7,2,0,.404,.426,.830),
   buildBatter("Nipomo","E. Silveira","Sr",14,.275,42,40,6,11,5,1,0,0,1,5,0,1,.286,.300,.586),
-  buildBatter("Nipomo","T. Oxley","Sr",12,.160,34,25,6,4,1,1,0,0,8,14,1,0,.382,.200,.582),
+  buildBatter("Nipomo","T. Oxley","Sr",13,.185,37,27,6,5,2,1,0,0,8,14,1,1,.378,.222,.600),
+  buildBatter("Nipomo","T. Barr","Sr",12,.214,31,28,2,6,3,0,0,0,1,10,1,1,.258,.214,.472),
+  buildBatter("Nipomo","H. Roesner","Jr",11,.167,14,12,3,2,1,0,0,0,2,4,0,0,.286,.167,.453),
+  buildBatter("Nipomo","K. Simonson","So",12,.158,20,19,2,3,1,0,0,0,0,2,0,1,.150,.158,.308),
+  buildBatter("Nipomo","A. Mendoza","Jr",8,.000,4,3,0,0,0,0,0,0,1,2,0,0,.250,.000,.250),
+  buildBatter("Nipomo","J. Lanier","Sr",4,.000,2,2,1,0,0,0,0,0,0,1,0,0,.000,.000,.000),
+  buildBatter("Nipomo","Z. Garibay","Sr",3,.000,1,1,0,0,0,0,0,0,0,1,0,0,.000,.000,.000),
 
   // PASO ROBLES
   buildBatter("Paso Robles","M. Garcia","Sr",13,.442,53,43,20,19,9,4,1,0,9,1,1,0,.547,.581,1.128),
@@ -790,10 +801,15 @@ const batters = [
   buildBatter("Pioneer Valley","L. Dreier","Jr",8,.375,12,8,4,3,1,0,0,0,3,1,1,0,.583,.375,.958),
   buildBatter("Pioneer Valley","D. Cortez","So",14,.311,55,45,12,14,7,6,0,0,10,9,0,0,.436,.444,.880),
   buildBatter("Pioneer Valley","M. Rosas","Sr",12,.323,39,31,7,10,3,1,0,0,4,8,3,1,.447,.355,.802),
-  buildBatter("Pioneer Valley","I. Martinez","Sr",8,.222,13,9,1,2,2,0,0,0,4,0,0,0,.462,.222,.684),
-  buildBatter("Pioneer Valley","I. Garcia","Jr",6,.250,4,4,1,1,0,0,0,0,0,0,0,0,.250,.250,.500),
+  buildBatter("Pioneer Valley","I. Martinez","Sr",9,.231,17,13,2,3,3,0,0,0,4,4,1,0,.412,.231,.643),
+  buildBatter("Pioneer Valley","I. Garcia","Jr",7,.400,5,5,2,2,1,0,0,0,0,0,0,0,.400,.400,.800),
   buildBatter("Pioneer Valley","U. Ponce","Jr",13,.200,38,35,6,7,4,1,0,0,1,16,1,1,.243,.229,.472),
   buildBatter("Pioneer Valley","E. Ponce","Sr",14,.267,57,45,19,12,1,1,0,1,7,5,4,1,.411,.311,.722),
+  buildBatter("Pioneer Valley","J. Lopez","Sr",14,.167,46,42,6,7,7,1,0,1,2,12,1,2,.205,.214,.419),
+  buildBatter("Pioneer Valley","K. Owen","Sr",11,.167,35,30,2,5,2,0,0,0,2,4,2,1,.257,.167,.424),
+  buildBatter("Pioneer Valley","J. Medina","Jr",8,.182,14,11,1,2,2,0,0,0,2,6,0,1,.308,.182,.490),
+  buildBatter("Pioneer Valley","J. Valdez","Jr",10,.182,14,11,4,2,0,0,0,0,2,4,1,0,.357,.182,.539),
+  buildBatter("Pioneer Valley","M. Andrade","Jr",11,.091,31,22,4,2,4,0,0,0,7,8,0,2,.310,.091,.401),
 
   // RIGHETTI
   buildBatter("Righetti","K. Walker","Jr",13,.585,48,41,17,24,15,8,0,3,6,1,0,1,.625,1.000,1.625),
@@ -884,11 +900,12 @@ const pitchers = [
   // ARROYO GRANDE
   buildPitcher("Arroyo Grande","T. Winterberg","Jr",1.11,0,0,19,12,6,3,3,18,4),
   buildPitcher("Arroyo Grande","Z. Johnson","Jr",0.00,0,0,13.2,8,3,0,5,7,6),
-  buildPitcher("Arroyo Grande","G. Pope","Sr",1.33,0,0,21,13,9,4,6,16,6),
-  buildPitcher("Arroyo Grande","M. Hicks","Sr",0.00,0,0,1.1,2,0,0,2,2,2),
+  buildPitcher("Arroyo Grande","G. Pope","Sr",1.12,0,0,25,14,9,4,9,18,7),
+  buildPitcher("Arroyo Grande","M. Hicks","Sr",0.00,0,0,3.1,4,0,0,2,4,3),
   buildPitcher("Arroyo Grande","O. King","Jr",2.62,0,0,8,8,5,3,4,11,4),
   buildPitcher("Arroyo Grande","T. Bournonville","Sr",2.88,0,0,17,10,7,7,6,11,5),
   buildPitcher("Arroyo Grande","J. Kreowski","Sr",3.50,0,0,16,15,15,8,13,8,5),
+  buildPitcher("Arroyo Grande","R. Bronson","Sr",0.00,0,0,0,2,2,1,0,0,1),
 
   // ATASCADERO
   buildPitcher("Atascadero","W. Azelton","So",3.20,2,2,30.2,37,20,14,9,28,7),
@@ -907,6 +924,7 @@ const pitchers = [
   buildPitcher("Cabrillo","F. Lopez","Sr",7.45,0,5,20.2,28,35,22,25,11,7),
   buildPitcher("Cabrillo","M. Koff","Sr",10.50,0,0,8,14,13,12,8,9,6),
   buildPitcher("Cabrillo","I. Lopez","So",10.50,0,1,6,12,13,9,4,5,3),
+  buildPitcher("Cabrillo","L. Vorce","Jr",28.00,0,1,1,1,5,4,5,0,1),
 
   // MORRO BAY
   buildPitcher("Morro Bay","E. Brown","Sr",3.19,3,2,26.1,26,15,12,8,27,8),
@@ -921,7 +939,10 @@ const pitchers = [
   buildPitcher("Nipomo","A. Mendoza","Jr",3.97,0,0,12.1,12,7,7,9,10,6),
   buildPitcher("Nipomo","G. Groshart","Sr",4.74,0,1,10.1,10,12,7,11,11,4),
   buildPitcher("Nipomo","L. Hobbs","Sr",6.12,1,1,8,10,8,7,10,3,4),
+  buildPitcher("Nipomo","K. Simonson","So",6.00,0,0,2.1,1,2,2,3,2,2),
   buildPitcher("Nipomo","L. Hobbs","Fr",5.60,0,0,5,13,4,4,4,1,3),
+  buildPitcher("Nipomo","Z. Garibay","Sr",10.50,0,0,1.1,3,2,2,0,0,1),
+  buildPitcher("Nipomo","F. Callaghan","Jr",0.00,0,0,0.2,0,0,0,1,0,1),
 
   // PASO ROBLES
   buildPitcher("Paso Robles","E. Rendon","So",1.64,4,0,21.1,9,6,5,24,38,7),
@@ -936,8 +957,12 @@ const pitchers = [
   buildPitcher("Pioneer Valley","J. Valdez","Jr",1.53,2,0,18.1,16,8,4,7,20,6),
   buildPitcher("Pioneer Valley","K. Owen","Sr",1.27,1,0,11,10,7,2,6,10,3),
   buildPitcher("Pioneer Valley","D. Cortez","So",1.91,1,0,7.1,8,5,2,4,7,6),
+  buildPitcher("Pioneer Valley","M. Botello","Jr",0.00,0,0,2,3,0,0,0,2,2),
   buildPitcher("Pioneer Valley","J. Beltran","Jr",2.75,3,1,20.1,22,12,8,7,15,7),
   buildPitcher("Pioneer Valley","J. Rojas","Sr",3.65,1,1,15.1,12,9,8,5,12,5),
+  buildPitcher("Pioneer Valley","I. Martinez","Sr",3.82,0,1,3.2,8,8,2,3,2,2),
+  buildPitcher("Pioneer Valley","J. Medina","Jr",14.00,0,1,1,2,2,2,1,3,1),
+  buildPitcher("Pioneer Valley","J. Lopez","Sr",21.00,0,0,2,6,8,6,2,3,1),
 
   // RIGHETTI
   buildPitcher("Righetti","I. Rocha","So",2.05,3,1,27.1,32,9,8,8,19,5),
@@ -1010,7 +1035,7 @@ const pitchers = [
 const standingsData = {
   mountain: [
     { abbr:"SJ",  name:"St. Joseph",          lw:6, ll:1, ow:13, ol:2,  ot:1, str:"W2" },
-    { abbr:"AG",  name:"Arroyo Grande",        lw:5, ll:2, ow:11, ol:4,  ot:0, str:"W3" },
+    { abbr:"AG",  name:"Arroyo Grande",        lw:5, ll:2, ow:12, ol:4,  ot:0, str:"W3" },
     { abbr:"RHS", name:"Righetti",             lw:4, ll:3, ow:8,  ol:5,  ot:0, str:"W4" },
     { abbr:"MB",  name:"Morro Bay",            lw:3, ll:4, ow:8,  ol:5,  ot:0, str:"L2" },
     { abbr:"MP",  name:"Mission College Prep", lw:2, ll:5, ow:5,  ol:7,  ot:0, str:"L3" },
