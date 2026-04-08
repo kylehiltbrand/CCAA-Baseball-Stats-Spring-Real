@@ -390,6 +390,7 @@ const batters = [
   buildBatter("Arroyo Grande","J. Ralph","Jr",16,.305,65,59,12,18,8,1,0,1,4,5,2,0,.369,.373,.742),
   buildBatter("Arroyo Grande","K. Warwick","Jr",11,.211,19,19,3,4,1,0,1,0,0,9,0,0,.211,.316,.527),
   buildBatter("Arroyo Grande","C. Jaynes","Jr",9,.417,15,12,7,5,4,0,0,0,2,3,1,0,.533,.417,.950),
+  buildBatter("Arroyo Grande","R. Bronson","Sr",11,.333,21,18,3,6,6,0,0,1,2,4,0,1,.400,.500,.900),
 
   // ATASCADERO
   buildBatter("Atascadero","M. Cullen","Jr",9,.500,2,2,0,1,0,0,0,0,0,0,0,0,.500,.500,1.000),
@@ -567,6 +568,7 @@ const pitchers = [
   buildPitcher("Arroyo Grande","O. King","Jr",2.62,0,0,8,8,5,3,4,11,4),
   buildPitcher("Arroyo Grande","T. Bournonville","Sr",2.88,0,0,17,10,7,7,6,11,5),
   buildPitcher("Arroyo Grande","J. Kreowski","Sr",3.50,0,0,16,15,15,8,13,8,5),
+  buildPitcher("Arroyo Grande","R. Bronson","Sr",0.00,0,0,0,2,2,1,0,0,1),
 
   // ATASCADERO
   buildPitcher("Atascadero","W. Azelton","So",3.20,2,2,30.2,37,20,14,9,28,7),
