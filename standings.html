@@ -69,8 +69,7 @@ tbody td:first-child{text-align:left;padding-left:1rem;color:var(--text);font-we
 .sl{width:22px;text-align:center;font-weight:700;color:#fc8181;font-size:.8rem}
 .spct{width:38px;text-align:center;color:var(--text);font-size:.78rem}
 .sgb{width:26px;text-align:center;color:var(--sub);font-size:.75rem}
-.sstr{width:36px;text-align:center}
-.sovr{width:44px;text-align:right;color:var(--sub);font-size:.7rem}
+.sovr{width:60px;text-align:right;color:var(--sub);font-size:.7rem}
 .tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}
 @media(max-width:900px){.tgrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:580px){.tgrid{grid-template-columns:1fr}}
@@ -129,11 +128,10 @@ function build(key,data){
   const L=s[0];
   return `<div class="card" data-d="${key}">
     <div class="card-hdr"><div><div class="card-title">${data.label}</div><div class="card-sub">${data.sub}</div></div></div>
-    <div class="sth"><span class="srk">#</span><span class="stm">Team</span><span class="sw">W</span><span class="sl">L</span><span class="spct">PCT</span><span class="sgb">GB</span><span class="sstr">STR</span><span class="sovr">Overall</span></div>
+    <div class="sth"><span class="srk">#</span><span class="stm">Team</span><span class="sw">W</span><span class="sl">L</span><span class="spct">PCT</span><span class="sgb">GB</span><span class="sovr">Overall</span></div>
     ${s.map((t,i)=>{
       const ovr=t.ot>0?`${t.ow}-${t.ol}-${t.ot}`:`${t.ow}-${t.ol}`;
-      const isW=t.str[0]==='W';
-      return `<div class="srow${i===0?' lead':''}"><span class="srk">${i+1}</span><span class="stm">${t.name}</span><span class="sw">${t.lw}</span><span class="sl">${t.ll}</span><span class="spct">${pct(t.lw,t.ll)}</span><span class="sgb">${i===0?'—':gb(L.lw,L.ll,t.lw,t.ll)}</span><span class="sstr"><span class="sk ${isW?'skw':'skl'}">${t.str}</span></span><span class="sovr">${ovr}</span></div>`;
+      return `<div class="srow${i===0?' lead':''}"><span class="srk">${i+1}</span><span class="stm">${t.name}</span><span class="sw">${t.lw}</span><span class="sl">${t.ll}</span><span class="spct">${pct(t.lw,t.ll)}</span><span class="sgb">${i===0?'—':gb(L.lw,L.ll,t.lw,t.ll)}</span><span class="sovr">${ovr}</span></div>`;
     }).join('')}
   </div>`;
 }

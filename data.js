@@ -705,24 +705,24 @@ const pitchers = [
 // ============================================================
 const standingsData = {
   mountain: [
-    { abbr:"SJ",  name:"St. Joseph",          lw:6, ll:1, ow:14, ol:4,  ot:1, str:"W2" },
-    { abbr:"AG",  name:"Arroyo Grande",        lw:5, ll:2, ow:14, ol:5,  ot:0, str:"W3" },
-    { abbr:"RHS", name:"Righetti",             lw:4, ll:3, ow:11, ol:6,  ot:0, str:"W4" },
-    { abbr:"MB",  name:"Morro Bay",            lw:3, ll:4, ow:12, ol:5,  ot:0, str:"L2" },
-    { abbr:"MP",  name:"Mission College Prep", lw:2, ll:5, ow:7,  ol:7,  ot:0, str:"W2" },
-    { abbr:"LOM", name:"Lompoc",               lw:1, ll:6, ow:9,  ol:10, ot:0, str:"L1" },
+    { abbr:"SJ",  name:"St. Joseph",          lw:6, ll:1, ow:14, ol:4,  ot:1 },
+    { abbr:"AG",  name:"Arroyo Grande",        lw:5, ll:2, ow:14, ol:5,  ot:0 },
+    { abbr:"RHS", name:"Righetti",             lw:4, ll:3, ow:11, ol:6,  ot:0 },
+    { abbr:"MB",  name:"Morro Bay",            lw:3, ll:4, ow:12, ol:5,  ot:0 },
+    { abbr:"MP",  name:"Mission College Prep", lw:2, ll:5, ow:7,  ol:7,  ot:0 },
+    { abbr:"LOM", name:"Lompoc",               lw:1, ll:6, ow:9,  ol:10, ot:0 },
   ],
   sunset: [
-    { abbr:"SLO", name:"San Luis Obispo", lw:5, ll:1, ow:10, ol:8,  ot:0, str:"W1" },
-    { abbr:"PAS", name:"Paso Robles",     lw:5, ll:1, ow:10, ol:8,  ot:1, str:"W4" },
-    { abbr:"ATA", name:"Atascadero",      lw:2, ll:4, ow:5,  ol:12, ot:0, str:"L1" },
-    { abbr:"TMP", name:"Templeton",       lw:1, ll:3, ow:8,  ol:11, ot:0, str:"W2" },
-    { abbr:"CAB", name:"Cabrillo",        lw:1, ll:5, ow:4,  ol:15, ot:0, str:"L2" },
+    { abbr:"SLO", name:"San Luis Obispo", lw:5, ll:1, ow:10, ol:8,  ot:0 },
+    { abbr:"PAS", name:"Paso Robles",     lw:5, ll:1, ow:10, ol:8,  ot:1 },
+    { abbr:"ATA", name:"Atascadero",      lw:2, ll:4, ow:5,  ol:12, ot:0 },
+    { abbr:"TMP", name:"Templeton",       lw:1, ll:3, ow:8,  ol:11, ot:0 },
+    { abbr:"CAB", name:"Cabrillo",        lw:1, ll:5, ow:4,  ol:15, ot:0 },
   ],
   ocean: [
-    { abbr:"PV",  name:"Pioneer Valley", lw:4, ll:1, ow:10, ol:6,  ot:2, str:"L1" },
-    { abbr:"SY",  name:"Santa Ynez",     lw:2, ll:1, ow:11, ol:3,  ot:0, str:"W1" },
-    { abbr:"NIP", name:"Nipomo",         lw:2, ll:1, ow:9,  ol:9,  ot:0, str:"L2" },
-    { abbr:"SM",  name:"Santa Maria",    lw:0, ll:5, ow:5,  ol:7,  ot:0, str:"L2" },
+    { abbr:"PV",  name:"Pioneer Valley", lw:4, ll:1, ow:10, ol:6,  ot:2 },
+    { abbr:"SY",  name:"Santa Ynez",     lw:2, ll:1, ow:11, ol:3,  ot:0 },
+    { abbr:"NIP", name:"Nipomo",         lw:2, ll:1, ow:9,  ol:9,  ot:0 },
+    { abbr:"SM",  name:"Santa Maria",    lw:0, ll:5, ow:5,  ol:7,  ot:0 },
   ]
 };
