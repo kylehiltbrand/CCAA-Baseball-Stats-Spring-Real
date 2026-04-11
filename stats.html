@@ -145,7 +145,7 @@ footer a:hover{color:var(--text)}
     <span class="chevron">▲</span>
   </button>
   <div class="gloss-body">
-    <p class="gloss-intro">Advanced metrics computed from base stats using sabermetric formulas. All league constants calibrated to 2025-26 CCAA data (13 teams): lg AVG .304 · lg OBP .409 · lg wOBA .361 · lg ERA 4.61.</p>
+    <p class="gloss-intro">Advanced metrics computed from base stats using sabermetric formulas. All league constants calibrated to 2025-26 CCAA data (13 teams): lg AVG .305 · lg wOBA .358 · lg ERA 4.83 · lg K/9 7.5 · lg BB/9 5.5.</p>
 
     <div class="gloss-section-title">HITTING</div>
     <div class="gloss-grid">
@@ -187,7 +187,7 @@ footer a:hover{color:var(--text)}
     <div class="gloss-grid">
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">ERA</span></div>
-        <div class="gi-def">Earned Run Average — <code>(ER × 9) / IP</code>. CCAA league avg: 4.61.</div>
+        <div class="gi-def">Earned Run Average — <code>(ER × 9) / IP</code>. CCAA league avg: 4.83.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">WHIP</span></div>
@@ -195,11 +195,11 @@ footer a:hover{color:var(--text)}
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">K/9</span><span class="advb">ADV</span></div>
-        <div class="gi-def">Strikeouts per 9 innings — <code>(K × 9) / IP</code>. CCAA league avg: 8.3.</div>
+        <div class="gi-def">Strikeouts per 9 innings — <code>(K × 9) / IP</code>. CCAA league avg: 7.5.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">BB/9</span></div>
-        <div class="gi-def">Walks per 9 innings — <code>(BB × 9) / IP</code>. CCAA league avg: 4.9.</div>
+        <div class="gi-def">Walks per 9 innings — <code>(BB × 9) / IP</code>. CCAA league avg: 5.5.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">K/BB</span><span class="advb">ADV</span></div>
@@ -220,7 +220,7 @@ footer a:hover{color:var(--text)}
     </div>
 
     <div style="margin-top:.85rem;font-size:.65rem;color:var(--dim);line-height:1.6">
-      ★ All WAR values use CCAA run environment: lg ERA 4.61, runs/win 13.6, replacement level −33.4 runs/600 PA.
+      ★ All WAR values use CCAA run environment: lg ERA 4.83, runs/win 6.0, replacement level −33.4 runs/600 PA.
       Small-sample regression applied: wRC+ and ERA+ converge toward 100 (average) below threshold PAs/IP.
     </div>
   </div>
@@ -252,7 +252,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
 </div>
 
 <div id="p-hs" class="card">
-  <div class="card-hdr"><div class="card-title">Batting — Standard</div><a href="#" class="mxlink">Full Leaders on MaxPreps ↗</a></div>
+  <div class="card-hdr"><div class="card-title">Batting — Standard</div></div>
   <div class="tw"><table>
     <thead><tr>
       <th onclick="srt('avg',false)" style="min-width:130px"># Player</th>
@@ -278,7 +278,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
 </div>
 
 <div id="p-ha" class="card" style="display:none">
-  <div class="card-hdr"><div class="card-title">Batting — Advanced <span class="advb">ADV</span></div><a href="#" class="mxlink">Full Leaders on MaxPreps ↗</a></div>
+  <div class="card-hdr"><div class="card-title">Batting — Advanced <span class="advb">ADV</span></div></div>
   <div class="tw"><table>
     <thead><tr>
       <th onclick="srt('avg',false)" style="min-width:130px"># Player</th>
@@ -297,7 +297,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
 </div>
 
 <div id="p-ps" class="card" style="display:none">
-  <div class="card-hdr"><div class="card-title">Pitching — Standard</div><a href="#" class="mxlink">Full Leaders on MaxPreps ↗</a></div>
+  <div class="card-hdr"><div class="card-title">Pitching — Standard</div></div>
   <div class="tw"><table>
     <thead><tr>
       <th onclick="srt('era',true)" style="min-width:130px"># Player</th>
@@ -316,7 +316,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
 </div>
 
 <div id="p-pa" class="card" style="display:none">
-  <div class="card-hdr"><div class="card-title">Pitching — Advanced <span class="advb">ADV</span></div><a href="#" class="mxlink">Full Leaders on MaxPreps ↗</a></div>
+  <div class="card-hdr"><div class="card-title">Pitching — Advanced <span class="advb">ADV</span></div></div>
   <div class="tw"><table>
     <thead><tr>
       <th style="min-width:130px"># Player</th>

@@ -128,7 +128,7 @@ function build(key,data){
   const s=[...data.teams].sort((a,b)=>b.lw-a.lw||a.ll-b.ll);
   const L=s[0];
   return `<div class="card" data-d="${key}">
-    <div class="card-hdr"><div><div class="card-title">${data.label}</div><div class="card-sub">${data.sub}</div></div><a href="#" class="mxlink">MaxPreps ↗</a></div>
+    <div class="card-hdr"><div><div class="card-title">${data.label}</div><div class="card-sub">${data.sub}</div></div></div>
     <div class="sth"><span class="srk">#</span><span class="stm">Team</span><span class="sw">W</span><span class="sl">L</span><span class="spct">PCT</span><span class="sgb">GB</span><span class="sstr">STR</span><span class="sovr">Overall</span></div>
     ${s.map((t,i)=>{
       const ovr=t.ot>0?`${t.ow}-${t.ol}-${t.ot}`:`${t.ow}-${t.ol}`;
