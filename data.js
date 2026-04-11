@@ -709,8 +709,8 @@ const standingsData = {
     { abbr:"AG",  name:"Arroyo Grande",        lw:5, ll:2, ow:14, ol:5,  ot:0, str:"W3" },
     { abbr:"RHS", name:"Righetti",             lw:4, ll:3, ow:11, ol:6,  ot:0, str:"W4" },
     { abbr:"MB",  name:"Morro Bay",            lw:3, ll:4, ow:12, ol:5,  ot:0, str:"L2" },
-    { abbr:"MP",  name:"Mission College Prep", lw:2, ll:5, ow:7,  ol:7,  ot:0, str:"L3" },
-    { abbr:"LOM", name:"Lompoc",               lw:1, ll:6, ow:9,  ol:10, ot:0, str:"L5" },
+    { abbr:"MP",  name:"Mission College Prep", lw:2, ll:5, ow:7,  ol:7,  ot:0, str:"W2" },
+    { abbr:"LOM", name:"Lompoc",               lw:1, ll:6, ow:9,  ol:10, ot:0, str:"L1" },
   ],
   sunset: [
     { abbr:"SLO", name:"San Luis Obispo", lw:5, ll:1, ow:10, ol:8,  ot:0, str:"W1" },
