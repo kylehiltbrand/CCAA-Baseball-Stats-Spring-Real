@@ -234,6 +234,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
   <div class="tgroup">
     <button class="tbtn on" onclick="setTab('hitting',this)">⚾ Hitting</button>
     <button class="tbtn" onclick="setTab('pitching',this)">⚾ Pitching</button>
+    <button class="tbtn" onclick="setTab('twoway',this)">⚡ Two-Way</button>
   </div>
   <div class="vgroup">
     <button class="vbtn on" onclick="setView('standard',this)">Standard</button>
@@ -332,6 +333,24 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
     <tbody id="b-pa"></tbody>
   </table></div>
 </div>
+<div id="p-tw" class="card" style="display:none">
+  <div class="card-hdr"><div class="card-title">Two-Way Players — Total WAR <span class="advb">ADV</span></div></div>
+  <div class="tw"><table>
+    <thead><tr>
+      <th onclick="srt('twar',false)" style="min-width:130px"># Player</th>
+      <th onclick="srt('team',true)">Team</th><th onclick="srt('year',true)">Yr</th>
+      <th onclick="srt('pa',false)" data-tip="Plate Appearances">PA</th>
+      <th onclick="srt('ip',false)" data-tip="Innings Pitched">IP</th>
+      <th onclick="srt('avg',false)" data-tip="Batting Average">AVG</th>
+      <th onclick="srt('wrc_plus',false)" data-tip="wRC+ — 100=league avg">wRC+ <span class="advb">ADV</span></th>
+      <th onclick="srt('era',true)" data-tip="ERA">ERA</th>
+      <th onclick="srt('owar',false)" data-tip="Offensive WAR">oWAR <span class="advb">ADV</span></th>
+      <th onclick="srt('pwar',false)" data-tip="Pitching WAR">pWAR <span class="advb">ADV</span></th>
+      <th onclick="srt('twar',false)" data-tip="Total WAR = oWAR + pWAR">tWAR <span class="advb">ADV</span></th>
+    </tr></thead>
+    <tbody id="b-tw"></tbody>
+  </table></div>
+</div>
 </main>
 <footer>CCAA Baseball · Spring 2026 · Central Coast Athletic Association, CA · Stats: <a href="standings.html">Mountain</a> · <a href="standings.html">Sunset</a> · <a href="standings.html">Ocean</a></footer>
 <script src="data.js"></script>
@@ -350,7 +369,7 @@ const sel=document.getElementById('teamSel');
 
 const YEAR_ORDER = {"Fr":1,"So":2,"Jr":3,"Sr":4,"??":5};
 function setLeague(l,btn){curLeague=l;document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');render()}
-function setTab(t,btn){curTab=t;document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');curCol=t==='pitching'?'era':'avg';curAsc=t==='pitching';render()}
+function setTab(t,btn){curTab=t;document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');curCol=t==='pitching'?'era':t==='twoway'?'twar':'avg';curAsc=t==='pitching';document.querySelector('.vgroup').style.display=t==='twoway'?'none':'';render()}
 function setView(v,btn){curView=v;document.querySelectorAll('.vbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');render()}
 function srt(col,asc){curCol===col?curAsc=!curAsc:(curCol=col,curAsc=asc);render()}
 
@@ -368,13 +387,15 @@ function render(){
   const mPA=parseInt(document.getElementById('minPA').value)||0;
   const mIP=parseFloat(document.getElementById('minIP').value)||0;
 
-  ['p-hs','p-ha','p-ps','p-pa'].forEach(id=>document.getElementById(id).style.display='none');
+  ['p-hs','p-ha','p-ps','p-pa','p-tw'].forEach(id=>document.getElementById(id).style.display='none');
   if(curTab==='hitting'){
     if(curView==='standard')document.getElementById('p-hs').style.display='';
     if(curView==='advanced')document.getElementById('p-ha').style.display='';
-  }else{
+  }else if(curTab==='pitching'){
     if(curView==='standard')document.getElementById('p-ps').style.display='';
     if(curView==='advanced')document.getElementById('p-pa').style.display='';
+  }else{
+    document.getElementById('p-tw').style.display='';
   }
 
   let H=batters.filter(b=>(!teamF||b.team===teamF)&&(curLeague==='all'||TL[b.team]===curLeague)&&b.pa>=mPA);
@@ -413,9 +434,45 @@ function render(){
   document.getElementById('b-pa').innerHTML=P.map((p,i)=>{
     return `<tr><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.ip}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td class="vadv">${cv(p.k9,6,9,v=>f1(v))}</td><td class="vadv">${cv(p.kpct,20,30,v=>v.toFixed(1)+'%')}</td><td class="vadv">${cv(p.pwar,0,1,v=>(v>0?'+':'')+v)}</td><td class="vadv">${cv(p.kbb,1.5,3,v=>f2(v))}</td><td class="vadv">${cv(p.era_plus,80,120,v=>v.toString())}</td></tr>`;
   }).join('');
+
+  // Two-Way: match batters with pitchers by name+team, require both owar and pwar
+  if(curTab==='twoway'){
+    const pitcherMap={};
+    pitchers.forEach(p=>{
+      const key=p.name+'|'+p.team;
+      if(!pitcherMap[key]||p.ip>pitcherMap[key].ip) pitcherMap[key]=p;
+    });
+    let TW=[];
+    batters.forEach(b=>{
+      if(teamF&&b.team!==teamF)return;
+      if(curLeague!=='all'&&TL[b.team]!==curLeague)return;
+      const key=b.name+'|'+b.team;
+      const p=pitcherMap[key];
+      if(!p||p.ip<mIP||b.pa<mPA)return;
+      if(b.owar===null||p.pwar===null)return;
+      const twar=Math.round((b.owar+p.pwar)*10)/10;
+      TW.push({...b,ip:p.ip,era:p.era,pwar:p.pwar,twar,year:b.year});
+    });
+    TW.sort((a,b)=>{
+      const col=curCol==='twar'?'twar':curCol;
+      let va=col==='year'?(YEAR_ORDER[a.year]||9):(a[col]??(curAsc?Infinity:-Infinity));
+      let vb=col==='year'?(YEAR_ORDER[b.year]||9):(b[col]??(curAsc?Infinity:-Infinity));
+      const primary=typeof va==='string'?va.localeCompare(vb):curAsc?va-vb:vb-va;
+      if(primary!==0)return primary;
+      return a.name.localeCompare(b.name);
+    });
+    document.getElementById('b-tw').innerHTML=TW.map((p,i)=>{
+      const oc=p.owar>=1?'vhi':p.owar>=0?'vmd':'vlo';
+      const pc=p.pwar>=1?'vhi':p.pwar>=0?'vmd':'vlo';
+      const tc=p.twar>=2?'vhi':p.twar>=1?'vmd':'vlo';
+      const wc=p.wrc_plus===null?'vna':p.wrc_plus>=130?'vhi':p.wrc_plus>=90?'vmd':'vlo';
+      return `<tr><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.pa}</td><td>${p.ip}</td><td class="vbold">${f3(p.avg)||'—'}</td><td><span class="${wc}">${p.wrc_plus!==null?p.wrc_plus:'—'}</span></td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td class="vadv"><span class="${oc}">${p.owar!==null?(p.owar>0?'+':'')+p.owar:'—'}</span></td><td class="vadv"><span class="${pc}">${p.pwar!==null?(p.pwar>0?'+':'')+p.pwar:'—'}</span></td><td class="vadv"><span class="${tc}">${(p.twar>0?'+':'')+p.twar}</span></td></tr>`;
+    }).join('');
+  }
 }
 
 render();
+
 
 function downloadCSV() {
   const isHitting = curTab === 'hitting';
