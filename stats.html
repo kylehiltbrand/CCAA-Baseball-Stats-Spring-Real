@@ -611,13 +611,15 @@ function getMobSorts(){
 
 function getMobStatKeys(){
   if(curTab==='twoway'){
-    const extras=['era','owar','wrc_plus'].filter(k=>k!==mobSortKey);
-    return[mobSortKey,...extras].slice(0,4);
+    const extras=curView==='advanced'?['twar','owar','pwar','wrc_plus','era_plus']:['era','owar','wrc_plus'];
+    return[mobSortKey,...extras.filter(k=>k!==mobSortKey)].slice(0,4);
   }
   if(curTab==='pitching'){
-    return[mobSortKey,...['era','k9','ip','pwar','era_plus','kbb','k'].filter(k=>k!==mobSortKey)].slice(0,4);
+    const pool=curView==='advanced'?['era_plus','kbb','pwar','k9','ip','era']:['era','k9','ip','k','pwar'];
+    return[mobSortKey,...pool.filter(k=>k!==mobSortKey)].slice(0,4);
   }
-  return[mobSortKey,...['avg','ops','wrc_plus','rbi','hr','obp','woba','owar','bbk'].filter(k=>k!==mobSortKey)].slice(0,4);
+  const pool=curView==='advanced'?['woba','wrc_plus','owar','bbk','obp','slg']:['avg','ops','hr','rbi','obp','h'];
+  return[mobSortKey,...pool.filter(k=>k!==mobSortKey)].slice(0,4);
 }
 
 function getMobData(teamF,mPA,mIP){
