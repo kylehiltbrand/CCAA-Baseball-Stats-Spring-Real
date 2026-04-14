@@ -171,8 +171,14 @@ const TD={
     {abbr:"SM", name:"Santa Maria",   loc:"Santa Maria, CA", bg:"#2a0f0f",fg:"#e08080"},
   ]}
 };
+const LOGOS={"Arroyo Grande":"logos/ag.png"};
 let cur='all';
 function filt(d,btn){cur=d;document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');render()}
+function teamBadge(t){
+  const textBadge=`<div class="tbadge" style="background:${t.bg};color:${t.fg}">${t.abbr}</div>`;
+  if(LOGOS[t.name]) return `<img src="${LOGOS[t.name]}" style="width:36px;height:36px;object-fit:contain;flex-shrink:0" alt="${t.abbr}">${textBadge}`;
+  return textBadge;
+}
 function render(){
   const root=document.getElementById('root');
   root.innerHTML='';
@@ -187,7 +193,7 @@ function render(){
     data.teams.forEach(t=>{
       const c=document.createElement('div');
       c.className='tcard';
-      c.innerHTML=`<div class="tbadge" style="background:${t.bg};color:${t.fg}">${t.abbr}</div><div><div class="tcname">${t.name}</div><div class="tcsub">${t.loc} · CCAA ${key.charAt(0).toUpperCase()+key.slice(1)}</div></div>`;
+      c.innerHTML=`${teamBadge(t)}<div><div class="tcname">${t.name}</div><div class="tcsub">${t.loc} · CCAA ${key.charAt(0).toUpperCase()+key.slice(1)}</div></div>`;
       grid.appendChild(c);
     });
     root.appendChild(grid);
