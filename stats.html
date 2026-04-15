@@ -844,6 +844,7 @@ function openProfile(name,team,tab){
         ${pill('wOBA',b.woba!==null?f3(b.woba):'—','vadv')}
         ${b.wrc_plus!==null?pill('wRC+',b.wrc_plus,b.wrc_plus>=130?'vhi':b.wrc_plus>=90?'vmd':'vlo'):''}
         ${b.owar!==null?pill('oWAR',(b.owar>0?'+':'')+b.owar,b.owar>=1?'vhi':b.owar>=0?'vmd':'vlo'):''}
+        ${b.proj40owar!==null?pill('Proj40 oWAR',(b.proj40owar>0?'+':'')+b.proj40owar,b.proj40owar>=2?'vhi':b.proj40owar>=1?'vmd':'vlo'):''}
         ${b.bbk!==null?pillCV('BB/K',b.bbk,.25,.5,v=>f2(v)):''}
       </div>
     </div>`;
@@ -871,10 +872,28 @@ function openProfile(name,team,tab){
         ${p.kpct!==null?pill('K%',p.kpct.toFixed(1)+'%','vadv'):''}
         ${p.era_plus!==null?pill('ERA+',p.era_plus,p.era_plus>=120?'vhi':p.era_plus>=80?'vmd':'vlo'):''}
         ${p.pwar!==null?pill('pWAR',(p.pwar>0?'+':'')+p.pwar,p.pwar>=1?'vhi':p.pwar>=0?'vmd':'vlo'):''}
+        ${p.proj40pwar!==null?pill('Proj40 pWAR',(p.proj40pwar>0?'+':'')+p.proj40pwar,p.proj40pwar>=2?'vhi':p.proj40pwar>=1?'vmd':'vlo'):''}
       </div>
     </div>`;
   }
   if(!b&&!p) html='<p style="color:var(--sub);font-size:.75rem">No stats available.</p>';
+
+  // Two-Way WAR summary — only shown when player has both hitting and pitching data
+  if(b&&p&&b.owar!==null&&p.pwar!==null){
+    const twar=Math.round((b.owar+p.pwar)*10)/10;
+    const twarCls=twar>=2?'vhi':twar>=1?'vmd':'vlo';
+    const proj40twar=(b.proj40owar!==null&&p.proj40pwar!==null)?Math.round((b.proj40owar+p.proj40pwar)*10)/10:null;
+    const proj40twarCls=proj40twar!==null?(proj40twar>=4?'vhi':proj40twar>=2?'vmd':'vlo'):'vna';
+    html+=`<div class="modal-section" style="border-top:1px solid var(--bdr);margin-top:.25rem;padding-top:.75rem">
+      <div class="modal-section-title">Two-Way WAR</div>
+      <div class="stat-pills">
+        ${pill('tWAR',(twar>0?'+':'')+twar,twarCls)}
+        ${proj40twar!==null?pill('Proj40 tWAR',(proj40twar>0?'+':'')+proj40twar,proj40twarCls):''}
+        ${b.owar!==null?pill('oWAR',(b.owar>0?'+':'')+b.owar,b.owar>=1?'vhi':b.owar>=0?'vmd':'vlo'):''}
+        ${p.pwar!==null?pill('pWAR',(p.pwar>0?'+':'')+p.pwar,p.pwar>=1?'vhi':p.pwar>=0?'vmd':'vlo'):''}
+      </div>
+    </div>`;
+  }
 
   document.getElementById('pm-body').innerHTML=html;
   document.getElementById('profileModal').classList.add('open');
