@@ -148,13 +148,16 @@ footer a:hover{color:var(--text)}
 .sp-val.vhi{color:#68d391}.sp-val.vmd{color:var(--sky)}.sp-val.vlo{color:#fc8181}
 .sp-val.vadv{color:var(--gold)}.sp-val.vbold{color:var(--text)}.sp-val.vna{color:var(--dim);font-style:italic}
 .rank-pills{display:flex;flex-wrap:wrap;gap:.4rem}
-.rank-pill{display:flex;flex-direction:column;padding:.45rem .7rem;border-radius:6px;min-width:80px;border:1px solid var(--bdr)}
+.rank-pill{display:flex;flex-direction:column;padding:.45rem .7rem;border-radius:6px;min-width:90px;border:1px solid var(--bdr)}
 .rank-pill.rnk-gold{background:rgba(183,121,31,.15);border-color:#b7791f}
 .rank-pill.rnk-silver{background:rgba(160,174,192,.1);border-color:#718096}
 .rank-pill.rnk-bronze{background:rgba(74,85,104,.2);border-color:#4a5568}
 .rank-pill.rnk-plain{background:var(--bg3);border-color:var(--bdr)}
-.rp-label{font-size:.55rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--dim);margin-bottom:.2rem}
-.rp-val{font-size:.82rem;font-weight:700;color:var(--text)}
+.rp-label{font-size:.55rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--dim);margin-bottom:.35rem}
+.rp-stat-val{color:var(--sky);font-weight:700;text-transform:none;letter-spacing:0}
+.rp-ranks{display:flex;flex-direction:column;gap:.15rem}
+.rp-scope{font-size:.48rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);display:block;line-height:1.2}
+.rp-num{font-size:.82rem;font-weight:700;color:var(--text);display:block;line-height:1.3}
 .rp-stat{font-size:.7rem;font-weight:500;color:var(--sub);margin-left:.2rem}
 /* ── SEARCH INPUT ─────────────────────────────────────────── */
 .search-wrap{position:relative;display:flex;align-items:center}
@@ -793,11 +796,14 @@ function getRank(arr,key,playerVal,minField,minVal,lowerIsBetter){
   const rank=q.filter(x=>lowerIsBetter?x[key]<playerVal:x[key]>playerVal).length+1;
   return{rank,total:q.length};
 }
-function rankPill(label,val,r){
-  if(!r)return'';
-  const medal=r.rank===1?'🥇':r.rank===2?'🥈':r.rank===3?'🥉':'';
-  const cls=r.rank===1?'rnk-gold':r.rank<=3?'rnk-silver':r.rank<=10?'rnk-bronze':'rnk-plain';
-  return`<div class="rank-pill ${cls}"><span class="rp-label">${label}</span><span class="rp-val">${medal}#${r.rank} <span class="rp-stat">${val}</span></span></div>`;
+function rankPill(label,val,r,rLg,lgName){
+  if(!r&&!rLg)return'';
+  const medal=r?(r.rank===1?'🥇':r.rank===2?'🥈':r.rank===3?'🥉':''):'';
+  const cls=r?(r.rank===1?'rnk-gold':r.rank<=3?'rnk-silver':r.rank<=10?'rnk-bronze':'rnk-plain'):'rnk-plain';
+  const ccaaStr=r?`<span class="rp-scope">CCAA</span><span class="rp-num">${medal}#${r.rank}</span>`:'';
+  const lgMedal=rLg?(rLg.rank===1?'🥇':rLg.rank===2?'🥈':rLg.rank===3?'🥉':''):'';
+  const lgStr=rLg?`<span class="rp-scope">${lgName}</span><span class="rp-num">${lgMedal}#${rLg.rank}</span>`:'';
+  return`<div class="rank-pill ${cls}"><span class="rp-label">${label} <span class="rp-stat-val">${val}</span></span><div class="rp-ranks">${ccaaStr}${lgStr}</div></div>`;
 }
 function pill(label,val,cls){
   return `<div class="stat-pill"><span class="sp-label">${label}</span><span class="sp-val ${cls||''}">${val}</span></div>`;
@@ -899,21 +905,31 @@ function openProfile(name,team,tab){
   }
   if(!b&&!p) html='<p style="color:var(--sub);font-size:.75rem">No stats available.</p>';
 
-  // CCAA Rankings section
+  // Rankings section — CCAA-wide and league-specific
+  const playerLeague = TL[team]||'';
+  const leagueName = playerLeague==='mountain'?'Mountain':playerLeague==='sunset'?'Sunset':'Ocean';
+  const lgBatters = batters.filter(x=>TL[x.team]===playerLeague);
+  const lgPitchers = pitchers.filter(x=>TL[x.team]===playerLeague);
+
   const rankRows=[];
   if(b){
     const rWrc=getRank(batters,'wrc_plus',b.wrc_plus,'pa',30,false);
+    const rWrcLg=getRank(lgBatters,'wrc_plus',b.wrc_plus,'pa',30,false);
     const rOwar=getRank(batters,'owar',b.owar,'pa',30,false);
-    if(rWrc) rankRows.push(rankPill('wRC+',b.wrc_plus,rWrc));
-    if(rOwar) rankRows.push(rankPill('oWAR',(b.owar>0?'+':'')+b.owar,rOwar));
+    const rOwarLg=getRank(lgBatters,'owar',b.owar,'pa',30,false);
+    if(rWrc||rWrcLg) rankRows.push(rankPill('wRC+',b.wrc_plus,rWrc,rWrcLg,leagueName));
+    if(rOwar||rOwarLg) rankRows.push(rankPill('oWAR',(b.owar>0?'+':'')+b.owar,rOwar,rOwarLg,leagueName));
   }
   if(p){
     const rK9=getRank(pitchers,'k9',p.k9,'ip',15,false);
+    const rK9Lg=getRank(lgPitchers,'k9',p.k9,'ip',15,false);
     const rEraPlus=getRank(pitchers,'era_plus',p.era_plus,'ip',15,false);
+    const rEraPlusLg=getRank(lgPitchers,'era_plus',p.era_plus,'ip',15,false);
     const rPwar=getRank(pitchers,'pwar',p.pwar,'ip',15,false);
-    if(rK9) rankRows.push(rankPill('K/9',f1(p.k9),rK9));
-    if(rEraPlus) rankRows.push(rankPill('ERA+',p.era_plus,rEraPlus));
-    if(rPwar) rankRows.push(rankPill('pWAR',(p.pwar>0?'+':'')+p.pwar,rPwar));
+    const rPwarLg=getRank(lgPitchers,'pwar',p.pwar,'ip',15,false);
+    if(rK9||rK9Lg) rankRows.push(rankPill('K/9',f1(p.k9),rK9,rK9Lg,leagueName));
+    if(rEraPlus||rEraPlusLg) rankRows.push(rankPill('ERA+',p.era_plus,rEraPlus,rEraPlusLg,leagueName));
+    if(rPwar||rPwarLg) rankRows.push(rankPill('pWAR',(p.pwar>0?'+':'')+p.pwar,rPwar,rPwarLg,leagueName));
   }
   if(rankRows.length>0){
     html+=`<div class="modal-section" style="border-top:1px solid var(--bdr);margin-top:.25rem;padding-top:.75rem">
@@ -935,6 +951,8 @@ function openProfile(name,team,tab){
         ${proj40twar!==null?pill('Proj40 tWAR',(proj40twar>0?'+':'')+proj40twar,proj40twarCls):''}
         ${b.owar!==null?pill('oWAR',(b.owar>0?'+':'')+b.owar,b.owar>=1?'vhi':b.owar>=0?'vmd':'vlo'):''}
         ${p.pwar!==null?pill('pWAR',(p.pwar>0?'+':'')+p.pwar,p.pwar>=1?'vhi':p.pwar>=0?'vmd':'vlo'):''}
+        ${b.proj40owar!==null?pill('Proj40 oWAR',(b.proj40owar>0?'+':'')+b.proj40owar,b.proj40owar>=2?'vhi':b.proj40owar>=1?'vmd':'vlo'):''}
+        ${p.proj40pwar!==null?pill('Proj40 pWAR',(p.proj40pwar>0?'+':'')+p.proj40pwar,p.proj40pwar>=2?'vhi':p.proj40pwar>=1?'vmd':'vlo'):''}
       </div>
     </div>`;
   }
