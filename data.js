@@ -139,7 +139,7 @@ const teams = [
     leagueRecord: "2-1",
     wins: 11, losses: 3, ties: 0,
     leagueWins: 2, leagueLosses: 1,
-    caRank: 388,
+    caRank: 422,
     gp: 14,
     teamBavg: .384, teamOBP: .486, teamSLG: .501,
     teamERA: 2.55, teamIP: 93.1
@@ -156,7 +156,7 @@ const teams = [
     leagueRecord: "4-1",
     wins: 10, losses: 6, ties: 2,
     leagueWins: 4, leagueLosses: 1,
-    caRank: 415,
+    caRank: 476,
     gp: 14,
     teamBavg: .281, teamOBP: .400, teamSLG: .348,
     teamERA: 2.61, teamIP: 94
@@ -276,7 +276,7 @@ const teams = [
     leagueRecord: "1-3",
     wins: 8, losses: 11, ties: 0,
     leagueWins: 1, leagueLosses: 3,
-    caRank: 583,
+    caRank: 556,
     gp: 16,
     teamBavg: .275, teamOBP: .383, teamSLG: .354,
     teamERA: 3.82, teamIP: 108
@@ -311,7 +311,7 @@ const teams = [
     leagueRecord: "2-4",
     wins: 5, losses: 12, ties: 0,
     leagueWins: 2, leagueLosses: 4,
-    caRank: 608,
+    caRank: 637,
     gp: 17,
     teamBavg: .214, teamOBP: .378, teamSLG: .281,
     teamERA: 5.12, teamIP: 109.1
@@ -328,7 +328,7 @@ const teams = [
     leagueRecord: "0-5",
     wins: 5, losses: 7, ties: 0,
     leagueWins: 0, leagueLosses: 5,
-    caRank: 768,
+    caRank: 763,
     gp: 12,
     teamBavg: .322, teamOBP: .433, teamSLG: .370,
     teamERA: 4.18, teamIP: 77
@@ -345,7 +345,7 @@ const teams = [
     leagueRecord: "1-5",
     wins: 4, losses: 15, ties: 0,
     leagueWins: 1, leagueLosses: 5,
-    caRank: 729,
+    caRank: 711,
     gp: 17,
     teamBavg: .227, teamOBP: .314, teamSLG: .276,
     teamERA: 6.17, teamIP: 110
