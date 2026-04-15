@@ -358,7 +358,8 @@ function buildBatter(team, name, year, gp, avg, pa, ab, r, h, rbi, doubles, trip
   const wrc = calcWRC_plus(woba, pa);
   const owar = calcOWAR(wrc, pa);
   const bbk = calcBBK(bb, k);
-  return { team, name, year, gp, avg, pa, ab, r, h, rbi, doubles, triples, hr, bb, k, hbp, sf:sf||0, obp, slg, ops, woba: Math.round(woba*1000)/1000, wrc_plus: wrc, owar, bbk };
+  const proj40owar = (owar !== null && gp && gp >= 5) ? Math.round((owar / gp) * 40 * 10) / 10 : null;
+  return { team, name, year, gp, avg, pa, ab, r, h, rbi, doubles, triples, hr, bb, k, hbp, sf:sf||0, obp, slg, ops, woba: Math.round(woba*1000)/1000, wrc_plus: wrc, owar, bbk, proj40owar };
 }
 
 function buildPitcher(team, name, year, era, w, l, ip, h, r, er, bb, k, app) {
@@ -368,7 +369,8 @@ function buildPitcher(team, name, year, era, w, l, ip, h, r, er, bb, k, app) {
   const pwar = calcPWAR(era, ip);
   const bf_est = ip > 0 ? (ip * 3 + h + bb) : null;
   const kpct = bf_est && bf_est > 0 ? (k / bf_est) * 100 : null;
-  return { team, name, year, era, w, l, ip, h, r, er, bb, k, app, k9, kbb, era_plus, pwar, kpct };
+  const proj40pwar = (pwar !== null && app && app >= 3) ? Math.round((pwar / app) * 40 * 10) / 10 : null;
+  return { team, name, year, era, w, l, ip, h, r, er, bb, k, app, k9, kbb, era_plus, pwar, kpct, proj40pwar };
 }
 
 const batters = [
