@@ -138,6 +138,8 @@ footer a:hover{color:var(--text)}
 .modal-meta span{display:flex;align-items:center;gap:.25rem}
 .modal-close{margin-left:auto;background:none;border:none;color:var(--sub);font-size:1.2rem;cursor:pointer;padding:.2rem .4rem;line-height:1;border-radius:4px;transition:color .15s,background .15s;flex-shrink:0}
 .modal-close:hover{color:var(--text);background:var(--bg3)}
+.pm-share{background:none;border:1px solid var(--bdr);color:var(--sub);font-size:.85rem;cursor:pointer;padding:.2rem .45rem;line-height:1;border-radius:4px;transition:color .15s,background .15s,border-color .15s;flex-shrink:0;margin-left:.35rem}
+.pm-share:hover{color:var(--text);background:var(--bg3);border-color:var(--sky)}
 .modal-body{padding:1rem 1.25rem 1.25rem}
 .modal-section{margin-bottom:1.1rem}
 .modal-section-title{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);margin-bottom:.55rem;padding-bottom:.3rem;border-bottom:1px solid var(--bdr)}
@@ -960,13 +962,48 @@ function openProfile(name,team,tab){
   document.getElementById('pm-body').innerHTML=html;
   document.getElementById('profileModal').classList.add('open');
   document.body.style.overflow='hidden';
+  // Write shareable URL and manage copy-link button
+  const hash='#player='+encodeURIComponent(name)+'&team='+encodeURIComponent(team);
+  history.replaceState(null,'',hash);
+  const hdr=document.querySelector('.modal-hdr');
+  if(hdr){
+    let btn=document.getElementById('pm-share-btn');
+    if(!btn){
+      btn=document.createElement('button');
+      btn.id='pm-share-btn';
+      btn.className='pm-share';
+      btn.title='Copy link to player';
+      // Insert before the close button
+      const closeBtn=hdr.querySelector('.modal-close');
+      hdr.insertBefore(btn,closeBtn);
+    }
+    btn.innerHTML='🔗';
+    const shareUrl=window.location.origin+window.location.pathname+hash;
+    btn.onclick=()=>{
+      navigator.clipboard.writeText(shareUrl).then(()=>{
+        btn.innerHTML='✓';
+        setTimeout(()=>{btn.innerHTML='🔗';},1500);
+      });
+    };
+  }
 }
 function closeModal(){
   document.getElementById('profileModal').classList.remove('open');
   document.body.style.overflow='';
+  history.replaceState(null,'',window.location.pathname);
 }
 function closeProfile(e){if(e.target===document.getElementById('profileModal'))closeModal();}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+// Auto-open profile from URL hash on page load
+window.addEventListener('load',()=>{
+  const hash=window.location.hash;
+  if(!hash)return;
+  const params=Object.fromEntries(hash.slice(1).split('&').map(p=>p.split('=').map(decodeURIComponent)));
+  if(params.player&&params.team){
+    // Wait for render to complete before opening
+    setTimeout(()=>openProfile(params.player,params.team,'hitting'),300);
+  }
+});
 
 function downloadCSV() {
   const isHitting = curTab === 'hitting';
