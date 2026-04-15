@@ -142,6 +142,28 @@ footer a:hover{color:var(--text)}
 .ql{font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--sub);margin-top:.2rem}
 .qs{font-size:.58rem;color:var(--dim);margin-top:.1rem}
 .qdiv{width:1px;background:var(--bdr)}
+
+/* ── LEADERBOARD ─────────────────────────────────────────── */
+.lb-wrap{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;max-width:720px;width:100%;margin-top:1.5rem}
+@media(max-width:600px){.lb-wrap{grid-template-columns:1fr}}
+.lb-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;overflow:hidden}
+.lb-hdr{display:flex;align-items:center;justify-content:space-between;padding:.55rem .85rem;border-bottom:1px solid var(--bdr);background:rgba(0,0,0,.15)}
+.lb-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.04em;color:var(--text)}
+.lb-metric{font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.1rem .3rem;border-radius:3px;background:rgba(240,165,0,.15);color:var(--gold)}
+.lb-row{display:flex;align-items:center;gap:.55rem;padding:.45rem .85rem;border-bottom:1px solid var(--bdr);transition:background .1s}
+.lb-row:last-child{border-bottom:none}
+.lb-row:hover{background:rgba(255,255,255,.02)}
+.lb-rank{width:14px;font-size:.65rem;color:var(--dim);flex-shrink:0;text-align:center}
+.lb-rank.top{color:var(--gold);font-weight:700}
+.lb-name{flex:1;font-size:.78rem;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lb-team{font-size:.62rem;color:var(--sub);white-space:nowrap}
+.lb-val{font-size:.82rem;font-weight:700;color:var(--gold);min-width:36px;text-align:right;flex-shrink:0}
+.lb-val.good{color:#68d391}
+
+/* ── LAST UPDATED ────────────────────────────────────────── */
+.updated-tag{display:inline-flex;align-items:center;gap:.35rem;font-size:.62rem;color:var(--sub);margin-top:1.25rem;padding:.3rem .65rem;background:var(--bg2);border:1px solid var(--bdr);border-radius:20px}
+.updated-dot{width:6px;height:6px;border-radius:50%;background:#68d391;flex-shrink:0;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 </style>
 </head>
 <body>
@@ -175,32 +197,98 @@ footer a:hover{color:var(--text)}
     <div class="qdiv"></div>
     <div><span class="qv" id="qs-avg">—</span><div class="ql">Best AVG</div><div class="qs" id="qs-avg-team">—</div></div>
   </div>
+
+  <!-- Leaderboard -->
+  <div class="lb-wrap">
+    <a href="stats.html" class="lb-card" style="text-decoration:none">
+      <div class="lb-hdr"><span class="lb-title">⚾ Top Hitters</span><span class="lb-metric">wRC+</span></div>
+      <div id="lb-hit"></div>
+    </a>
+    <a href="stats.html" class="lb-card" style="text-decoration:none">
+      <div class="lb-hdr"><span class="lb-title">🔥 Top Pitchers</span><span class="lb-metric">ERA+</span></div>
+      <div id="lb-pit"></div>
+    </a>
+  </div>
+
+  <!-- Last Updated -->
+  <div class="updated-tag"><span class="updated-dot"></span><span id="last-updated">Loading…</span></div>
 </div>
 <footer>CCAA Baseball · Spring 2026 · Central Coast Athletic Association, CA · Stats: <a href="standings.html">Mountain</a> · <a href="standings.html">Sunset</a> · <a href="standings.html">Ocean</a></footer>
 
 <script src="data.js"></script>
 <script>
-// Populate quick stats from data.js
 (function() {
-  // Best CA Rank (lowest number wins)
+  // ── Quick Stats ──────────────────────────────────────────────
   const ranked = teams.filter(t => t.caRank).sort((a,b) => a.caRank - b.caRank);
   if (ranked.length) {
     document.getElementById('qs-rank').textContent = '#' + ranked[0].caRank;
     document.getElementById('qs-rank-team').textContent = ranked[0].name;
   }
-
-  // Best team ERA (lowest, must have IP data)
   const withERA = teams.filter(t => t.teamERA).sort((a,b) => a.teamERA - b.teamERA);
   if (withERA.length) {
     document.getElementById('qs-era').textContent = withERA[0].teamERA.toFixed(2);
     document.getElementById('qs-era-team').textContent = withERA[0].name;
   }
-
-  // Best team AVG (highest)
   const withAVG = teams.filter(t => t.teamBavg).sort((a,b) => b.teamBavg - a.teamBavg);
   if (withAVG.length) {
     document.getElementById('qs-avg').textContent = withAVG[0].teamBavg.toFixed(3).replace(/^0/,'');
     document.getElementById('qs-avg-team').textContent = withAVG[0].name;
+  }
+
+  // ── Leaderboards ─────────────────────────────────────────────
+  const MIN_PA = 30, MIN_IP = 15;
+
+  // Top 5 hitters by wRC+ (min 30 PA)
+  const topHit = [...batters]
+    .filter(b => b.pa >= MIN_PA && b.wrc_plus !== null)
+    .sort((a,b) => b.wrc_plus - a.wrc_plus)
+    .slice(0, 5);
+
+  const hitEl = document.getElementById('lb-hit');
+  if (topHit.length) {
+    hitEl.innerHTML = topHit.map((b, i) => {
+      const lastName = b.name.replace(/^[A-Z]\.\s*/,'');
+      const shortTeam = b.team.replace('Mission College Prep','MP').replace('Pioneer Valley','PV').replace('San Luis Obispo','SLO').replace('Arroyo Grande','AG').replace('Santa Maria','SM').replace('Santa Ynez','SY').replace('Paso Robles','Paso').replace('Morro Bay','MB').replace('Templeton','TMP').replace('Atascadero','ATA').replace('Cabrillo','CAB').replace('Righetti','RHS').replace('Nipomo','NIP').replace('Lompoc','LOM').replace('St. Joseph','SJ');
+      return `<div class="lb-row">
+        <span class="lb-rank${i===0?' top':''}">${i===0?'★':i+1}</span>
+        <div style="flex:1;min-width:0"><div class="lb-name">${b.name}</div><div class="lb-team">${shortTeam} · ${b.avg.toFixed(3).replace(/^0/,'')}</div></div>
+        <span class="lb-val">${b.wrc_plus}</span>
+      </div>`;
+    }).join('');
+  } else {
+    hitEl.innerHTML = '<div class="lb-row"><span class="lb-name" style="color:var(--dim);font-style:italic">No data yet</span></div>';
+  }
+
+  // Top 5 pitchers by ERA+ (min 15 IP)
+  const topPit = [...pitchers]
+    .filter(p => p.ip >= MIN_IP && p.era_plus !== null && p.era > 0)
+    .sort((a,b) => b.era_plus - a.era_plus)
+    .slice(0, 5);
+
+  const pitEl = document.getElementById('lb-pit');
+  if (topPit.length) {
+    pitEl.innerHTML = topPit.map((p, i) => {
+      const shortTeam = p.team.replace('Mission College Prep','MP').replace('Pioneer Valley','PV').replace('San Luis Obispo','SLO').replace('Arroyo Grande','AG').replace('Santa Maria','SM').replace('Santa Ynez','SY').replace('Paso Robles','Paso').replace('Morro Bay','MB').replace('Templeton','TMP').replace('Atascadero','ATA').replace('Cabrillo','CAB').replace('Righetti','RHS').replace('Nipomo','NIP').replace('Lompoc','LOM').replace('St. Joseph','SJ');
+      return `<div class="lb-row">
+        <span class="lb-rank${i===0?' top':''}">${i===0?'★':i+1}</span>
+        <div style="flex:1;min-width:0"><div class="lb-name">${p.name}</div><div class="lb-team">${shortTeam} · ${p.era.toFixed(2)} ERA</div></div>
+        <span class="lb-val good">${p.era_plus}</span>
+      </div>`;
+    }).join('');
+  } else {
+    pitEl.innerHTML = '<div class="lb-row"><span class="lb-name" style="color:var(--dim);font-style:italic">No data yet</span></div>';
+  }
+
+  // ── Last Updated ─────────────────────────────────────────────
+  // DATA_UPDATED is defined at the top of data.js as a constant.
+  // Falls back to a "check data.js" message if not set.
+  const el = document.getElementById('last-updated');
+  if (typeof DATA_UPDATED !== 'undefined' && DATA_UPDATED) {
+    const d = new Date(DATA_UPDATED);
+    const fmt = d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+    el.textContent = 'Stats updated ' + fmt;
+  } else {
+    el.textContent = 'Set DATA_UPDATED in data.js to show refresh date';
   }
 })();
 </script>

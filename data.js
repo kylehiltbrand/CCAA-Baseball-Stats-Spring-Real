@@ -7,11 +7,15 @@
 //   1. Upload new MaxPreps PDFs to Claude
 //   2. Claude replaces the batters[] and pitchers[] arrays below
 //   3. Also update team records in the standings/teams objects if needed
-//   4. Replace this file in GitHub → Vercel auto-deploys
+//   4. Update DATA_UPDATED below to today's date
+//   5. Replace this file in GitHub → Vercel auto-deploys
 //
 // DO NOT edit stats.html, standings.html, teams.html, or index.html
 // unless you're changing the site layout/design.
 // ============================================================
+
+// ── Last updated date — change this every time you push new stats ──
+const DATA_UPDATED = "2026-04-14"; // YYYY-MM-DD
 
 // wOBA weights (standard)
 const wBB = 0.69, wHBP = 0.72, w1B = 0.88, w2B = 1.24, w3B = 1.56, wHR = 2.00;
