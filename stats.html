@@ -147,8 +147,15 @@ footer a:hover{color:var(--text)}
 .sp-val{font-size:.92rem;font-weight:600;display:block}
 .sp-val.vhi{color:#68d391}.sp-val.vmd{color:var(--sky)}.sp-val.vlo{color:#fc8181}
 .sp-val.vadv{color:var(--gold)}.sp-val.vbold{color:var(--text)}.sp-val.vna{color:var(--dim);font-style:italic}
-.rank-badge{display:inline-block;font-size:.48rem;font-weight:700;letter-spacing:.04em;padding:.1rem .28rem;border-radius:3px;margin-left:.25rem;vertical-align:middle;line-height:1.4}
-.rnk-gold{background:#b7791f;color:#fef3c7}.rnk-silver{background:#4a5568;color:#e2e8f0}.rnk-bronze{background:#2d3748;color:#a0aec0}.rnk-plain{background:var(--bg2);color:var(--dim)}
+.rank-pills{display:flex;flex-wrap:wrap;gap:.4rem}
+.rank-pill{display:flex;flex-direction:column;padding:.45rem .7rem;border-radius:6px;min-width:80px;border:1px solid var(--bdr)}
+.rank-pill.rnk-gold{background:rgba(183,121,31,.15);border-color:#b7791f}
+.rank-pill.rnk-silver{background:rgba(160,174,192,.1);border-color:#718096}
+.rank-pill.rnk-bronze{background:rgba(74,85,104,.2);border-color:#4a5568}
+.rank-pill.rnk-plain{background:var(--bg3);border-color:var(--bdr)}
+.rp-label{font-size:.55rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--dim);margin-bottom:.2rem}
+.rp-val{font-size:.82rem;font-weight:700;color:var(--text)}
+.rp-stat{font-size:.7rem;font-weight:500;color:var(--sub);margin-left:.2rem}
 /* ── SEARCH INPUT ─────────────────────────────────────────── */
 .search-wrap{position:relative;display:flex;align-items:center}
 .search-wrap svg{position:absolute;left:.55rem;color:var(--dim);pointer-events:none;width:13px;height:13px}
@@ -786,18 +793,11 @@ function getRank(arr,key,playerVal,minField,minVal,lowerIsBetter){
   const rank=q.filter(x=>lowerIsBetter?x[key]<playerVal:x[key]>playerVal).length+1;
   return{rank,total:q.length};
 }
-function rankBadge(r){
+function rankPill(label,val,r){
   if(!r)return'';
+  const medal=r.rank===1?'🥇':r.rank===2?'🥈':r.rank===3?'🥉':'';
   const cls=r.rank===1?'rnk-gold':r.rank<=3?'rnk-silver':r.rank<=10?'rnk-bronze':'rnk-plain';
-  return`<span class="rank-badge ${cls}">#${r.rank}</span>`;
-}
-function pillRank(label,val,cls,r){
-  return`<div class="stat-pill"><span class="sp-label">${label}${rankBadge(r)}</span><span class="sp-val ${cls||''}">${val}</span></div>`;
-}
-function pillCVRank(label,v,lo,hi,fmt,rev,r){
-  if(v===null||v===undefined||isNaN(v))return pill(label,'—','vna');
-  const cls=rev?(v<=lo?'vhi':v<=hi?'vmd':'vlo'):(v>=hi?'vhi':v>=lo?'vmd':'vlo');
-  return pillRank(label,fmt(v),cls,r);
+  return`<div class="rank-pill ${cls}"><span class="rp-label">${label}</span><span class="rp-val">${medal}#${r.rank} <span class="rp-stat">${val}</span></span></div>`;
 }
 function pill(label,val,cls){
   return `<div class="stat-pill"><span class="sp-label">${label}</span><span class="sp-val ${cls||''}">${val}</span></div>`;
@@ -863,8 +863,8 @@ function openProfile(name,team,tab){
       <div class="modal-section-title">Hitting — Advanced</div>
       <div class="stat-pills">
         ${pill('wOBA',b.woba!==null?f3(b.woba):'—','vadv')}
-        ${b.wrc_plus!==null?pillRank('wRC+',b.wrc_plus,b.wrc_plus>=130?'vhi':b.wrc_plus>=90?'vmd':'vlo',getRank(batters,'wrc_plus',b.wrc_plus,'pa',30,false)):''}
-        ${b.owar!==null?pillRank('oWAR',(b.owar>0?'+':'')+b.owar,b.owar>=1?'vhi':b.owar>=0?'vmd':'vlo',getRank(batters,'owar',b.owar,'pa',30,false)):''}
+        ${b.wrc_plus!==null?pill('wRC+',b.wrc_plus,b.wrc_plus>=130?'vhi':b.wrc_plus>=90?'vmd':'vlo'):''}
+        ${b.owar!==null?pill('oWAR',(b.owar>0?'+':'')+b.owar,b.owar>=1?'vhi':b.owar>=0?'vmd':'vlo'):''}
         ${b.proj40owar!==null?pill('Proj40 oWAR',(b.proj40owar>0?'+':'')+b.proj40owar,b.proj40owar>=2?'vhi':b.proj40owar>=1?'vmd':'vlo'):''}
         ${b.bbk!==null?pillCV('BB/K',b.bbk,.25,.5,v=>f2(v)):''}
       </div>
@@ -888,16 +888,39 @@ function openProfile(name,team,tab){
     <div class="modal-section">
       <div class="modal-section-title">Pitching — Advanced</div>
       <div class="stat-pills">
-        ${pillCVRank('K/9',p.k9,6,9,v=>f1(v),false,getRank(pitchers,'k9',p.k9,'ip',15,false))}
+        ${pillCV('K/9',p.k9,6,9,v=>f1(v))}
         ${pillCV('K/BB',p.kbb,1.5,3,v=>f2(v))}
         ${p.kpct!==null?pill('K%',p.kpct.toFixed(1)+'%','vadv'):''}
-        ${p.era_plus!==null?pillRank('ERA+',p.era_plus,p.era_plus>=120?'vhi':p.era_plus>=80?'vmd':'vlo',getRank(pitchers,'era_plus',p.era_plus,'ip',15,false)):''}
-        ${p.pwar!==null?pillRank('pWAR',(p.pwar>0?'+':'')+p.pwar,p.pwar>=1?'vhi':p.pwar>=0?'vmd':'vlo',getRank(pitchers,'pwar',p.pwar,'ip',15,false)):''}
+        ${p.era_plus!==null?pill('ERA+',p.era_plus,p.era_plus>=120?'vhi':p.era_plus>=80?'vmd':'vlo'):''}
+        ${p.pwar!==null?pill('pWAR',(p.pwar>0?'+':'')+p.pwar,p.pwar>=1?'vhi':p.pwar>=0?'vmd':'vlo'):''}
         ${p.proj40pwar!==null?pill('Proj40 pWAR',(p.proj40pwar>0?'+':'')+p.proj40pwar,p.proj40pwar>=2?'vhi':p.proj40pwar>=1?'vmd':'vlo'):''}
       </div>
     </div>`;
   }
   if(!b&&!p) html='<p style="color:var(--sub);font-size:.75rem">No stats available.</p>';
+
+  // CCAA Rankings section
+  const rankRows=[];
+  if(b){
+    const rWrc=getRank(batters,'wrc_plus',b.wrc_plus,'pa',30,false);
+    const rOwar=getRank(batters,'owar',b.owar,'pa',30,false);
+    if(rWrc) rankRows.push(rankPill('wRC+',b.wrc_plus,rWrc));
+    if(rOwar) rankRows.push(rankPill('oWAR',(b.owar>0?'+':'')+b.owar,rOwar));
+  }
+  if(p){
+    const rK9=getRank(pitchers,'k9',p.k9,'ip',15,false);
+    const rEraPlus=getRank(pitchers,'era_plus',p.era_plus,'ip',15,false);
+    const rPwar=getRank(pitchers,'pwar',p.pwar,'ip',15,false);
+    if(rK9) rankRows.push(rankPill('K/9',f1(p.k9),rK9));
+    if(rEraPlus) rankRows.push(rankPill('ERA+',p.era_plus,rEraPlus));
+    if(rPwar) rankRows.push(rankPill('pWAR',(p.pwar>0?'+':'')+p.pwar,rPwar));
+  }
+  if(rankRows.length>0){
+    html+=`<div class="modal-section" style="border-top:1px solid var(--bdr);margin-top:.25rem;padding-top:.75rem">
+      <div class="modal-section-title">CCAA Rankings</div>
+      <div class="rank-pills">${rankRows.join('')}</div>
+    </div>`;
+  }
 
   // Two-Way WAR summary — only shown when player has both hitting and pitching data
   if(b&&p&&b.owar!==null&&p.pwar!==null){
