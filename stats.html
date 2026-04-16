@@ -299,6 +299,10 @@ footer a:hover{color:var(--text)}
         <div class="gi-label"><span class="gi-name">BB/K</span><span class="advb">ADV</span></div>
         <div class="gi-def">Walk-to-Strikeout Ratio — <code>BB / K</code>. Plate discipline metric; higher = better. <strong style="color:var(--text)">Why it matters:</strong> Plate discipline in one number. Hitters with elite BB/K ratios tend to outperform their batting averages because they reach base in ways AVG ignores.</div>
       </div>
+      <div class="gloss-item">
+        <div class="gi-label"><span class="gi-name">BABIP</span><span class="advb">ADV</span></div>
+        <div class="gi-def">Batting Avg on Balls in Play — <code>(H - HR) / (AB - K - HR + SF)</code>. Strips out strikeouts and homers. <strong style="color:var(--text)">Why it matters:</strong> Reveals luck vs. skill. A hitter with .380 BABIP is likely getting fortunate bounces; one at .220 is being unlucky. Most hitters regress toward .300 over time, so BABIP outliers often predict who's about to cool off — or break out.</div>
+      </div>
     </div>
 
     <div class="gloss-section-title pitch">PITCHING</div>
@@ -309,7 +313,7 @@ footer a:hover{color:var(--text)}
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">WHIP</span></div>
-        <div class="gi-def">Walks + Hits per Inning Pitched — <code>(BB+H) / IP</code></div>
+        <div class="gi-def">Walks + Hits per Inning Pitched — <code>(BB+H) / IP</code>. <strong style="color:var(--text)">Why it matters:</strong> The cleanest measure of how often a pitcher lets baserunners on. Sub-1.20 is excellent, over 1.50 is rough. Tells you whether a low ERA is sustainable — a 2.50 ERA with a 1.60 WHIP means trouble is coming.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">K/9</span><span class="advb">ADV</span></div>
@@ -422,6 +426,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
       <th onclick="srt('owar',false)" data-tip="Offensive WAR">oWAR <span class="advb">ADV</span></th>
       <th onclick="srt('proj40owar',false)" data-tip="Projected oWAR over 40 games">Proj40 <span class="advb">ADV</span></th>
       <th onclick="srt('bbk',false)" data-tip="Walk-to-Strikeout Ratio">BB/K <span class="advb">ADV</span></th>
+      <th onclick="srt('babip',false)" data-tip="Batting Average on Balls in Play">BABIP <span class="advb">ADV</span></th>
     </tr></thead>
     <tbody id="b-ha"></tbody>
   </table></div>
@@ -436,6 +441,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
       <th onclick="srt('app',false)" data-tip="Appearances">APP</th>
       <th onclick="srt('w',false)">W</th><th onclick="srt('l',false)">L</th>
       <th onclick="srt('era',true)" data-tip="Earned Run Average">ERA</th>
+      <th onclick="srt('whip',true)" data-tip="Walks + Hits per Inning Pitched">WHIP</th>
       <th onclick="srt('ip',false)" data-tip="Innings Pitched">IP</th>
       <th onclick="srt('h',false)" data-tip="Hits Allowed">H</th>
       <th onclick="srt('er',false)" data-tip="Earned Runs">ER</th>
@@ -454,6 +460,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
       <th onclick="srt('team',true)">Team</th><th onclick="srt('year',true)">Yr</th>
       <th onclick="srt('ip',false)" data-tip="Innings Pitched">IP</th>
       <th onclick="srt('era',true)" data-tip="ERA">ERA</th>
+      <th onclick="srt('whip',true)" data-tip="Walks + Hits per Inning Pitched">WHIP</th>
       <th onclick="srt('k9',false)" data-tip="K per 9 IP">K/9 <span class="advb">ADV</span></th>
       <th onclick="srt('kpct',false)" data-tip="Strikeout %">K% <span class="advb">ADV</span></th>
       <th onclick="srt('pwar',false)" data-tip="Pitching WAR">pWAR <span class="advb">ADV</span></th>
@@ -567,7 +574,8 @@ function render(){
     const wc=p.wrc_plus,wcCls=wc===null?'vna':wc>=130?'vhi':wc>=90?'vmd':'vlo';
     const oc=p.owar===null?'vna':p.owar>=1?'vhi':p.owar>=0?'vmd':'vlo';
     const bc=p.bbk===null?'vna':p.bbk>=0.5?'vhi':p.bbk>=0.25?'vmd':'vlo';
-    return `<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','hitting')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.pa}</td><td>${f3(p.avg)||'—'}</td><td>${cv(p.obp,.300,.380,v=>f3(v))}</td><td>${cv(p.slg,.350,.500,v=>f3(v))}</td><td class="vadv">${f3(p.woba)||'—'}</td><td><span class="${wcCls}">${wc!==null?wc:'—'}</span></td><td><span class="${oc}">${p.owar!==null?(p.owar>0?'+':'')+p.owar:'—'}</span></td><td class="vadv"><span class="${p.proj40owar===null?'vna':p.proj40owar>=2?'vhi':p.proj40owar>=1?'vmd':'vlo'}">${p.proj40owar!==null?(p.proj40owar>0?'+':'')+p.proj40owar:'—'}</span></td><td><span class="${bc}">${p.bbk!==null?f2(p.bbk):'—'}</span></td></tr>`;
+    const babipCls=p.babip===null?'vna':(p.babip>=.340?'vhi':p.babip>=.280?'vmd':'vlo');
+    return `<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','hitting')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.pa}</td><td>${f3(p.avg)||'—'}</td><td>${cv(p.obp,.300,.380,v=>f3(v))}</td><td>${cv(p.slg,.350,.500,v=>f3(v))}</td><td class="vadv">${f3(p.woba)||'—'}</td><td><span class="${wcCls}">${wc!==null?wc:'—'}</span></td><td><span class="${oc}">${p.owar!==null?(p.owar>0?'+':'')+p.owar:'—'}</span></td><td class="vadv"><span class="${p.proj40owar===null?'vna':p.proj40owar>=2?'vhi':p.proj40owar>=1?'vmd':'vlo'}">${p.proj40owar!==null?(p.proj40owar>0?'+':'')+p.proj40owar:'—'}</span></td><td><span class="${bc}">${p.bbk!==null?f2(p.bbk):'—'}</span></td><td class="vadv"><span class="${babipCls}">${p.babip!==null?f3(p.babip):'—'}</span></td></tr>`;
   }).join('');
 
   let P=pitchers.filter(p=>(!teamF||p.team===teamF)&&(curLeague==='all'||TL[p.team]===curLeague)&&p.ip>=mIP&&(!srch||p.name.toLowerCase().includes(srch)));
@@ -581,10 +589,10 @@ function render(){
     return a.name.localeCompare(b.name);
   });
 
-  document.getElementById('b-ps').innerHTML=P.map((p,i)=>`<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','pitching')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.app}</td><td>${p.w}</td><td>${p.l}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td>${p.ip}</td><td>${p.h}</td><td>${p.er}</td><td>${p.bb}</td><td>${p.k}</td></tr>`).join('');
+  document.getElementById('b-ps').innerHTML=P.map((p,i)=>`<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','pitching')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.app}</td><td>${p.w}</td><td>${p.l}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td>${cv(p.whip,1.20,1.50,v=>f2(v),true)}</td><td>${p.ip}</td><td>${p.h}</td><td>${p.er}</td><td>${p.bb}</td><td>${p.k}</td></tr>`).join('');
 
   document.getElementById('b-pa').innerHTML=P.map((p,i)=>{
-    return `<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','pitching')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.ip}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td class="vadv">${cv(p.k9,6,9,v=>f1(v))}</td><td class="vadv">${cv(p.kpct,20,30,v=>v.toFixed(1)+'%')}</td><td class="vadv">${cv(p.pwar,0,1,v=>(v>0?'+':'')+v)}</td><td class="vadv"><span class="${p.proj40pwar===null?'vna':p.proj40pwar>=2?'vhi':p.proj40pwar>=1?'vmd':'vlo'}">${p.proj40pwar!==null?(p.proj40pwar>0?'+':'')+p.proj40pwar:'—'}</span></td><td class="vadv">${cv(p.kbb,1.5,3,v=>f2(v))}</td><td class="vadv">${cv(p.era_plus,80,120,v=>v.toString())}</td></tr>`;
+    return `<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','pitching')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.ip}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td>${cv(p.whip,1.20,1.50,v=>f2(v),true)}</td><td class="vadv">${cv(p.k9,6,9,v=>f1(v))}</td><td class="vadv">${cv(p.kpct,20,30,v=>v.toFixed(1)+'%')}</td><td class="vadv">${cv(p.pwar,0,1,v=>(v>0?'+':'')+v)}</td><td class="vadv"><span class="${p.proj40pwar===null?'vna':p.proj40pwar>=2?'vhi':p.proj40pwar>=1?'vmd':'vlo'}">${p.proj40pwar!==null?(p.proj40pwar>0?'+':'')+p.proj40pwar:'—'}</span></td><td class="vadv">${cv(p.kbb,1.5,3,v=>f2(v))}</td><td class="vadv">${cv(p.era_plus,80,120,v=>v.toString())}</td></tr>`;
   }).join('');
 
   // Two-Way: match batters with pitchers by name+team, require both owar and pwar
@@ -632,11 +640,12 @@ const MOB_HITTING_SORTS = [
   {key:'wrc_plus',label:'wRC+',asc:false},{key:'woba',label:'wOBA',asc:false},
   {key:'owar',label:'oWAR',asc:false},{key:'proj40owar',label:'Proj40',asc:false},
   {key:'rbi',label:'RBI',asc:false},{key:'hr',label:'HR',asc:false},
-  {key:'bbk',label:'BB/K',asc:false},{key:'h',label:'H',asc:false},
-  {key:'r',label:'R',asc:false},
+  {key:'bbk',label:'BB/K',asc:false},{key:'babip',label:'BABIP',asc:false},
+  {key:'h',label:'H',asc:false},{key:'r',label:'R',asc:false},
 ];
 const MOB_PITCHING_SORTS = [
-  {key:'era',label:'ERA',asc:true},{key:'k9',label:'K/9',asc:false},
+  {key:'era',label:'ERA',asc:true},{key:'whip',label:'WHIP',asc:true},
+  {key:'k9',label:'K/9',asc:false},
   {key:'era_plus',label:'ERA+',asc:false},{key:'pwar',label:'pWAR',asc:false},
   {key:'proj40pwar',label:'Proj40',asc:false},{key:'kbb',label:'K/BB',asc:false},
   {key:'ip',label:'IP',asc:false},{key:'k',label:'K',asc:false},
@@ -666,10 +675,12 @@ function fmtMobVal(key,p){
     rbi:[p.rbi,v=>v+'','',10,20,false],
     hr:[p.hr,v=>v+'','',2,5,false],
     bbk:[p.bbk,v=>f2(v)||'—','vadv',.25,.5,false],
+    babip:[p.babip,v=>f3(v)||'—','vadv',.280,.340,false],
     h:[p.h,v=>v+'','',10,20,false],
     r:[p.r,v=>v+'','',5,12,false],
     pa:[p.pa,v=>v+'','',20,40,false],
     era:[p.era,v=>v.toFixed(2),'',4.5,2.5,true],
+    whip:[p.whip,v=>f2(v)||'—','',1.50,1.20,true],
     k9:[p.k9,v=>f1(v)||'—','vadv',6,9,false],
     era_plus:[p.era_plus,v=>v+'','vadv',80,120,false],
     kbb:[p.kbb,v=>f2(v)||'—','vadv',1.5,3,false],
@@ -695,10 +706,10 @@ function getMobStatKeys(){
     return[mobSortKey,...extras.filter(k=>k!==mobSortKey)].slice(0,4);
   }
   if(curTab==='pitching'){
-    const pool=curView==='advanced'?['era_plus','kbb','pwar','proj40pwar','k9','ip','era']:['era','k9','ip','k','pwar'];
+    const pool=curView==='advanced'?['era_plus','kbb','pwar','proj40pwar','k9','whip','ip','era']:['era','whip','k9','ip','k','pwar'];
     return[mobSortKey,...pool.filter(k=>k!==mobSortKey)].slice(0,4);
   }
-  const pool=curView==='advanced'?['woba','wrc_plus','owar','proj40owar','bbk','obp','slg']:['avg','ops','hr','rbi','obp','h'];
+  const pool=curView==='advanced'?['woba','wrc_plus','owar','proj40owar','bbk','babip','obp','slg']:['avg','ops','hr','rbi','obp','h'];
   return[mobSortKey,...pool.filter(k=>k!==mobSortKey)].slice(0,4);
 }
 
@@ -746,7 +757,7 @@ function renderMob(){
   });
 
   const statKeys=getMobStatKeys();
-  const statLabels={avg:'AVG',ops:'OPS',obp:'OBP',slg:'SLG',woba:'wOBA',wrc_plus:'wRC+',owar:'oWAR',pwar:'pWAR',twar:'tWAR',proj40owar:'Proj40 oWAR',proj40pwar:'Proj40 pWAR',rbi:'RBI',hr:'HR',bbk:'BB/K',h:'H',r:'R',pa:'PA',era:'ERA',k9:'K/9',era_plus:'ERA+',kbb:'K/BB',ip:'IP',k:'K',w:'W'};
+  const statLabels={avg:'AVG',ops:'OPS',obp:'OBP',slg:'SLG',woba:'wOBA',wrc_plus:'wRC+',owar:'oWAR',pwar:'pWAR',twar:'tWAR',proj40owar:'Proj40 oWAR',proj40pwar:'Proj40 pWAR',rbi:'RBI',hr:'HR',bbk:'BB/K',babip:'BABIP',h:'H',r:'R',pa:'PA',era:'ERA',whip:'WHIP',k9:'K/9',era_plus:'ERA+',kbb:'K/BB',ip:'IP',k:'K',w:'W'};
 
   const container=document.getElementById('mob-cards-inner');
   container.innerHTML=data.map((p,i)=>{
@@ -876,6 +887,7 @@ function openProfile(name,team,tab){
         ${b.owar!==null?pill('oWAR',(b.owar>0?'+':'')+b.owar,b.owar>=1?'vhi':b.owar>=0?'vmd':'vlo'):''}
         ${b.proj40owar!==null?pill('Proj40 oWAR',(b.proj40owar>0?'+':'')+b.proj40owar,b.proj40owar>=2?'vhi':b.proj40owar>=1?'vmd':'vlo'):''}
         ${b.bbk!==null?pillCV('BB/K',b.bbk,.25,.5,v=>f2(v)):''}
+        ${b.babip!==null?pillCV('BABIP',b.babip,.280,.340,v=>f3(v)):''}
       </div>
     </div>`;
   }
@@ -884,6 +896,7 @@ function openProfile(name,team,tab){
       <div class="modal-section-title">Pitching — Standard</div>
       <div class="stat-pills">
         ${pillCV('ERA',p.era,2.5,4.5,v=>v.toFixed(2),true)}
+        ${p.whip!==null?pillCV('WHIP',p.whip,1.20,1.50,v=>f2(v),true):''}
         ${pill('IP',p.ip,'vbold')}
         ${pill('APP',p.app,'')}
         ${pill('W',p.w,'')}
@@ -1019,22 +1032,22 @@ function downloadCSV() {
   if (isHitting) {
     const H = batters.filter(b=>(!teamF||b.team===teamF)&&(curLeague==='all'||TL[b.team]===curLeague)&&b.pa>=mPA);
     H.sort((a,b)=>{ let va=a[curCol]??(curSortAsc?Infinity:-Infinity),vb=b[curCol]??(curSortAsc?Infinity:-Infinity); return typeof va==='string'?va.localeCompare(vb):curAsc?va-vb:vb-va; });
-    headers = ['Player','Team','Yr','GP','AVG','PA','AB','R','H','2B','3B','HR','RBI','BB','K','OBP','SLG','OPS','wOBA','wRC+','oWAR','Proj40 oWAR','BB/K'];
+    headers = ['Player','Team','Yr','GP','AVG','PA','AB','R','H','2B','3B','HR','RBI','BB','K','OBP','SLG','OPS','wOBA','wRC+','oWAR','Proj40 oWAR','BB/K','BABIP'];
     rows = H.map(p => [
       p.name, p.team, p.year, p.gp,
       p.avg?.toFixed(3)||'', p.pa, p.ab, p.r, p.h,
       p.doubles, p.triples, p.hr, p.rbi, p.bb, p.k,
       p.obp?.toFixed(3)||'', p.slg?.toFixed(3)||'', p.ops?.toFixed(3)||'',
       p.woba?.toFixed(3)||'', p.wrc_plus??'', p.owar??'',
-      p.proj40owar??'', p.bbk?.toFixed(2)||''
+      p.proj40owar??'', p.bbk?.toFixed(2)||'', p.babip?.toFixed(3)||''
     ]);
   } else {
     const P = pitchers.filter(p=>(!teamF||p.team===teamF)&&(curLeague==='all'||TL[p.team]===curLeague)&&p.ip>=mIP);
     P.sort((a,b)=>{ let va=a[curCol]??(curAsc?Infinity:-Infinity),vb=b[curCol]??(curAsc?Infinity:-Infinity); return curAsc?va-vb:vb-va; });
-    headers = ['Player','Team','Yr','APP','W','L','ERA','IP','H','ER','BB','K','K/9','K%','K/BB','ERA+','pWAR','Proj40 pWAR'];
+    headers = ['Player','Team','Yr','APP','W','L','ERA','WHIP','IP','H','ER','BB','K','K/9','K%','K/BB','ERA+','pWAR','Proj40 pWAR'];
     rows = P.map(p => [
       p.name, p.team, p.year, p.app, p.w, p.l,
-      p.era?.toFixed(2)||'', p.ip, p.h, p.er, p.bb, p.k,
+      p.era?.toFixed(2)||'', p.whip?.toFixed(2)||'', p.ip, p.h, p.er, p.bb, p.k,
       p.k9?.toFixed(1)||'', p.kpct?.toFixed(1)||'', p.kbb?.toFixed(2)||'',
       p.era_plus??'', p.pwar??'', p.proj40pwar??''
     ]);
