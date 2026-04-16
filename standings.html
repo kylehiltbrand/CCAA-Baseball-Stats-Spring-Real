@@ -69,6 +69,8 @@ main{max-width:1280px;margin:0 auto;padding:1.5rem 1.5rem 4rem}
 .rpi-bar-cell{width:90px;padding-right:1rem}
 .rpi-bar-bg{height:5px;border-radius:3px;background:var(--bdr2);overflow:hidden}
 .rpi-bar-fill{height:100%;border-radius:3px;background:var(--gold)}
+.rpi-rec{font-size:.72rem;color:var(--sub);font-variant-numeric:tabular-nums;white-space:nowrap}
+.rpi-rec-h{font-size:.6rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
 .lbadge{display:inline-block;font-size:.55rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.1rem .3rem;border-radius:2px;margin-left:.3rem}
 .lbadge-m{background:rgba(224,123,57,.15);color:var(--mtn)}
 .lbadge-s{background:rgba(155,93,229,.15);color:var(--sun)}
@@ -103,6 +105,11 @@ footer a:hover{color:var(--text)}
   .srpi{display:none}
   .sth-rpi{display:none}
   #rpi-explainer-inner{grid-template-columns:1fr!important}
+  .rpi-table th, .rpi-table td{padding:.45rem .35rem;font-size:.68rem}
+  .rpi-table th:first-child, .rpi-table td:first-child{padding-left:.6rem}
+  .rpi-sub, .rpi-sub-h{display:none}
+  .rpi-bar-cell{display:none}
+  .rpi-rec{font-size:.66rem}
 }
 .mob-nav{display:none}
 @media(max-width:640px){
@@ -274,23 +281,35 @@ function rpiColor(v) {
 (function(){
   const sorted = Object.entries(rpiData).sort((a,b)=>b[1].rpi-a[1].rpi);
   const maxRpi = sorted[0][1].rpi;
+
+  // Build name -> overall record lookup from standingsData
+  const recLookup = {};
+  ['mountain','sunset','ocean'].forEach(lg => {
+    standingsData[lg].forEach(t => {
+      recLookup[t.name] = t.ot > 0 ? `${t.ow}-${t.ol}-${t.ot}` : `${t.ow}-${t.ol}`;
+    });
+  });
+
   const tbl = document.getElementById('rpi-rankings');
   tbl.innerHTML = `<thead><tr>
     <th style="width:24px">#</th>
     <th>Team</th>
+    <th class="rpi-rec-h">Record</th>
     <th class="r">RPI</th>
-    <th class="r" style="padding-right:.8rem">WP</th>
-    <th class="r" style="padding-right:.8rem">OWP</th>
-    <th class="r" style="padding-right:.8rem">OOWP</th>
+    <th class="r rpi-sub-h" style="padding-right:.8rem">WP</th>
+    <th class="r rpi-sub-h" style="padding-right:.8rem">OWP</th>
+    <th class="r rpi-sub-h" style="padding-right:.8rem">OOWP</th>
     <th style="width:100px"></th>
   </tr></thead><tbody>` +
   sorted.map(([name, d], i) => {
     const lg = LEAGUE_OF[name];
     const pct = ((d.rpi / maxRpi) * 100).toFixed(1);
     const cls = rpiColor(d.rpi);
+    const rec = recLookup[name] || '—';
     return `<tr>
       <td class="rpi-rank">${i+1}</td>
       <td class="rpi-name">${teamDisplay(name)}<span class="lbadge ${LEAGUE_CLS[lg]}">${LEAGUE_LABEL[lg]}</span></td>
+      <td class="rpi-rec">${rec}</td>
       <td class="rpi-val ${cls}" data-tip="WP: ${d.wp.toFixed(3)} · OWP: ${d.owp.toFixed(3)} · OOWP: ${d.oowp.toFixed(3)}">${d.rpi.toFixed(4)}</td>
       <td class="rpi-sub">${d.wp.toFixed(3)}</td>
       <td class="rpi-sub">${d.owp.toFixed(3)}</td>
