@@ -915,10 +915,13 @@ function openProfile(name,team,tab){
 
   const rankRows=[];
   if(b){
+    const rWoba=getRank(batters,'woba',b.woba,'pa',30,false);
+    const rWobaLg=getRank(lgBatters,'woba',b.woba,'pa',30,false);
     const rWrc=getRank(batters,'wrc_plus',b.wrc_plus,'pa',30,false);
     const rWrcLg=getRank(lgBatters,'wrc_plus',b.wrc_plus,'pa',30,false);
     const rOwar=getRank(batters,'owar',b.owar,'pa',30,false);
     const rOwarLg=getRank(lgBatters,'owar',b.owar,'pa',30,false);
+    if(rWoba||rWobaLg) rankRows.push(rankPill('wOBA',b.woba!==null?f3(b.woba):'—',rWoba,rWobaLg,leagueName));
     if(rWrc||rWrcLg) rankRows.push(rankPill('wRC+',b.wrc_plus,rWrc,rWrcLg,leagueName));
     if(rOwar||rOwarLg) rankRows.push(rankPill('oWAR',(b.owar>0?'+':'')+b.owar,rOwar,rOwarLg,leagueName));
   }
