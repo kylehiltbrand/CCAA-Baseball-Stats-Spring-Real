@@ -259,7 +259,7 @@ footer a:hover{color:var(--text)}
     <span class="chevron">▲</span>
   </button>
   <div class="gloss-body">
-    <p class="gloss-intro">Advanced metrics computed from base stats using sabermetric formulas. All league constants calibrated to 2025-26 CCAA data (13 teams): lg AVG .305 · lg wOBA .358 · lg ERA 4.83 · lg K/9 7.5 · lg BB/9 5.5.</p>
+    <p class="gloss-intro">Advanced metrics computed from base stats using sabermetric formulas. Each <span class="advb">ADV</span> stat below includes <em>why it matters</em> — because numbers without context are easy to dismiss. All league constants calibrated to 2025-26 CCAA data (13 teams): lg AVG .305 · lg wOBA .358 · lg ERA 4.83 · lg K/9 7.5 · lg BB/9 5.5.</p>
 
     <div class="gloss-section-title">HITTING</div>
     <div class="gloss-grid">
@@ -281,23 +281,23 @@ footer a:hover{color:var(--text)}
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">wOBA</span><span class="advb">ADV</span></div>
-        <div class="gi-def">Weighted On-Base Avg — weights each outcome by run value <code>(BB×.69, 1B×.88, 2B×1.24, 3B×1.56, HR×2.00)</code></div>
+        <div class="gi-def">Weighted On-Base Avg — weights each outcome by run value <code>(BB×.69, 1B×.88, 2B×1.24, 3B×1.56, HR×2.00)</code>. <strong style="color:var(--text)">Why it matters:</strong> OBP treats a walk and a homer the same. wOBA doesn't. It's the single best snapshot of total offensive contribution per plate appearance.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">wRC+</span><span class="advb">ADV</span></div>
-        <div class="gi-def">Weighted Runs Created+ — league-adjusted wRC, 100 = average, &gt;100 above average. Regressed toward 100 for &lt;150 PA.</div>
+        <div class="gi-def">Weighted Runs Created+ — league-adjusted wRC, 100 = average, &gt;100 above average. Regressed toward 100 for &lt;150 PA. <strong style="color:var(--text)">Why it matters:</strong> wRC+ of 150 means a hitter created 50% more runs than the average CCAA bat. It cuts through park and league noise — the cleanest one-number rating of offensive value.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">oWAR</span><span class="advb">ADV</span></div>
-        <div class="gi-def">Offensive WAR — wins above replacement from batting. Based on CCAA run environment (13.6 runs/win). Regressed for &lt;200 PA.</div>
+        <div class="gi-def">Offensive WAR — wins above replacement from batting. Based on CCAA run environment (13.6 runs/win). Regressed for &lt;200 PA. <strong style="color:var(--text)">Why it matters:</strong> Estimates how many wins a hitter actually added vs. a freely-available bench player. The closest thing to a single "total value" number for ranking hitters across roles.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">Proj40 oWAR</span><span class="advb">ADV</span></div>
-        <div class="gi-def">Projected oWAR over a 40-game season — scales current oWAR by <code>(40 / GP)</code>. Min 5 GP required. Pace-based projection only.</div>
+        <div class="gi-def">Projected oWAR over a 40-game season — scales current oWAR by <code>(40 / GP)</code>. Min 5 GP required. <strong style="color:var(--text)">Why it matters:</strong> Levels the playing field between players with different game counts. A hitter producing 1.0 oWAR in 12 games is on a much better pace than one with 1.5 oWAR in 28 games.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">BB/K</span><span class="advb">ADV</span></div>
-        <div class="gi-def">Walk-to-Strikeout Ratio — <code>BB / K</code>. Plate discipline metric; higher = better.</div>
+        <div class="gi-def">Walk-to-Strikeout Ratio — <code>BB / K</code>. Plate discipline metric; higher = better. <strong style="color:var(--text)">Why it matters:</strong> Plate discipline in one number. Hitters with elite BB/K ratios tend to outperform their batting averages because they reach base in ways AVG ignores.</div>
       </div>
     </div>
 
@@ -313,7 +313,7 @@ footer a:hover{color:var(--text)}
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">K/9</span><span class="advb">ADV</span></div>
-        <div class="gi-def">Strikeouts per 9 innings — <code>(K × 9) / IP</code>. CCAA league avg: 7.5.</div>
+        <div class="gi-def">Strikeouts per 9 innings — <code>(K × 9) / IP</code>. CCAA league avg: 7.5. <strong style="color:var(--text)">Why it matters:</strong> Strikeouts are the only outcome where defense doesn't matter. K/9 isolates raw stuff — high K/9 means a pitcher's stuff plays regardless of who's behind them.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">BB/9</span></div>
@@ -321,23 +321,23 @@ footer a:hover{color:var(--text)}
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">K/BB</span><span class="advb">ADV</span></div>
-        <div class="gi-def">Strikeout-to-Walk Ratio — <code>K / BB</code>. Command metric; higher = better.</div>
+        <div class="gi-def">Strikeout-to-Walk Ratio — <code>K / BB</code>. Command metric; higher = better. <strong style="color:var(--text)">Why it matters:</strong> The cleanest measure of pitcher command. Stable in small samples and predictive of future results — a high K/BB usually means good things are coming even if ERA hasn't caught up yet.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">K%</span><span class="advb">ADV</span></div>
-        <div class="gi-def">Strikeout Rate — <code>K / Batters Faced</code>. More reliable than K/9 for small samples.</div>
+        <div class="gi-def">Strikeout Rate — <code>K / Batters Faced</code>. <strong style="color:var(--text)">Why it matters:</strong> More reliable than K/9 for short stints because it's a true rate per opportunity, not per inning. Useful for relievers and pitchers with limited innings.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">ERA+</span><span class="advb">ADV</span></div>
-        <div class="gi-def">ERA adjusted to CCAA average — <code>(lgERA / ERA) × 100</code>. 100 = avg, &gt;100 is better. Regressed for &lt;40 IP.</div>
+        <div class="gi-def">ERA adjusted to CCAA average — <code>(lgERA / ERA) × 100</code>. 100 = avg, &gt;100 is better. Regressed for &lt;40 IP. <strong style="color:var(--text)">Why it matters:</strong> Raw ERA is meaningless without context. ERA+ of 130 means a pitcher prevented runs 30% better than league average. The cleanest way to compare pitchers across run environments.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">pWAR</span><span class="advb">ADV</span></div>
-        <div class="gi-def">Pitching WAR — wins above replacement based on ERA vs CCAA average. Regressed for &lt;50 IP.</div>
+        <div class="gi-def">Pitching WAR — wins above replacement based on ERA vs CCAA average. Regressed for &lt;50 IP. <strong style="color:var(--text)">Why it matters:</strong> Translates run prevention into actual wins, accounting for innings load. A starter with 2.0 pWAR has done meaningfully more for their team's record than a reliever with a flashier ERA in 15 innings.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">Proj40 pWAR</span><span class="advb">ADV</span></div>
-        <div class="gi-def">Projected pWAR over a 40-game season — scales current pWAR by <code>(40 / APP)</code>. Min 3 appearances required. Pace-based projection only.</div>
+        <div class="gi-def">Projected pWAR over a 40-game season — scales current pWAR by <code>(40 / APP)</code>. Min 3 appearances required. <strong style="color:var(--text)">Why it matters:</strong> Lets you compare a starter who has thrown 5 outings to a reliever with 12 on the same scale. Pace, not totals, tells you who's truly performing.</div>
       </div>
     </div>
 
