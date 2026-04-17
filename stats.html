@@ -204,13 +204,21 @@ footer a:hover{color:var(--text)}
   .ib{font-size:.65rem;padding:.55rem .75rem}
   .desktop-table{display:none!important}
   .gloss-grid{grid-template-columns:1fr!important}
+  /* Modal sits above mobile bottom nav (54px) and respects safe-area */
+  .modal-overlay{padding:.75rem .75rem calc(.75rem + 54px + env(safe-area-inset-bottom))}
+  .modal{max-height:calc(100vh - 54px - 1.5rem - env(safe-area-inset-bottom));-webkit-overflow-scrolling:touch}
+  .modal-hdr{padding:.9rem 1rem .7rem;gap:.6rem}
+  .modal-name{font-size:1.15rem}
+  .modal-body{padding:.85rem 1rem 1.1rem}
+  .modal-close,.pm-share{padding:.35rem .5rem;font-size:1rem}
 }
 .mob-cards{display:none}
 @media(max-width:640px){
   .mob-cards{display:block}
   .mob-cards-inner{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
 }
-.mob-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;padding:.75rem;position:relative;overflow:hidden}
+.mob-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;padding:.75rem;position:relative;overflow:hidden;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .1s,border-color .1s,transform .08s}
+.mob-card:active{background:var(--bg3);border-color:var(--bdr2);transform:scale(.98)}
 .mob-card-header{display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem}
 .mob-rank{color:var(--dim);font-size:.65rem;flex-shrink:0;width:14px}
 .mob-name{font-weight:600;font-size:.75rem;color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -800,7 +808,9 @@ function renderMob(){
       const{val,cls}=fmtMobVal(k,p);
       return `<div class="mob-stat"><span class="mob-stat-label">${statLabels[k]||k}</span><span class="mob-stat-val ${cls}">${val}</span></div>`;
     }).join('');
-    return `<div class="mob-card">
+    const safeName=p.name.replace(/'/g,"\\'");
+    const safeTeam=p.team.replace(/'/g,"\\'");
+    return `<div class="mob-card" onclick="openProfile('${safeName}','${safeTeam}','${curTab}')">
       <div class="mob-card-header">
         <span class="mob-rank">${i+1}</span>
         <span class="mob-name">${p.name}</span>
